@@ -1,0 +1,358 @@
+﻿@model Chipin_Rewrite.Models.Entities.ProductListWallet
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+@{
+    var externalProducts = ViewBag.ExternalProducts as List<Chipin_Rewrite.Models.Entities.ExternalProduct>;
+    var products = ViewBag.Products as List<Chipin_Rewrite.Models.Entities.Product>;
+    var productListItems = ViewBag.ProductListItems as List<Chipin_Rewrite.Models.Entities.ProductListItem>;
+    var productListWallets = ViewBag.Wallets as Chipin_Rewrite.Models.Entities.ProductListWallet;
+    var addresses = ViewBag.Addresses as List<Chipin_Rewrite.Models.Entities.Address>;
+
+}
+
+
+
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+<link href="~/css/Created.css" rel="stylesheet" media="all">
+<link href="~/css/mylistDetails.css" rel="stylesheet" media="all">
+<link href="~/css/site.css" rel="stylesheet" media="all">
+
+
+<body>
+
+
+
+    <div>
+        <div class="backBtn-div">
+
+            <a href="@Url.Action("Details", "ProductListWallets", new {token = "null" , id = @productListWallets.ProductListWalletId })" class="backBtn link">
+                <i class="fa fa-arrow-left" aria-hidden="true"></i>
+            </a>
+        </div>
+       
+
+
+        <h1 class="pink" style="cursor:default">
+            @productListWallets.Name
+        </h1>
+
+    </div>
+
+
+
+
+
+  
+        <div class="cart-container onshadow ">
+            <h2 class="listheading">
+                Address
+
+            </h2>
+
+
+
+
+
+            @if (@productListWallets.AddressId != null)
+            {
+
+                @foreach (var addy in addresses)
+                {
+                    if (addy.AddressId == productListWallets.AddressId)
+                    {
+
+                        <div class="detailedListView" onclick="onx()" style="width:100%; cursor:pointer">
+                            <div class="details-left">
+
+
+                                <div class="title">
+                                    <h3>
+                                        @Html.DisplayFor(modelItem => addy.AdressName)
+                                    </h3>
+                                    <h3 class="subtext">
+                                        • @Html.DisplayFor(modelItem => addy.FirstName) @Html.DisplayFor(modelItem => addy.LastName)
+
+                                    </h3>
+
+                                </div>
+
+
+                                <h4>
+                                    @Html.DisplayFor(modelItem => addy.Address1), @Html.DisplayFor(modelItem => addy.Address2),
+                                    @Html.DisplayFor(modelItem => addy.City),   @Html.DisplayFor(modelItem => addy.Country),   @Html.DisplayFor(modelItem => addy.PostCode)
+                                </h4>
+                            </div>
+
+
+                        </div>
+
+                    }
+
+
+
+                }
+            }
+            else
+            {
+
+
+                <div class="detailedListView" onclick="onx()" style="width:100%; cursor:pointer; padding-bottom:20px;">
+                    <h3 class="selectText">Select an Address</h3>
+
+                </div>
+               
+            }
+
+
+        <div>
+            <form asp-controller="ReturnWebhook" asp-action="SendReturnProducts" method="post">
+                <button class="createBtn" type="submit">Purchase</button>
+                <input type="hidden" name="productListWalletId" value="@productListWallets.ProductListWalletId" />
+                <!-- Add other properties as needed -->
+            </form>
+        </div>
+        
+            <div id="overlayx">
+
+                <button onclick="offx()" class="closeBtn"> <i class="fa fa-times" aria-hidden="true"></i></button>
+
+
+
+                <div class="overlay-card">
+                    <form id="myForm" method="post" action="@Url.Action("EditAddress", "ProductListWallets")">
+                        <input type="hidden" id="id" name="id" value="@productListWallets.ProductListWalletId" />
+                        <input type="hidden" class="tokenToSend" name="token" />
+                        @if (addresses.Count() > 0)
+                        {
+                            <select name="AddressId">
+                                @foreach (var addy in addresses)
+                                {
+                                    <option value="@addy.AddressId">
+                                        @addy.AdressName
+                                    </option>
+                                }
+                            </select>
+                        }
+
+                      
+                        <button type="submit" class="createBtn">
+                            Save
+                        </button>
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+        <p>or</p>
+        <h3 class="listaccordion">Add Address</h3>
+
+    <div class="  listpanel address-card">
+            <form id="myForm3" method="post" action="@Url.Action("Create", "Addresses")">
+                <input type="hidden" class="tokenToSend" name="token" />
+                <input type="hidden" id="fromList" name="fromList" value="@productListWallets.ProductListWalletId" />
+              
+
+
+                <div class="input-container">
+                    <h3>
+                        Address Name
+                        <star class="required" title="required">*</star>
+                    </h3>
+                    <input name="AdressName" class="form-control" placeholder="Address name..." required />
+
+                    <h3>
+                        Name
+                        <star class="required" title="required">*</star>
+                    </h3>
+                    <div class="split">
+                        <div class="left">
+                            <input name="FirstName" class="form-control" placeholder="First Name" required />
+
+                        </div>
+                        <div class="right">
+                            <input name="LastName" class="form-control" placeholder="Last Name" required />
+
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+                <hr />
+
+                <div class="input-container">
+                    <h3>
+                        Street Address
+                        <star class="required" title="required">*</star>
+                    </h3>
+
+                    <input name="Address1" class="form-control" placeholder="House number & street name" required />
+
+
+                    <input name="Address2" class="form-control" placeholder="Suburb" required />
+
+
+
+                    <h3>
+                        Town / City
+                        <star class="required" title="required">*</star>
+                    </h3>
+                    <input name="City" class="form-control" required />
+
+                    <h3>
+                        Province / State
+                        <star class="required" title="required">*</star>
+                    </h3>
+                    <select name="State" class="form-control">
+                        <option value="Western Cape">
+                            Western Cape
+                        </option>
+                        <option value="Northen Cape">
+                            Northen Cape
+                        </option>
+                        <option value="Eastern Cape">
+                            Eastern Cape
+                        </option>
+                        <option value="Free State">
+                            Free State
+                        </option>
+                        <option value="KwaZulu-Natal">
+                            KwaZulu-Natal
+                        </option>
+                        <option value="Limpopo">
+                            Limpopo
+                        </option>
+                        <option value="North West">
+                            North West
+                        </option>
+
+                        <option value="Mpumalanga">
+                            Mpumalanga
+                        </option>
+
+                        <option value="Gauteng">
+                            Gauteng
+                        </option>
+                    </select>
+
+
+
+
+                    <h3>
+                        Country
+                        <star class="required" title="required">*</star>
+                    </h3>
+                    <input name="Country" class="form-control" required value="South Africa" />
+
+                    <h3>
+                        Postal Code
+                        <star class="required" title="required">*</star>
+                    </h3>
+                    <input name="PostCode" class="form-control" required />
+
+
+
+                    <h3>
+                        Phone number
+                        <star class="required" title="required">*</star>
+                    </h3>
+                    <input name="PhoneNumber" class="form-control" type="number" required />
+
+                    <h3>
+                        Email
+                        <star class="required" title="required">*</star>
+                    </h3>
+                    <input name="Email" class="form-control" type="email" required />
+
+
+
+
+
+                    <h3>
+                        Default
+                        <star class="required" title="required">*</star>
+                    </h3>
+                    <select name="IsDefault" class="form-control" required>
+                        <option value="False">
+                            False
+                        </option>
+                        <option value="True">
+                            True
+                        </option>
+                    </select>
+
+
+
+                </div>
+
+
+
+
+
+                <div class="btn-div">
+                <button type="submit" value="Save" class="createBtn">Save</button>
+                </div>
+
+
+            </form>
+        </div>
+
+
+   
+
+
+   
+</body>
+
+
+
+
+
+<script>
+    var elements = document.querySelectorAll(".tokenToSend");
+
+    elements.forEach(function (element) {
+
+        element.value = localStorage.getItem("token");
+    });
+
+</script>
+
+<script>
+    function onx() {
+        document.getElementById("overlayx").style.display = "block";
+    }
+
+    function offx() {
+        document.getElementById("overlayx").style.display = "none";
+    }
+</script>
+
+<script>
+    var acc = document.getElementsByClassName("listaccordion");
+    var j;
+    for (j = 0; j < acc.length; j++) {
+        acc[j].addEventListener("click", function () {
+            this.classList.toggle("listactivex");
+            var panel = this.nextElementSibling;
+            if (panel.style.maxHeight) {
+                panel.style.maxHeight = null;
+            } else {
+                panel.style.maxHeight = panel.scrollHeight + "px";
+            }
+        });
+    }
+</script>
+

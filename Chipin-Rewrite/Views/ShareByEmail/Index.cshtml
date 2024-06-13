@@ -1,0 +1,439 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<head>
+    <style>
+        :root {
+            --gray-1: rgba(51, 51, 51, 1);
+            --greyscale-900: rgba(33, 33, 33, 1);
+            --white: rgba(255, 255, 255, 1);
+            --others-white: rgba(255, 255, 255, 1);
+            --greyscale-50: rgba(250, 250, 250, 1);
+            --primary-pink: rgba(217, 25, 80, 1);
+            --gray-6: rgba(242, 242, 242, 1);
+            --greyscale-100: rgba(245, 245, 245, 1);
+            --body-medium-semibold-font-family: "Urbanist", Helvetica;
+            --body-medium-semibold-font-weight: 600;
+            --body-medium-semibold-font-size: 14px;
+            --body-medium-semibold-letter-spacing: 0.20000000298023224px;
+            --body-medium-semibold-line-height: 139.9999976158142%;
+            --body-medium-semibold-font-style: normal;
+        }
+
+
+        .auto-layout-vertical {
+            position: relative;
+            width: 100%;
+        }
+
+            .auto-layout-vertical .overlap-group-wrapper {
+                position: relative;
+                width: 380px;
+                height: 882px;
+                margin: 5% auto;
+                top: 0;
+                left: 0;
+            }
+
+            .auto-layout-vertical .overlap-group {
+                position: relative;
+                width: 428px;
+                height: 865px;
+                top: -50px;
+                left: -24px;
+            }
+
+            .auto-layout-vertical .vector {
+                position: absolute;
+                width: 335px;
+                height: 141px;
+                top: 0;
+                left: 62px;
+            }
+
+            .auto-layout-vertical .div {
+                position: absolute;
+                width: 428px;
+                height: 740px;
+                top: 82px;
+                left: 0;
+                background-color: var(--others-white);
+                border-radius: 32px 32px 0px 0px;
+                overflow: hidden;
+                border: 1px solid;
+                border-color: var(--greyscale-100);
+            }
+
+            .auto-layout-vertical .text-wrapper {
+                position: absolute;
+                width: 336px;
+                top: 43px;
+                left: 46px;
+                font-family: "Nunito-Black", Helvetica;
+                font-weight: 900;
+                color: var(--gray-1);
+                font-size: 24px;
+                text-align: center;
+                letter-spacing: 0;
+                line-height: 28.8px;
+                white-space: nowrap;
+            }
+
+            .auto-layout-vertical .status-fill-type {
+                position: absolute;
+                width: 380px;
+                height: 310px;
+                top: 266px;
+                left: 24px;
+                background-color: var(--greyscale-50);
+                border-radius: 12px;
+            }
+
+            .auto-layout-vertical .label {
+                position: absolute;
+                width: 340px;
+                height: 20px;
+                top: 17px;
+                left: 20px;
+                font-family: "Nunito Sans-Regular", Helvetica;
+                font-weight: 400;
+                color: var(--greyscale-900);
+                font-size: 14px;
+                letter-spacing: 0.2px;
+                line-height: 19.6px;
+            }
+
+            .auto-layout-vertical .theme-light {
+                display: flex;
+                width: 380px;
+                height: 48px;
+                align-items: center;
+                gap: 12px;
+                padding: 12px 0px;
+                position: absolute;
+                top: 7px;
+                left: 24px;
+            }
+
+            .auto-layout-vertical .img {
+                position: relative;
+                width: 28px;
+                height: 28px;
+                margin-left: -0.41px;
+            }
+
+            .auto-layout-vertical .text-wrapper-2 {
+                position: relative;
+                flex: 1;
+                margin-top: -3.5px;
+                margin-bottom: -1.5px;
+                font-family: "Nunito-Black", Helvetica;
+                font-weight: 900;
+                color: black;
+                font-size: 24px;
+                letter-spacing: 0;
+                line-height: 28.8px;
+            }
+
+            .auto-layout-vertical .div-2 {
+                display: flex;
+                flex-direction: column;
+                width: 380px;
+                align-items: center;
+                gap: 24px;
+                position: absolute;
+                top: 164px;
+                left: 24px;
+            }
+
+            .auto-layout-vertical .theme-light-divider {
+                position: relative;
+                align-self: stretch;
+                width: 100%;
+                height: 1px;
+            }
+
+            .auto-layout-vertical .label-wrapper {
+                display: flex;
+                height: 56px;
+                align-items: center;
+                gap: 12px;
+                padding: 0px 20px;
+                position: relative;
+                align-self: stretch;
+                width: 100%;
+                background-color: var(--greyscale-50);
+                border-radius: 12px;
+            }
+
+            .auto-layout-vertical .label-2 {
+                position: relative;
+                flex: 1;
+                font-family: "Nunito Sans-Regular", Helvetica;
+                font-weight: 400;
+                color: var(--greyscale-900);
+                font-size: 14px;
+                letter-spacing: 0.2px;
+                line-height: 19.6px;
+            }
+
+            .auto-layout-vertical .type-button-type {
+                display: flex;
+                width: 380px;
+                align-items: center;
+                justify-content: center;
+                gap: 10px;
+                padding: 18px 16px;
+                position: absolute;
+                top: 674px;
+                left: 380px;
+                background-color: var(--primary-pink);
+                border-radius: 100px;
+            }
+
+            .auto-layout-vertical .text-wrapper-3 {
+                position: relative;
+                flex: 1;
+                height: 22px;
+                margin-top: -1px;
+                font-family: "Nunito-Black", Helvetica;
+                font-weight: 900;
+                color: var(--others-white);
+                font-size: 16px;
+                cursor: pointer;
+                text-align: center;
+                letter-spacing: 0.2px;
+                line-height: 22.4px;
+                white-space: nowrap;
+            }
+
+        input.label-2 {
+            border: none; /* Remove default border */
+            outline: none; /* Remove default outline */
+            background-color: transparent;
+        }
+
+        .status-fill-type .label-2 {
+            left: 1px;
+            border: none;
+            outline: none;
+            background-color: transparent;
+            width: 372px;
+            resize: none;
+            min-height: 330px;
+        }
+
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgb(0,0,0); /* Fallback color */
+            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+        }
+
+        .theme-light-modal {
+            position: relative;
+            margin: 10% auto; /* 15% from the top and centered */
+            width: 340px;
+            height: 511px;
+            background-color: var(--others-white);
+            border-radius: 24px;
+        }
+
+            .theme-light-modal .auto-layout-vertical-1 {
+                display: flex;
+                flex-direction: column;
+                width: 276px;
+                align-items: flex-start;
+                gap: 16px;
+                position: absolute;
+                top: 252px;
+                left: 32px;
+            }
+
+            .theme-light-modal .text-wrapper {
+                position: relative;
+                align-self: stretch;
+                margin-top: -1px;
+                font-family: "Nunito-Black", Helvetica;
+                font-weight: 900;
+                color: var(--greyscale-900);
+                font-size: 24px;
+                text-align: center;
+                letter-spacing: 0;
+                line-height: 28.8px;
+            }
+
+            .theme-light-modal .div {
+                position: relative;
+                align-self: stretch;
+                font-family: "Nunito-Regular", Helvetica;
+                font-weight: 400;
+                color: var(--greyscale-900);
+                font-size: 16px;
+                text-align: center;
+                letter-spacing: 0.2px;
+                line-height: 22.4px;
+            }
+
+            .theme-light-modal .auto-layout-vertical-2 {
+                position: absolute;
+                width: 276px;
+                margin: 10px 0;
+                height: 128px;
+                top: 351px;
+                left: 32px;
+            }
+
+            .theme-light-modal .type-button-type {
+                all: unset;
+                box-sizing: border-box;
+                top: 0;
+                background-color: var(--primary-pink);
+                position: absolute;
+                width: 276px;
+                height: 58px;
+                cursor: pointer;
+                left: 0;
+                border-radius: 100px;
+            }
+
+            .theme-light-modal .button-1 {
+                all: unset;
+                box-sizing: border-box;
+                position: absolute;
+                width: 244px;
+                height: 22px;
+                top: 17px;
+                left: 16px;
+                font-family: "Nunito-Bold", Helvetica;
+                cursor: pointer;
+                font-weight: 700;
+                color: var(--others-white);
+                font-size: 16px;
+                text-align: center;
+                letter-spacing: 0.2px;
+                line-height: 22.4px;
+            }
+
+            .theme-light-modal .button-wrapper {
+                top: 70px;
+                background-color: var(--gray-6);
+                position: absolute;
+                width: 276px;
+                height: 58px;
+                left: 0;
+                border-radius: 100px;
+            }
+
+            .theme-light-modal .button-2 {
+                all: unset;
+                box-sizing: border-box;
+                position: absolute;
+                width: 244px;
+                height: 22px;
+                top: 17px;
+                left: 16px;
+                font-family: "Nunito-Bold", Helvetica;
+                cursor: pointer;
+                font-weight: 700;
+                color: var(--primary-pink);
+                font-size: 16px;
+                text-align: center;
+                letter-spacing: 0.2px;
+                line-height: 22.4px;
+            }
+
+            .theme-light-modal .chipin-logo {
+                position: absolute;
+                width: 170px;
+                height: 194px;
+                top: 34px;
+                left: 85px;
+            }
+    </style>
+</head>
+
+<body>
+    <div class="auto-layout-vertical">
+        <div class="overlap-group-wrapper">
+            <div class="overlap-group">
+                <img class="vector" src="~/css/resource/vector.svg" />
+                <div class="div">
+                    <div class="text-wrapper">Share by E-mail</div>
+                    <div class="status-fill-type">
+                        <textarea maxlength="630" class="label-2" placeholder="Message"></textarea>
+                    </div>
+                </div>
+                <div class="theme-light">
+                    <a href="@Url.Action("Index", "ShareLink")">
+                        <img class="img" src="~/css/resource/arrow-left.svg" />
+                    </a>
+                    <div class="text-wrapper-2">Invite Friends</div>
+                </div>
+                <div class="div-2">
+                    <div class="theme-light-divider"></div>
+                    <div class="label-wrapper">
+                        <input type="text" class="label-2" placeholder="Recipient Name" />
+                    </div>
+                    <div class="label-wrapper">
+                        <input type="text" class="label-2" placeholder="Recipient E-mail" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="type-button-type"><div class="text-wrapper-3">Send E-mail</div></div>
+    </div>
+
+    <div id="myModal" class="modal">
+        <div class="theme-light-modal">
+            <div class="auto-layout-vertical-1">
+                <div class="text-wrapper">E-mail Sent!</div>
+                <p class="div">Your e-mail was sent successfully!</p>
+            </div>
+            <div class="auto-layout-vertical-2">
+                <button class="type-button-type"><button class="button-1">Continue to Home Page</button></button>
+                <div class="button-wrapper"><button class="button-2">Send Another E-mail</button></div>
+            </div>
+            <img class="chipin-logo" src="~/css/resource/chipin_logo.svg" />
+        </div>
+    </div>
+
+    <script>
+        var paymentSuccessModal = document.getElementById("myModal");
+
+        var modalHomeBtn = document.getElementsByClassName("button-1")[0];
+
+        var modalCloseBtn = document.getElementsByClassName("button-2")[0];
+
+        var sendEmailBtn = document.getElementsByClassName("text-wrapper-3")[0];
+
+        modalHomeBtn.onclick = function () {
+            paymentSuccessModal.style.display = "none";
+            window.location.href = '@Url.Action("Index", "Home")';
+        }
+
+        sendEmailBtn.onclick = function () {
+            paymentSuccessModal.style.display = "block";
+        }
+
+        modalCloseBtn.onclick = function () {
+            paymentSuccessModal.style.display = "none";
+            //window.location.href = 'Url.Action("Index", "Home")';
+        }
+
+        window.onclick = function (event) {
+            if (event.target == modal) {
+                paymentSuccessModal.style.display = "none";
+            }
+        }
+    </script>
+</body>

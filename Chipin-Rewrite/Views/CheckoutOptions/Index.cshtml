@@ -1,0 +1,586 @@
+﻿@using System.Web;
+@model Chipin_Rewrite.Models.Entities.CheckoutData
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    var products = ViewBag.Products as List<Chipin_Rewrite.Models.Entities.Product>;
+    var externalProducts = ViewBag.ExternalProducts as List<Chipin_Rewrite.Models.Entities.ExternalProduct>;
+    var productListWallets = ViewBag.ProductListWallets as List<Chipin_Rewrite.Models.Entities.ProductListWallet>;
+    var FilteredProductListItems = ViewBag.FilteredProductListItems as List<Chipin_Rewrite.Models.Entities.ProductListItem>;
+    string externalProductInformation = ViewBag.ExternalProductInformation;
+}
+
+<script>
+    // Function to save the token in local storage
+    function saveTokenToLocalStorage(token) {
+        if (token) {
+            localStorage.setItem('token', token);
+        }
+    }
+
+    // Get the token from the ViewBag (provided by the controller)
+    var token = '@ViewBag.Token';
+
+    // Save the token to the local storage on page load
+    document.addEventListener('DOMContentLoaded', function () {
+        saveTokenToLocalStorage(token);
+    });
+</script>
+
+<head>
+    <style>
+        :root {
+            --others-white: rgba(255, 255, 255, 1);
+            --greyscale-900: rgba(33, 33, 33, 1);
+            --primary-pink: rgba(217, 25, 80, 1);
+            --gray-6: rgba(242, 242, 242, 1);
+            --others-white: rgba(255, 255, 255, 1);
+            --gray-1: rgba(51, 51, 51, 1);
+            --greyscale-900: rgba(33, 33, 33, 1);
+            --primary-pink: rgba(217, 25, 80, 1);
+            --white: rgba(255, 255, 255, 1);
+            --primary-500: rgba(51, 94, 247, 1);
+            --greyscale-700: rgba(97, 97, 97, 1);
+            --body-medium-semibold-font-family: "Urbanist", Helvetica;
+            --body-medium-semibold-font-weight: 600;
+            --body-medium-semibold-font-size: 14px;
+            --body-medium-semibold-letter-spacing: 0.20000000298023224px;
+            --body-medium-semibold-line-height: 139.9999976158142%;
+            --body-medium-semibold-font-style: normal;
+            --h6-bold-font-family: "Urbanist", Helvetica;
+            --h6-bold-font-weight: 700;
+            --h6-bold-font-size: 18px;
+            --h6-bold-letter-spacing: 0px;
+            --h6-bold-line-height: 120.00000476837158%;
+            --h6-bold-font-style: normal;
+            --body-medium-medium-font-family: "Urbanist", Helvetica;
+            --body-medium-medium-font-weight: 500;
+            --body-medium-medium-font-size: 14px;
+            --body-medium-medium-letter-spacing: 0.20000000298023224px;
+            --body-medium-medium-line-height: 139.9999976158142%;
+            --body-medium-medium-font-style: normal;
+            --body-large-bold-font-family: "Urbanist", Helvetica;
+            --body-large-bold-font-weight: 700;
+            --body-large-bold-font-size: 16px;
+            --body-large-bold-letter-spacing: 0.20000000298023224px;
+            --body-large-bold-line-height: 139.9999976158142%;
+            --body-large-bold-font-style: normal;
+            --h4-bold-font-family: "Urbanist", Helvetica;
+            --h4-bold-font-weight: 700;
+            --h4-bold-font-size: 24px;
+            --h4-bold-letter-spacing: 0px;
+            --h4-bold-line-height: 120.00000476837158%;
+            --h4-bold-font-style: normal;
+            --button-shadow-1: 4px 8px 24px 0px rgba(51, 94, 247, 0.25);
+            --others-white: rgba(255, 255, 255, 1);
+            --gray-1: rgba(51, 51, 51, 1);
+            --gray-5: rgba(224, 224, 224, 1);
+            --primary-500: rgba(36, 107, 253, 1);
+            --body-medium-semibold-font-family: "Urbanist", Helvetica;
+            --body-medium-semibold-font-weight: 600;
+            --body-medium-semibold-font-size: 14px;
+            --body-medium-semibold-letter-spacing: 0.20000000298023224px;
+            --body-medium-semibold-line-height: 139.9999976158142%;
+            --body-medium-semibold-font-style: normal;
+        }
+
+        .box {
+            text-align: center; /* Center the text within the group */
+            padding: 0;
+            width: 100%;
+            list-style: none; /* Removes default list styling */
+        }
+
+            .box .radio-group {
+                margin: 5% auto; /* 15% from the top and centered */
+                width: 383px;
+                height: 331px;
+            }
+
+            .box .add-to-list {
+                width: 386px;
+                height: 139px;
+                cursor: pointer;
+            }
+
+            .box .overlap-group {
+                position: relative;
+                width: 382px;
+                height: 139px;
+                background-color: #c4c4c4;
+                border-radius: 30px;
+            }
+
+            .box .ellipse {
+                top: 16px;
+                position: absolute;
+                width: 40px;
+                height: 40px;
+                left: 13px;
+                background-color: #ffffff;
+                border-radius: 20px;
+            }
+
+            .box .ellipsebg {
+                top: 24px;
+                position: absolute;
+                width: 40px;
+                height: 40px;
+                left: 13px;
+                background-color: transparent;
+                border-radius: 20px;
+                display: none;
+            }
+
+            .box .text-wrapper {
+                position: absolute;
+                width: 276px;
+                top: 17px;
+                left: 53px;
+                font-family: "Nunito-Black", Helvetica;
+                font-weight: 900;
+                color: #ffffff;
+                font-size: 32px;
+                text-align: center;
+                letter-spacing: 0;
+                line-height: 38.4px;
+            }
+
+            .box .line {
+                top: 69px;
+                left: 0;
+                position: absolute;
+                width: 382px;
+                height: 1px;
+                object-fit: cover;
+                background-color: white;
+            }
+
+            .box .div {
+                position: absolute;
+                width: 296px;
+                top: 81px;
+                left: 43px;
+                font-family: "Nunito-SemiBold", Helvetica;
+                font-weight: 600;
+                color: #ffffff;
+                font-size: 16px;
+                text-align: center;
+                letter-spacing: 0.2px;
+                line-height: 22.4px;
+            }
+
+            .box .pay-using-chips {
+                margin-top: 20px;
+                width: 391px;
+                height: 168px;
+                cursor: pointer;
+            }
+
+            .box .overlap {
+                position: relative;
+                width: 383px;
+                height: 168px;
+            }
+
+            .box .type-button-type {
+                position: absolute;
+                width: 382px;
+                height: 168px;
+                top: 0;
+                left: 0;
+                background-color: #c4c4c4;
+                border-radius: 30px;
+            }
+
+            .box .img {
+                top: 116px;
+                left: 1px;
+                position: absolute;
+                width: 382px;
+                height: 1px;
+                object-fit: cover;
+                background-color: white;
+            }
+
+            .box .ellipse-2 {
+                top: 12px;
+                position: absolute;
+                width: 40px;
+                height: 40px;
+                left: 13px;
+                background-color: #ffffff;
+                border-radius: 20px;
+            }
+
+            .box .ellipse-2bg {
+                top: 20px;
+                position: absolute;
+                width: 40px;
+                height: 40px;
+                left: 13px;
+                background-color: transparent;
+                border-radius: 20px;
+                display: none;
+            }
+
+            .box .text-wrapper-2 {
+                position: absolute;
+                width: 276px;
+                top: 13px;
+                left: 53px;
+                font-family: "Nunito-Black", Helvetica;
+                font-weight: 900;
+                color: #ffffff;
+                font-size: 25px;
+                text-align: center;
+                letter-spacing: 0;
+                line-height: 38.4px;
+            }
+
+            .box .text-wrapper-3 {
+                position: absolute;
+                width: 276px;
+                top: 60px;
+                left: 53px;
+                font-family: "Nunito-Black", Helvetica;
+                font-weight: 900;
+                color: #ffffff;
+                font-size: 20px;
+                text-align: center;
+                letter-spacing: 0;
+                line-height: 24px;
+            }
+
+            .box .text-wrapper-4 {
+                position: absolute;
+                width: 276px;
+                top: 126px;
+                left: 53px;
+                font-family: "Nunito-Black", Helvetica;
+                font-weight: 900;
+                color: #ffffff;
+                font-size: 32px;
+                text-align: center;
+                letter-spacing: 0;
+                line-height: 38.4px;
+            }
+
+            .box .text-wrapper-5 {
+                position: absolute;
+                width: 276px;
+                top: 84px;
+                left: 54px;
+                font-family: "Nunito-Black", Helvetica;
+                font-weight: 900;
+                color: #ffffff;
+                font-size: 24px;
+                text-align: center;
+                letter-spacing: 0;
+                line-height: 28.8px;
+            }
+
+        .button {
+            background-color: #00ccff; /* Adjust the color to match your specific blue */
+            color: white;
+            padding: 20px 40px; /* Adjust padding to match the desired size */
+            border-radius: 50px; /* This gives a pill-like shape */
+            border: none;
+            font-size: 18px; /* Adjust font size as needed */
+            cursor: pointer;
+            outline: none; /* Removes the outline */
+            box-shadow: none; /* Removes the box-shadow if any */
+            width: 100%; /* Adjust width as needed */
+            margin: 15px auto;
+            display: block;
+        }
+
+            .button.cancel {
+                background-color: #dddddd; /* Light gray background for cancel button */
+                color: #444; /* Darker text color for contrast */
+            }
+
+            /* Removes default styling from buttons on focus to prevent blue outline on click */
+            .button:focus {
+                outline: none;
+            }
+
+            /* Optional: Add hover effects for buttons */
+            .button:hover {
+                background-color: #0099cc; /* A slightly darker blue for hover state */
+            }
+
+            .button.cancel:hover {
+                background-color: #cccccc; /* A slightly darker gray for hover state */
+            }
+
+            /* Payment Successful Modal*/
+
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgb(0,0,0); /* Fallback color */
+            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+        }
+
+        .theme-light-modal {
+            position: relative;
+            margin: 10% auto; /* 15% from the top and centered */
+            width: 340px;
+            height: 511px;
+            background-color: var(--others-white);
+            border-radius: 24px;
+        }
+
+            .theme-light-modal .auto-layout-vertical {
+                display: flex;
+                flex-direction: column;
+                width: 276px;
+                align-items: flex-start;
+                gap: 16px;
+                position: absolute;
+                top: 252px;
+                left: 32px;
+            }
+
+            .theme-light-modal .text-wrapper {
+                position: relative;
+                align-self: stretch;
+                margin-top: -1px;
+                font-family: "Nunito-Black", Helvetica;
+                font-weight: 900;
+                color: var(--greyscale-900);
+                font-size: 24px;
+                text-align: center;
+                letter-spacing: 0;
+                line-height: 28.8px;
+            }
+
+            .theme-light-modal .div {
+                position: relative;
+                align-self: stretch;
+                font-family: "Nunito-Regular", Helvetica;
+                font-weight: 400;
+                color: var(--greyscale-900);
+                font-size: 16px;
+                text-align: center;
+                letter-spacing: 0.2px;
+                line-height: 22.4px;
+            }
+
+            .theme-light-modal .auto-layout-vertical-2 {
+                position: absolute;
+                width: 276px;
+                margin: 10px 0;
+                height: 128px;
+                top: 351px;
+                left: 32px;
+            }
+
+            .theme-light-modal .type-button-type {
+                all: unset;
+                box-sizing: border-box;
+                top: 0;
+                background-color: var(--primary-pink);
+                position: absolute;
+                width: 276px;
+                height: 58px;
+                left: 0;
+                border-radius: 100px;
+            }
+
+            .theme-light-modal .button-1 {
+                all: unset;
+                box-sizing: border-box;
+                position: absolute;
+                width: 244px;
+                height: 22px;
+                top: 17px;
+                left: 16px;
+                font-family: "Nunito-Bold", Helvetica;
+                cursor: pointer;
+                font-weight: 700;
+                color: var(--others-white);
+                font-size: 16px;
+                text-align: center;
+                letter-spacing: 0.2px;
+                line-height: 22.4px;
+            }
+
+            .theme-light-modal .button-wrapper {
+                top: 70px;
+                background-color: var(--gray-6);
+                position: absolute;
+                width: 276px;
+                height: 58px;
+                left: 0;
+                border-radius: 100px;
+            }
+
+            .theme-light-modal .button-2 {
+                all: unset;
+                box-sizing: border-box;
+                position: absolute;
+                width: 244px;
+                height: 22px;
+                top: 17px;
+                left: 16px;
+                font-family: "Nunito-Bold", Helvetica;
+                cursor: pointer;
+                font-weight: 700;
+                color: var(--primary-pink);
+                font-size: 16px;
+                text-align: center;
+                letter-spacing: 0.2px;
+                line-height: 22.4px;
+            }
+
+            .theme-light-modal .chipin-logo {
+                position: absolute;
+                width: 170px;
+                height: 194px;
+                top: 34px;
+                left: 85px;
+            }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Hi Seth!</h1>
+        <p>Pay now using your chips or add to a list and get friends and family to chip in!</p>
+    </div>
+
+    <form id="paymentOptionsForm">
+        <div class="box">
+            <div class="radio-group">
+                <input type="hidden" id="selectedOption" name="selectedOption" value="" />
+                <div class="add-to-list" onclick="handleOptionSelection('addToList')">
+                    <div id="addToListOption" class="overlap-group">
+                        <div class="ellipse" id="addToListEllipse"></div>
+                        <div class="ellipsebg" id="addToListEllipsebg">
+                            <svg width="31" height="22" viewBox="0 0 31 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M0.758789 13.3485L7.27379 20.935M6.34478 21.2447L29.3952 1.24475" stroke="black" stroke-width="2" />
+                            </svg>
+                        </div>
+                        <div class="text-wrapper">Add to a list</div>
+                        <img class="line" src="~/css/resource/line-2.svg" />
+                        <p class="div">Save towards your favourite products by having friends and family chip in!</p>
+                    </div>
+                </div>
+                <div class="pay-using-chips" onclick="handleOptionSelection('payUsingChips')">
+                    <div class="overlap">
+                        <div id="payWithChipsOption" class="type-button-type"></div>
+                        <img class="img" src="~/css/resource/line-1.svg" />
+                        <div class="ellipse-2" id="payUsingChipsEllipse"></div>
+                        <div class="ellipse-2bg" id="payUsingChipsEllipsebg">
+                            <svg width="31" height="22" viewBox="0 0 31 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M0.758789 13.3485L7.27379 20.935M6.34478 21.2447L29.3952 1.24475" stroke="black" stroke-width="2" />
+                            </svg>
+                        </div>
+                        <div id="btn2" class="text-wrapper-2">Pay using Chips</div>
+                        <div class="text-wrapper-3">Your Balance</div>
+                        <div class="text-wrapper-4">R11 000</div>
+                        <div class="text-wrapper-5">@ViewBag.CartTotal</div>
+                    </div>
+                </div>
+                <button type="button" class="button" onclick="redirectToPage()">Go for it</button>
+                <button type="button" class="button cancel" onclick="window.location.href='@Url.Action("Index", "Home")';">Cancel transaction</button>
+            </div>
+        </div>
+    </form>
+
+    <div id="myModal" class="modal">
+        <div class="theme-light-modal">
+            <div class="auto-layout-vertical">
+                <div class="text-wrapper">Purchase Successful!</div>
+                <p class="div">Thank you for choosing Chipin!</p>
+            </div>
+            <div class="auto-layout-vertical-2">
+                <button class="type-button-type"><button class="button-1">Home</button></button>
+                <div class="button-wrapper"><button class="button-2">Close</button></div>
+            </div>
+            <img class="chipin-logo" src="~/css/resource/chipin_logo.svg" />
+        </div>
+    </div>
+
+    <script>
+        var paymentSuccessModal = document.getElementById("myModal");
+
+        var modalHomeBtn = document.getElementsByClassName("button-1")[0];
+
+        var modalCloseBtn = document.getElementsByClassName("button-2")[0];
+
+        var addToListOption = document.getElementById("addToListOption");
+
+        var payWithChipsOption = document.getElementById("payWithChipsOption");
+
+        var addToListCheck = document.getElementById("addToListEllipsebg");
+
+        var payWithChipsCheck = document.getElementById("payUsingChipsEllipsebg");
+
+        function handleOptionSelection(option) {
+            // Reset both ellipses to default state
+            document.getElementById('addToListEllipse').classList.remove('selected');
+            document.getElementById('payUsingChipsEllipse').classList.remove('selected');
+
+            // Toggle selection for the clicked option
+            if (option === 'addToList') {
+                document.getElementById('addToListEllipse').classList.add('selected');
+                document.getElementById('selectedOption').value = 'addToList'; // Set the selected option value
+                addToListCheck.style.display = 'block'
+                payWithChipsCheck.style.display = 'none'
+                payWithChipsOption.style.backgroundColor = '#c4c4c4'
+                addToListOption.style.backgroundColor = '#d91950'
+            } else if (option === 'payUsingChips') {
+                document.getElementById('payUsingChipsEllipse').classList.add('selected');
+                document.getElementById('selectedOption').value = 'payUsingChips'; // Set the selected option value
+                addToListCheck.style.display = 'none'
+                payWithChipsCheck.style.display = 'block'
+                payWithChipsOption.style.backgroundColor = '#d91950'
+                addToListOption.style.backgroundColor = '#c4c4c4'
+            }
+        }
+
+        function redirectToPage() {
+            const selectedOption = document.getElementById('selectedOption').value;
+            let redirectUrl = '';
+
+            // Determine the redirect URL based on the selected option
+            if (selectedOption === 'addToList') {
+                window.location.href = '@Url.Action("Create", "ProductListWallets", new { token = "null" })';
+            } else if (selectedOption === 'payUsingChips') {
+
+
+
+                window.location.href = '@Url.Action("Index", "DeliveryAdd")';
+                //paymentSuccessModal.style.display = "block";
+            }
+        }
+
+        modalHomeBtn.onclick = function () {
+            paymentSuccessModal.style.display = "none";
+            window.location.href = '@Url.Action("Index", "Home")';
+        }
+
+        modalCloseBtn.onclick = function () {
+            paymentSuccessModal.style.display = "none";
+            window.location.href = '@Url.Action("Index", "Home")';
+        }
+
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                paymentSuccessModal.style.display = "none";
+            }
+        }
+    </script>
+</body>

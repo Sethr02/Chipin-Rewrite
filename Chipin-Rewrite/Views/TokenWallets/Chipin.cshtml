@@ -1,0 +1,91 @@
+﻿@model Chipin_Rewrite.Models.Entities.TokenWallet
+
+@{
+    ViewData["Title"] = "Chipin";
+}
+
+
+
+
+
+
+
+
+<!-- Main CSS-->
+
+<link href="~/css/Created.css" rel="stylesheet" media="all">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+<link href="~/css/site.css" rel="stylesheet" media="all">
+
+
+
+
+
+
+
+<body>
+
+    <div>
+        <div class="backBtn-div">
+            <button class="backBtn" onclick="history.back()">
+                <i class="fa fa-arrow-left" aria-hidden="true"></i>
+            </button>
+          <!--<a href="@Url.Action("Details", "ProductListWallets", new {id =@ViewBag.ProductListWalletTransactionId, token = "null"  })" class="backBtn link">
+                <i class="fa fa-arrow-left" aria-hidden="true"></i>
+              </a>-->
+        </div>
+        <h1 class="pink">Payment Method</h1>
+
+    </div>
+    <div>
+        <div class="card onshadow">
+            <h3>Select to continue</h3>
+
+
+            <form>
+                <div class="paymentProviderListDiv">
+
+                    <ul class="paymentProviderList">
+                        <li class="paymentProviderListElement">
+                            <input id="payment_method_payfast" type="radio" class="payment-input-radio" name="payment_method" value="payfast">
+                            <label for="payment_method_payfast">
+                                <img src="~/css/resource/icon_payfast.png" alt="PayFast">
+                            </label>
+                        </li>
+
+                        <li class="paymentProviderListElement">
+                            <input id="payment_method_peach" type="radio" class="payment-input-radio" name="payment_method" value="peach">
+                            <label for="payment_method_peach">
+                                <img src="~/css/resource/icon_peach.png" alt="Peach">
+                            </label>
+                        </li>
+                    </ul>
+
+
+
+                    <div class="btn-div">
+                        <button type="submit" id="continue" disabled value="Continue">Continue (disabled)</button>
+                    </div>
+
+
+                </div>
+
+
+            </form>
+
+        </div>
+    </div>
+
+
+
+
+
+</body>
+
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    }

@@ -1,0 +1,176 @@
+﻿@model IEnumerable<Chipin_Rewrite.Models.Entities.Address>
+
+@{
+    ViewData["Title"] = "Index";
+    var Addresses = ViewBag.Addresses as List<Chipin_Rewrite.Models.Entities.Address>;
+
+}
+
+
+
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+<link href="~/css/Address.css" rel="stylesheet" media="all">
+
+<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+
+
+
+
+@if (User.Identity.IsAuthenticated)
+{
+
+
+    <h1>Addresses</h1>
+
+    <body>
+
+
+
+
+        <div class="container">
+
+
+            @if (Addresses.Count() < 5)
+            {
+                <div class="create-div">
+
+                    <a href="@Url.Action("Create", "Addresses", new {token = "null"  })" class="createBtn link">
+                        Create
+                    </a>
+                </div>
+            }
+
+
+            @foreach (var item in Addresses)
+            {
+                <div class="card onshadow">
+                    <div class="details-left">
+
+                        @if (item.IsDefault.GetValueOrDefault())
+                        {
+                            <i class="fas fa-home default-icon"></i>
+                        }
+                        <div class="title">
+                            <h3>
+                                @Html.DisplayFor(modelItem => item.AdressName)
+                            </h3>
+
+
+                        </div>
+                        <label class="subtext">
+                             @Html.DisplayFor(modelItem => item.FirstName) @Html.DisplayFor(modelItem => item.LastName)
+
+                        </label>
+
+                        <h4>
+                            @Html.DisplayFor(modelItem => item.Address1), @Html.DisplayFor(modelItem => item.Address2),
+                            @Html.DisplayFor(modelItem => item.City),   @Html.DisplayFor(modelItem => item.Country),   @Html.DisplayFor(modelItem => item.PostCode)
+                        </h4>
+                    </div>
+                    <div class="details-right">
+
+
+                        <button class="someDeleteBtn" data-id="@item.AddressId" onclick="on('@item.AddressId')"> <i class="fas fa-trash fa-2x"></i></button>
+
+
+                        <form id="CE-@item.AddressId" method="post">
+                            <input id="path-CE-@item.AddressId" type="hidden" name="path" />
+                            <input id="token-CE-@item.AddressId" type="hidden" name="token" />
+                            <input id="id-CE-@item.AddressId" type="hidden" name="id" />
+                        </form>
+                        <button type="submit" class="editBtn" onclick="Link('Addresses','CE',@item.AddressId, 'Edit')">Edit</button>
+
+
+
+
+                    </div>
+                    <div class="listOverlay" id="overlay-@item.AddressId">
+                        <button onclick="off(@item.AddressId)" class="closeBtn"> <i class="fa fa-times" aria-hidden="true"></i></button>
+
+                        <div class="overlay-card">
+                            <h3>
+                                Confirm delete?
+                            </h3>
+
+
+                            <div class="btns-div">
+
+
+
+                                <button class="deleteBtn" data-id="@item.AddressId" onclick="off('@item.AddressId')"> Delete</button>
+                                <button onclick="off(@item.AddressId)" class="someBtn"> Cancel</button>
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                </div>
+
+            }
+        </div>
+
+    </body>
+
+    <script>
+        function Link(control, identifier, productId, loc) {
+            var list = document.getElementById(identifier + '-' + productId);
+            var token = localStorage.getItem('token');
+            document.getElementById('token-' + identifier + '-' + productId).value = token;
+            document.getElementById('path-' + identifier + '-' + productId).value = loc;
+            document.getElementById('id-' + identifier + '-' + productId).value = productId;
+            let link = `@Url.Action("Link", "controller")`;
+            link = link.replace("controller", control);
+            list.action = link;
+            list.submit();
+        }
+    </script>
+
+    <script>
+
+
+
+
+        // Attach event listeners to all delete buttons
+        var deleteButtons = document.querySelectorAll('.deleteBtn');
+        deleteButtons.forEach(function (button) {
+            button.addEventListener('click', function () {
+                var token = localStorage.getItem('token');
+
+                var id = button.getAttribute('data-id');
+
+                var url = '@Url.Action("Delete", "Addresses")' + '?id=' + id + '&token=' + encodeURIComponent(token);
+                window.location.href = url;
+            });
+        });
+
+
+
+        function on(productId) {
+            console.log("s " + productId)
+            var overlay = document.getElementById('overlay-' + productId);
+            overlay.style.display = "block";
+        }
+
+        function off(productId) {
+            var overlay = document.getElementById('overlay-' + productId);
+            overlay.style.display = "none";
+        }
+
+
+
+
+    </script>
+
+
+
+
+
+}
+
+
+
+

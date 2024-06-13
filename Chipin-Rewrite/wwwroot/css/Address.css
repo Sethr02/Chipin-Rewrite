@@ -1,0 +1,297 @@
+﻿
+h1 {
+    color: #11bff1;
+}
+.container {
+    padding: 10px;
+}
+
+.card {
+    margin-top: 20px;
+    border: 1px solid #b2b2b273;
+    padding: 15px;
+    border-radius: 20px;
+    display: flex;
+    align-items: flex-start; /* Align items to the top */
+    position: relative; /* Add this to contain the absolute-positioned children */
+}
+
+
+ 
+        .card:hover .details-right {
+            display: block;
+            opacity: 100;
+        }
+
+.createBtn {
+    background-color: #d91950;
+    border: 0pt;
+    color: white;
+    padding: 10px;
+    border-radius: 50px;
+    font-size: large;
+    font-weight: 800;
+    max-width: 800px;
+    min-width: 200px;
+}
+
+    .createBtn:hover {
+        color: rgba(255, 255, 255, 1);
+        box-shadow: 0 5px 15px rgba(145, 92, 182, .8);
+        cursor: pointer;
+    }
+
+
+
+.CreateListBtn {
+    background-color: #d91950;
+    border: 0pt;
+    color: white;
+    padding: 10px;
+    border-radius: 50px;
+    font-weight: 800;
+    width: 150px;
+    margin: auto;
+    margin-right: 0px;
+}
+
+    .CreateListBtn:hover {
+        color: rgba(255, 255, 255, 1);
+        box-shadow: 0 5px 15px rgba(145, 92, 182, .8);
+    }
+
+    .CreateListBtn a {
+        text-decoration: none;
+        color: white;
+    }
+
+
+
+
+h3 {
+    color: #d91950;
+    font-weight: 600;
+    line-height: 1;
+
+
+
+
+    
+     white-space: nowrap;
+        text-align: left;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+}
+
+.title {
+    display: flex;
+
+
+
+}
+
+.subtext {
+    color: black;
+    line-height: 1.80;
+    font-weight: 600;
+    font-size: large;
+    text-align: left;
+   
+}
+    .subtext i {
+        color: #11bff1;
+     
+    }
+
+.details-left {
+    padding: 0px;
+    width: 75%;
+    /* Remove position: absolute; */
+    text-align: left;
+    flex: 1;
+    overflow: hidden;
+}
+
+.details-right {
+    height: 100%;
+    width: 100px;
+    position: absolute;
+    right: 0; /* Adjust the value to position the element in the middle */
+    top: 50%;
+    transform: translateY(-50%);
+    display: block;
+}
+
+    .details-right label {
+        position: absolute;
+        bottom: 10px;
+        right: 20px;
+    }
+
+.default-icon {
+    color: #11bff1;
+    margin-top:10px;
+}
+
+
+
+
+
+.editBtn {
+    border: none;
+    width: 80px;
+    border-radius: 20px;
+    padding: 5px;
+    color: white;
+    font-weight: 800;
+    font-size: large;
+    background-color: #d91950;
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    transition: all 0.5s;
+    border:2px solid #d91950;
+    box-shadow: 2px 2px 10px 1px rgba(125, 125, 125, 0.2);
+}
+
+    .editBtn:hover {
+       background-color:white;
+       color:#d91950;
+        cursor: pointer;
+
+    }
+
+
+
+
+
+
+
+
+.someDeleteBtn {
+    position: absolute;
+    background-color: white;
+    right: 15px;
+    top: 15px;
+    border: 0pt;
+    color: var(--blue);
+    font-size: 10px;
+    transition: all 0.5s;
+}
+
+    .someDeleteBtn:hover {
+        color: #d91950;
+    }
+
+
+
+
+
+.listOverlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    height: 100vh;
+    width: 100vw;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+    align-items: center;
+    justify-content: center;
+}
+
+
+
+.overlay-card {
+    z-index: 3;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: -80px 0 0 -40%;
+    background-color: white;
+    width: 80%;
+    padding: 20px;
+    height: auto;
+    border-radius: 15px;
+}
+
+
+    .overlay-card select {
+        width: 70%;
+        border-radius: 10px;
+        padding: 5px;
+        height: 40px;
+        font-weight: 500;
+        font-size: large;
+        margin-bottom: 5px;
+        z-index: 4;
+        cursor: pointer;
+    }
+
+    .overlay-card button {
+        margin: auto;
+        background-color: #d91950;
+        border: 0pt;
+        color: white;
+        padding: 10px;
+        border-radius: 50px;
+        font-size: large;
+        font-weight: 800;
+        width: 150px;
+        z-index: 4;
+    }
+
+        .overlay-card button:hover {
+            box-shadow: 0 5px 15px rgba(145, 92, 182, .8);
+        }
+
+    .overlay-card .addNewAddressBtn {
+        width: 50px;
+        border-radius: 100%;
+        background-color: #ffffff;
+        color: #d91950;
+    }
+
+        .overlay-card .addNewAddressBtn:hover {
+            background-color: #d91950;
+            color: #ffffff;
+        }
+
+
+.closeBtn {
+    border: 0pt;
+    border-radius: 150px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: -80px 0 0 -40%;
+    z-index: 4;
+    color: #d91950;
+    background-color: #fff;
+}
+
+.btns-div {
+    display: block;
+}
+
+    .btns-div button {
+        margin-top: 5px;
+    }
+
+.someBtn {
+    margin: 5px;
+    border: none;
+    background-color: #d91950;
+    color: #fff;
+    border-radius: 15px;
+}
+.btns-div {
+    display: block;
+}
+
+    .btns-div button {
+        margin-top: 5px;
+    }

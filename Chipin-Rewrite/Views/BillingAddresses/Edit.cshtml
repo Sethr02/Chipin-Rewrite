@@ -1,0 +1,230 @@
+﻿@model Chipin_Rewrite.Models.Entities.BillingAddress
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+
+<!-- Main CSS-->
+<link href="~/css/Created.css" rel="stylesheet" media="all">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+<link rel="stylesheet" href="~/css/mynavbar.css" asp-append-version="true" />
+<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+
+
+@if (User.Identity.IsAuthenticated)
+{
+  
+
+
+    <link href="~/css/bubbles.css" rel="stylesheet" media="all">
+    <div class="bubbles bubble-1"></div>
+    <div class="bubbles bubble-5"></div>
+    <div class="bubbles bubble-2"></div>
+    <div class="bubbles bubble-6"></div>
+    <div class="bubbles bubble-3"></div>
+    <div class="bubbles bubble-7"></div>
+    <div class="bubbles bubble-4"></div>
+    <div class="bubbles bubble-8"></div>
+    <body>
+        <div>
+            <div class="backBtn-div">
+
+                <a href="@Url.Action("Index", "BillingAddresses", new {token = "null"  })" class="backBtn link">
+                    <i class="fa fa-arrow-left" aria-hidden="true"></i>
+                </a>
+            </div>
+            <h1 class="pink">Edit</h1>
+        </div>
+
+       
+
+<div class="container">
+
+            <div class="card onshadow">
+                <form id="myForm" method="post" action="@Url.Action("Edit", "BillingAddresses")">
+
+                    <input type="hidden" name="id" value="@ViewBag.id" />
+                    <input type="hidden" id="token" name="token" />
+
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                    <div class="input-container">
+                        <h3>
+                            Address Name
+                            <star class="required" title="required">*</star>
+                        </h3>
+                        <input asp-for="AdressName" class="form-control" placeholder="Address name..." required maxlength="25" />
+                        <small>
+                            <span asp-validation-for="AdressName" class="text-danger"></span>
+                        </small>
+                        <h3>
+                            Name
+                            <star class="required" title="required">*</star>
+                        </h3>
+                        <div class="split">
+                            <div class="left">
+                                <input asp-for="FirstName" class="form-control" placeholder="First Name" required maxlength="100" />
+                                <small>
+                                    <span asp-validation-for="FirstName" class="text-danger"></span>
+                                </small>
+                            </div>
+                            <div class="right">
+                                <input asp-for="LastName" class="form-control" placeholder="Last Name" required maxlength="100" />
+                                <small>
+                                    <span asp-validation-for="LastName" class="text-danger"></span>
+                                </small>
+                            </div>
+
+
+                        </div>
+
+
+                    </div>
+                    <hr />
+
+                    <div class="input-container">
+                        <h3>
+                            Street Address
+                            <star class="required" title="required">*</star>
+                        </h3>
+
+                        <input asp-for="Address1" class="form-control" placeholder="House number & street name" required maxlength="250" />
+
+                        <small>
+                            <span asp-validation-for="Address1" class="text-danger"></span>
+                        </small>
+                        <input asp-for="Address2" class="form-control" placeholder="Suburb" required maxlength="250" />
+
+                        <small>
+                            <span asp-validation-for="Address2" class="text-danger"></span>
+                        </small>
+
+                        <h3>
+                            Town / City
+                            <star class="required" title="required">*</star>
+                        </h3>
+                        <input asp-for="City" class="form-control" required maxlength="250" />
+                        <small>
+                            <span asp-validation-for="City" class="text-danger"></span>
+
+                        </small>
+                        <h3>
+                            Province / State
+                            <star class="required" title="required">*</star>
+                        </h3>
+                        <select asp-for="State" class="form-control">
+                            <option value="Western Cape">
+                                Western Cape
+                            </option>
+                            <option value="Northen Cape">
+                                Northen Cape
+                            </option>
+                            <option value="Eastern Cape">
+                                Eastern Cape
+                            </option>
+                            <option value="Free State">
+                                Free State
+                            </option>
+                            <option value="KwaZulu-Natal">
+                                KwaZulu-Natal
+                            </option>
+                            <option value="Limpopo">
+                                Limpopo
+                            </option>
+                            <option value="North West">
+                                North West
+                            </option>
+
+                            <option value="Mpumalanga">
+                                Mpumalanga
+                            </option>
+
+                            <option value="Gauteng">
+                                Gauteng
+                            </option>
+                        </select>
+
+                        <small>
+                            <span asp-validation-for="State" class="text-danger"></span>
+                        </small>
+                        <h3>
+                            Country
+                            <star class="required" title="required">*</star>
+                        </h3>
+                        <input asp-for="Country" class="form-control" required maxlength="250" />
+                        <small>
+                            <span asp-validation-for="Country" class="text-danger"></span>
+
+                        </small>
+                        <h3>
+                            Post Code
+                            <star class="required" title="required">*</star>
+                        </h3>
+                        <input asp-for="PostCode" class="form-control" required maxlength="100" />
+
+                        <small>
+                            <span asp-validation-for="PostCode" class="text-danger"></span>
+                        </small>
+
+                        <h3>
+                            Phone number
+                            <star class="required" title="required">*</star>
+                        </h3>
+                        <input asp-for="PhoneNumber" class="form-control" type="tel" required maxlength="100" />
+                        <small>
+                            <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                        </small>
+                        <h3>
+                            Email
+                            <star class="required" title="required">*</star>
+                        </h3>
+                        <input asp-for="Email" class="form-control" type="email" required maxlength="100" />
+
+                        <small>
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </small>
+                    </div>
+
+
+                    <div class="btn-div">
+                        <button type="submit" value="Save">Save</button>
+                    </div>
+
+
+                </form>
+            </div>
+
+
+        </div>
+
+    </body>
+
+
+
+    <script>
+        function Link(control, identifier, productId, loc) {
+            var list = document.getElementById(identifier);
+            var token = localStorage.getItem('token');
+            document.getElementById('token-' + identifier).value = token;
+            document.getElementById('path-' + identifier).value = loc;
+            document.getElementById('id-' + identifier).value = productId;
+            let link = `@Url.Action("Link", "controller")`;
+            link = link.replace("controller", control);
+            list.action = link;
+            list.submit();
+        }
+
+    </script>
+
+
+    <script>
+        document.getElementById("token").value = localStorage.getItem("token");
+    </script>
+
+    @section Scripts {
+    @{
+            await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        }
+    }
+}

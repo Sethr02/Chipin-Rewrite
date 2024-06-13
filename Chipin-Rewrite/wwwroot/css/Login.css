@@ -1,0 +1,189 @@
+﻿
+
+p a {
+    color: #d81950;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.5s;
+}
+
+    p a:hover {
+        color: #11bff1;
+        font-weight: 600;
+        text-decoration: none;
+        transition: all 0.5s;
+    }
+
+h2 {
+    font-weight: 900;
+    font-size: 45px;
+    color: #11bff1;
+}
+
+h6 {
+
+    font-weight: 400;
+    font-size: medium;
+    text-align: center;
+}
+
+
+
+.login-card {
+    width: 100%;
+    max-width: 700px;
+    margin: auto;
+    padding: 50px 30px 30px 30px;
+    border-radius: 20px;
+    background-color: white;
+
+    margin-bottom:100px;
+}
+
+    .login-card h2 {
+        margin-bottom: 50px;
+    }
+
+    .login-card input {
+        width:100%;
+        padding: 15px 15px 15px 15px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+       
+        font-weight: 500;
+        font-size: large;
+        border: 1px solid #ccc;
+        border-radius: 15px;
+      
+    }
+
+    .login-card button {
+        width: 100%;
+        max-width: 300px;
+        padding: 10px;
+        background-color: #d81950;
+        color: white;
+        border: none;
+        border-radius: 50px;
+        cursor: pointer;
+        font-size: large;
+        font-weight: 600;
+        margin-bottom: 20px;
+        transition: all 0.5s;
+    }
+
+        .login-card button:hover {
+            color: rgba(255, 255, 255, 1);
+            box-shadow: 0 5px 15px rgba(145, 92, 182, .8);
+        }
+
+/* Style the icons and input containers */
+.input-container {
+    position: relative;
+    display: flex;
+
+  
+    margin-bottom: 20px;
+}
+    .input-container i {
+        color: #666666;
+        transition: all 0.5s;
+    }
+    .input-container div i {
+
+        transform: translateY(50%);
+        left: 10px;
+        vertical-align: middle;
+    }
+
+    .input-container div {
+        margin-right: 25px;
+        justify-content: center;
+        align-content: center;
+    }
+   
+    .input-container:hover i {
+        color: #d81950; /* Icon color on hover */
+        transition: all 0.5s;
+    }
+
+
+
+#showPasswordIcon:hover {
+    color: #d81950;
+    cursor:pointer;
+}
+
+#showPasswordIcon {
+  
+    height: 30px;
+    position: relative;
+    transform: translateY(15px);
+    padding: 0px 10px;
+    border-radius: 50px;
+}
+
+
+
+
+.colorway {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    width: 8px;
+    height: 8px;
+    border: 2px solid #d81950; /* Set the outline color */
+    border-radius: 4px; /* Optional: Add some rounded corners to the checkbox */
+    outline: none; /* Remove the focus outline */
+}
+
+input[type="checkbox"]:checked {
+    background-color: #d81950; /* Set the background color when checked */
+}
+
+
+
+.checkbox-rem {
+    display: flex;
+    position: relative;
+    margin-bottom: 20px;
+}
+
+    .checkbox-rem input {
+        width: 20px;
+        height: 20px;
+        padding: 0px;
+        margin: 0px;
+        align-self: center;
+        position: relative;
+    }
+
+    .checkbox-rem h6 {
+        margin-left: 35px;
+    }
+
+
+
+
+.icons {
+    margin: 10px;
+  
+    border-radius: 100%;
+    padding: 8px;
+    color: #d81950;
+    transition: all 0.5s;
+}
+
+    .icons:hover {
+        transition: all 0.5s;
+        background-color: var(--pink);
+        color: var(--white);
+        box-shadow: 0 5px 15px rgba(145, 92, 182, .8);
+    }
+
+.myinputgroup {
+    font-weight: 700;
+    font-size: large;
+    display: inline;
+}

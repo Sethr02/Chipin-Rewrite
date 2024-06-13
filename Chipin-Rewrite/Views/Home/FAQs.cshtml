@@ -1,0 +1,119 @@
+﻿@{
+    ViewData["Title"] = "FAQs";
+}
+
+
+
+
+<!-- Main CSS-->
+<link href="~/css/Created.css" rel="stylesheet" media="all">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+<link rel="stylesheet" href="~/css/mynavbar.css" asp-append-version="true" />
+<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+
+
+
+
+<link href="~/css/bubbles.css" rel="stylesheet" media="all">
+<div class="bubbles bubble-1"></div>
+<div class="bubbles bubble-5"></div>
+<div class="bubbles bubble-2"></div>
+<div class="bubbles bubble-6"></div>
+<div class="bubbles bubble-3"></div>
+<div class="bubbles bubble-7"></div>
+<div class="bubbles bubble-4"></div>
+<div class="bubbles bubble-8"></div>
+
+
+<body>
+    <div>
+        <div class="backBtn-div">
+            <button class="backBtn" onclick="history.back()">
+                <i class="fa fa-arrow-left" aria-hidden="true"></i>
+            </button>
+        </div>
+    </div>
+
+    <div>
+        <h1 class="pink">FAQs</h1>
+    </div>
+
+
+    <div>
+        <div class="card onshadow " style="padding-bottom:10px;">
+            <h3 class="blue  accordion">
+                What is Chipin and How Does It Work?
+            </h3>
+            <div class="panel">
+                <p>Chipin is group buying done right, enabling friends and family to collectively fund and purchase gifts easily. Simply select Chipin at checkout on partner sites, share your list with a link, and track contributions in real-time. Whether your list reaches its goal or not, you can use your chips at any of our partners.</p>
+            </div>
+        </div>
+        <div class="card onshadow " style="padding-bottom:10px;">
+            <h3 class="blue  accordion">
+                Is Chipin Safe and Secure?
+            </h3>
+            <div class="panel">
+                <p>Absolutely! We prioritise your security by using encrypted, industry-standard payment processing services. Your financial data is always protected, and none of your sensitive payment information is stored on our servers.</p>
+            </div>
+        </div>
+        <div class="card onshadow " style="padding-bottom:10px;">
+            <h3 class="blue  accordion">
+                Do I Need a Chipin Account or App?
+            </h3>
+            <div class="panel">
+                <p>Only the organiser needs a Chipin account. Contributors can chip in as guests without an account. No app is required - Chipin is fully accessible through any browser with easy-to-share links.</p>
+            </div>
+        </div>
+        <div class="card onshadow " style="padding-bottom:10px;">
+            <h3 class="blue  accordion">
+                What Are the Costs and What Happens After Funding?
+            </h3>
+            <div class="panel">
+                <p>Chipin is free for all users, with no fees for creating or contributing to a list. Once your list is fully funded, you can seamlessly purchase your desired items directly through Chipin or browse our store directory for more options. If not fully funded, the chips can still be used within our network of partners.</p>
+            </div>
+        </div>
+        <div class="card onshadow " style="padding-bottom:10px;">
+            <h3 class="blue  accordion">
+                How Can I Manage My Chipin Lists and Funds?
+            </h3>
+            <div class="panel">
+                <p>
+                    You can add funds to your Chipin account via linked payment methods, create shared lists for any occasion, and invite friends and family to contribute through various sharing options. Contributions are tracked in real-time, and chips can be used for purchases online within our merchant network.
+                </p>
+            </div>
+        </div>
+        <div class="card onshadow " style="padding-bottom:10px;">
+            <h3 class="blue  accordion">
+                Handling Product Issues
+            </h3>
+            <div class="panel">
+                <p>
+                    If you encounter any issues with a product purchased using Chipin, please contact the merchant directly for resolution according to their return and refund policies.
+                </p>
+            </div>
+        </div>
+
+
+    </div>
+</body>
+<script>
+    var acc = document.getElementsByClassName("accordion");
+    var j;
+    for (j = 0; j < acc.length; j++) {
+        acc[j].addEventListener("click", function () {
+            this.classList.toggle("activex");
+            var panel = this.nextElementSibling;
+            if (panel.style.maxHeight) {
+                panel.style.maxHeight = null;
+            } else {
+                panel.style.maxHeight = panel.scrollHeight + "px";
+            }
+        });
+    }
+</script>
+
+<script>
+    $(document).ready(function () {
+        $('header').empty();
+    });
+</script>

@@ -1,0 +1,831 @@
+﻿@model Chipin_Rewrite.Models.Entities.ProductListWallet
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+@{
+    var externalProducts = ViewBag.ExternalProducts as List<Chipin_Rewrite.Models.Entities.ExternalProduct>;
+    var products = ViewBag.Products as List<Chipin_Rewrite.Models.Entities.Product>;
+    var productListItems = ViewBag.ProductListItems as List<Chipin_Rewrite.Models.Entities.ProductListItem>;
+    var productListWallets = ViewBag.Wallets as Chipin_Rewrite.Models.Entities.ProductListWallet;
+    var addresses = ViewBag.Addresses as List<Chipin_Rewrite.Models.Entities.Address>;
+
+}
+
+
+
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link href="~/css/Created.css" rel="stylesheet" media="all">
+
+<link href="~/css/site.css" rel="stylesheet" media="all">
+
+<link href="~/css/mylistDetails.css" rel="stylesheet" media="all">
+
+<!--
+<div class="sticky-card align-self-start">
+    <div class="content">
+        <h1 class="Wallet">Wallet</h1>
+        <h1 class="Funds">Funds:    R4000</h1>
+    </div>
+</div>
+
+-->
+
+<link href="~/css/bubbles.css" rel="stylesheet" media="all">
+<div class="bubbles bubble-1"></div>
+<div class="bubbles bubble-5"></div>
+<div class="bubbles bubble-2"></div>
+<div class="bubbles bubble-6"></div>
+<div class="bubbles bubble-3"></div>
+<div class="bubbles bubble-7"></div>
+<div class="bubbles bubble-4"></div>
+<div class="bubbles bubble-8"></div>
+
+<body>
+
+
+
+    <div>
+        @if (ViewBag.viewMode == "OutsiderLoggedIn")
+        {
+            <h1 class="pink" style="cursor:default;">
+                @productListWallets.Name
+
+
+            </h1>
+        }
+        else if (productListWallets.Closed == 1)
+        {
+            <h1 class="pink" style="cursor:default;">
+                @productListWallets.Name
+
+
+            </h1>
+        }
+        else if (User.Identity.IsAuthenticated)
+        {
+            <div class="backBtn-div items-page">
+
+                <a href="@Url.Action("Index", "ProductListWallets", new {token = "null"  })" class="backBtn link">
+                    <i class="fa fa-arrow-left" aria-hidden="true"></i>
+                </a>
+            </div>
+
+            <h1 class="pink listaccordion">
+                @productListWallets.Name
+
+
+
+            </h1>
+
+            <div class=" cart-container listpanel" style="margin-bottom:-10px;">
+                <h2 class="listheading" style="margin-bottom:-15px;">
+                    Edit
+                </h2>
+                <form id="myForm2" method="post" action="@Url.Action("Edit", "ProductListWallets")">
+                    <input type="hidden" name="id" value="@productListWallets.ProductListWalletId" />
+
+
+
+                    <div class="input-container">
+                        <h3>
+                            Name
+                            <star class="required" title="required">*</star>
+                        </h3>
+                        <input asp-for="Name" name="Name" class="form-control" placeholder="List name..." required maxlength="25" />
+
+                        <h3>
+                            End Date
+                            <star class="required" title="required">*</star>
+                        </h3>
+
+                        <input asp-for="EndAt" name="EndAt" id="dateInput" class="form-control" placeholder="End Date" type="date" min="{{ today }}" required />
+
+
+                    </div>
+
+
+
+                    <div class="btn-div">
+                        <button type="submit" class="saveListBtn">Save</button>
+                    </div>
+
+
+                </form>
+            </div>
+
+        }
+
+
+
+
+
+
+    </div>
+
+
+
+
+
+    <div class=" items-page">
+        @{
+            int? numitems = 0;
+        }
+
+        @if (productListItems != null && productListItems.Any())
+        {
+
+
+
+            <div class="cart-container ">
+                <h2 class="listheading">
+                    Items
+                </h2>
+
+                <div class="mylistpanel">
+
+                    @foreach (var (index, item) in productListItems.Select((item, index) => (index, item)))
+
+                    {
+
+
+                        if (@item.ProductListWalletId == @productListWallets.ProductListWalletId)
+                        {
+                            @foreach (var myproduct in products)
+                            {
+                                if (@item.ProductId == @myproduct.ProductId)
+                                {
+                                    numitems = numitems + 1;
+
+                                    <div class="@(numitems > 3 ? "hidethis" : "")">
+
+                                       
+                                    @if (User.Identity.IsAuthenticated && productListWallets.Closed == 0)
+                                    {
+
+                                        <button class="trashBtn" data-id="@item.ChipinProductListEntryId">
+                                            <i class="fa fa-trash"> </i>
+
+                                        </button>
+                                    }
+
+                                    <a class="RedirectToProductDetails" data-id="@myproduct.ProductId">
+
+                                        <div class="detailedListView split">
+                                            <div class="img-div imgleft">
+                                                <img src="@myproduct.ProductImage" onerror="src ='/css/resource/Chipin.png';" />
+                                            </div>
+                                            <div class="detailListRight inforight">
+
+                                                <div class="details-div">
+                                                    <h4>
+                                                        @myproduct.ProductName
+                                                    </h4>
+
+                                                    <h5><i class="fa-solid fa-shop"></i> @myproduct.Store</h5>
+                                                </div>
+
+                                                <div class="bar">
+                                                    <label>
+                                                        R @myproduct.Price
+                                                    </label>
+                                                    <div class="ex-quantity-div">
+
+
+                                                        <form id="myForm" method="post" action="@Url.Action("AddInternalProduct", "ProductListWallets")">
+                                                            <input type="hidden" class="tokenToSend" name="token" />
+
+                                                            <!--<form asp-action="AddInternalProduct" method="post">-->
+                                                            <input type="number" name="productid" value="@myproduct.ProductId" required hidden>
+                                                            <input type="number" name="quantity" id="quantityInput_@index" required hidden value="@item.Quantity">
+                                                            <select name="productlistwalletid" hidden>
+
+                                                                <option value="@productListWallets.ProductListWalletId">
+                                                                    @productListWallets.Name
+                                                                </option>
+
+                                                            </select>
+                                                            <input type="number" name="externalProductId" hidden>
+
+                                                            <div class="quantity-div">
+                                                                <div class="quantity-toggle">
+                                                                    <button onclick="onDecrease(@index, @item.Quantity)">-</button>
+                                                                    <span class="value" id="currentQuantity_@index">@item.Quantity</span>
+                                                                    <button onclick="onIncrease(@index, @myproduct.Quantity)">+</button>
+                                                                </div>
+                                                            </div>
+                                                        </form>
+
+                                                        @if (ViewBag.viewMode == "OutsiderLoggedIn")
+                                                        {
+                                                            <div class="ex-quantity-div">
+                                                                <div class="ex-quantity-toggle">
+
+                                                                    <span class="value" id="currentQuantity_@index">@item.Quantity</span>
+
+                                                                </div>
+                                                            </div>
+
+                                                        }
+
+                                                    </div>
+
+
+                                                </div>
+
+
+                                            </div>
+
+                                        </div>
+
+                                    </a>
+
+ </div>
+
+                                }
+                            }
+
+                            @foreach (var eProduct in externalProducts)
+                            {
+
+                                if (@item.ExternalProductId == @eProduct.ExternalProductId)
+                                {
+                                    numitems = numitems + 1;
+                                    @if (User.Identity.IsAuthenticated)
+                                    {
+                                        <div class="trash-div">
+                                            <button class="trashBtn" data-id="@item.ChipinProductListEntryId">
+                                                <i class="fa fa-trash"> </i>
+
+                                            </button>
+                                        </div>
+                                    }
+                                    <a class="RedirectToExternalProductDetails" data-id="@eProduct.ExternalProductId">
+
+                                        <div class="detailedListView split">
+
+
+                                            <div class="img-div imgleft">
+                                                <img src="@eProduct.Image" onerror="src ='/css/resource/Chipin.png';" />
+
+                                            </div>
+
+
+                                            <div class="detailListRight inforight">
+
+                                                <div class="details-div">
+                                                    <h4>
+                                                        @eProduct.ProductName
+                                                    </h4>
+
+                                                    <h5><i class="fa-solid fa-shop"></i> @eProduct.Store</h5>
+                                                </div>
+
+                                                <div class="bar">
+                                                    <label>
+                                                        R @eProduct.Price
+                                                    </label>
+                                                    <div class="quantity-div">
+
+
+                                                        <input type="number" name="quantity" id="quantityInput_@index" required hidden value="@item.Quantity">
+                                                        <select name="productlistwalletid" hidden>
+
+                                                            <option value="@productListWallets.ProductListWalletId">
+                                                                @productListWallets.Name
+                                                            </option>
+
+                                                        </select>
+                                                        <input type="number" name="externalProductId" hidden>
+                                                        <div class="ex-quantity-div">
+                                                            <div class="ex-quantity-toggle">
+
+                                                                <span class="value" id="currentQuantity_@index">@item.Quantity</span>
+
+                                                            </div>
+                                                        </div>
+
+
+
+
+                                                    </div>
+
+                                                </div>
+
+
+
+
+                                            </div>
+
+
+
+                                        </div>
+                                    </a>
+
+
+                                }
+                            }
+
+                        }
+
+
+                    }
+                </div>
+
+                @if (numitems>3) {
+                    <button class="pink showAllBtn">
+                        Show All
+                    </button>
+
+                }
+
+
+
+
+
+
+
+                <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+                <script>
+                    $(document).ready(function () {
+                        var numItems = @numitems;
+
+                        // Initial check and hide elements if needed
+                        if (numItems > 3) {
+                            $(".hidethis").hide();
+                        }
+
+                        $(".showAllBtn").click(function () {
+                            // Toggle visibility of elements with the hidethis class
+                            $(".hidethis").toggle();
+
+                            // Move text change outside of the click handler
+                            updateButtonText();
+                        });
+
+                        function updateButtonText() {
+                            // Change the text of the button based on its state
+                            var buttonText = $(".hidethis").is(":visible") ? "Hide" : "Show All";
+                            $(".showAllBtn").text(buttonText);
+                        }
+
+                        // Call the updateButtonText function initially
+                        updateButtonText();
+                    });
+                </script>
+
+
+
+
+
+                @if (ViewBag.viewMode == "LoggedIn")
+                {
+                    <a href="/Products">
+                        <div class="detailedListView onHoverShadow" style="background-color:#d91950">
+                            <span class="addProductBtn">  Add Product</span>
+                        </div>
+                    </a>
+                }
+            </div>
+
+
+            float? num1 = @productListWallets.Total;
+            float? num2 = @productListWallets.Funded;
+            float? remaining = null;
+            if (num1.HasValue && num2.HasValue)
+            {
+                float? remainingAmt = @productListWallets.Total - @productListWallets.Funded;
+    
+    // Check if remainingAmt is less than 0
+             if (remainingAmt <= 0)
+             {
+                 remaining = 0;
+             }
+
+              remaining = remainingAmt; // Directly assign remainingAmt to remaining
+            }
+
+
+            @*  <div class="cart-container onshadow">
+        <h2 class="listheading">
+        Order Summary
+        </h2>
+        <div class="detailedListView">
+        <div class="ordersum-text">
+        <h3>
+        Total: R @productListWallets.Total
+        </h3>
+        <h3>
+        Funded: R @productListWallets.Funded
+        </h3>
+
+
+        </div>
+
+                </div>
+                
+                @if (remaining == 0){
+                    <h3>Fully Funded!</h3>
+                }
+                else if (remaining < 0)
+                {
+                    float? overfunded = remaining * -1;
+                    <h3>Fully Funded! Extra: R @overfunded</h3>
+                }
+                else
+                {
+                    <h3>Remaining: R @remaining </h3>
+                }
+                
+        </div>
+
+        @if (remaining == 0)
+        {
+        <h3>Fully Funded!</h3>
+        }
+        else
+        {
+        <h3>Remaining: R @remaining </h3>
+        }
+
+
+        </div>
+
+
+        *@
+
+
+
+
+            int? percent = null;
+
+            if (num1.HasValue && num2.HasValue)
+            {
+
+                remaining = num1 - num2;
+                if (num1 != 0)
+                {
+                    percent = (int)((num2 / num1) * 100);
+                }
+                else
+                {
+                    percent = 0;
+                }
+            }
+
+
+
+            <div class="cart-container onshadow">
+                <h2 class="listheading">
+                    Order Summary
+                </h2>
+                <div class="cardeffect">
+
+
+
+
+                    <div class="newcard-split">
+                        <div class="left">
+                            Total chipped in:
+                            <div class="newcard-label-amount" style="color: #d91950;">
+                                R @productListWallets.Funded
+                            </div>
+
+                        </div>
+
+                        <div class="right">
+                            Total remaining:
+                            <div class="newcard-label-amount">
+                                R @remaining
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="newcard-progress" data-percent="@percent ?? 0" >
+
+
+
+                        <div class="newcard-progress-bar"></div>
+                    </div>
+
+
+                    @if (remaining <= 0)
+                    {
+                        <h3>Fully Funded!</h3>
+                    }
+                    else
+                    {
+                        <div>
+                            Total: <div class="newcard-label-amount">R @productListWallets.Total </div>
+                        </div>
+
+                    }
+                </div>
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            if (productListWallets.Closed == 0)
+            {
+                <div class="cart-container onshadow">
+
+                    <div class="fundlistBtns">
+
+                        <div id="share" class="sharelistBtn">
+                            <span class="fundlistBtnsText">Share list</span>
+                        </div>
+
+                        <div class="vibes">
+
+                            
+                                
+                @if (User.Identity != null)
+                {
+                    @if (remaining <= 0 && User.Identity.IsAuthenticated)
+                    {
+                        var objectIdClaim = User.FindFirst("http://schemas.microsoft.com/identity/claims/objectidentifier");
+                        string? chipinId = objectIdClaim.Value;
+                        @if (productListWallets.ChipinId == chipinId)
+                        {
+                            <form method="post" action="@Url.Action("DeliveryAddress", "ProductListWallets")">
+                                <input type="hidden" name="id" value="@productListWallets.ProductListWalletId" />
+                                <input type="hidden" class="tokenToSend" name="token" />
+                                <button type="submit" class="chipinlistBtn">
+                                    <div>
+                                        <span class="fundlistBtnsText"> Checkout </span>
+                                    </div>
+                                </button>
+                            </form>
+                        } 
+                        else   
+                        {         
+                            <form method="post" action="@Url.Action("ChipinAmount", "ProductListWallets")">
+                                <input type="hidden" name="id" value="@productListWallets.ProductListWalletId" />
+                                <input type="hidden" class="tokenToSend" name="token" />
+                                <button type="submit" class="chipinlistBtn">
+                                    <div>
+                                        <span class="fundlistBtnsText"> ChipIn! </span>
+                                    </div>
+                                </button>
+                            </form>
+                        }
+                    }
+                    else    // @if (ViewBag.viewMode == "OutsiderLoggedIn")
+                    {
+                        <form method="post" action="@Url.Action("ChipinAmount", "ProductListWallets")">
+                            <input type="hidden" name="id" value="@productListWallets.ProductListWalletId" />
+                            <input type="hidden" class="tokenToSend" name="token" />
+                            <button type="submit" class="chipinlistBtn">
+                                <div>
+                                    <span class="fundlistBtnsText"> ChipIn! </span>
+                                </div>
+                            </button>
+                        </form>
+                    }
+                }
+                else
+                {
+                    <form method="post" action="@Url.Action("ChipinAmount", "ProductListWallets")">
+                        <input type="hidden" name="id" value="@productListWallets.ProductListWalletId" />
+                        <input type="hidden" class="tokenToSend" name="token" />
+                        <button type="submit" class="chipinlistBtn">
+                            <div>
+                                <span class="fundlistBtnsText"> ChipIn! </span>
+                            </div>
+                        </button>
+                    </form>
+                }
+            </div>
+        </div>
+        </div>
+        <div>
+            <form action="/CallPay/payout" method="post">
+                <button class="createBtn" type="submit">Full Fund Simulation</button>
+                <input type="hidden" name="productListWalletId" value="@productListWallets.ProductListWalletId" />
+                <!-- Add other properties as needed -->
+            </form>
+        </div>
+    }
+}
+else
+{
+    <div class="cart-container onshadow">
+        <h2 class="listheading">
+            List Empty
+        </h2>
+        <a href="/Products">
+            <div class="detailedListView" style="background-color:#d91950">
+                <span class="addProductBtn">  Add Product</span>
+                </div>
+        </a>
+    </div>
+}
+</div>
+
+
+
+
+
+
+
+</body>
+
+<script>
+    function updateProgressBars(progressBars) {
+        if (!progressBars || progressBars.length === 0) {
+            console.error('No progress bars found');
+            return;
+        }
+
+        progressBars.forEach(progressBar => {
+            const percent = parseInt(progressBar.parentElement.getAttribute('data-percent'));
+
+            let colorClass = '';
+            if (percent <= 30) {
+                colorClass = 'red';
+            } else if (percent <= 60) {
+                colorClass = 'orange';
+            } else if (percent <= 99) {
+                colorClass = 'yellow';
+            } else {
+                colorClass = 'green';
+            }
+
+            progressBar.classList.add(colorClass);
+            progressBar.style.width = percent + '%';
+        });
+    }
+
+    // Example usage: Get all elements with class 'progress-bar' and update them
+    const allProgressBars = document.querySelectorAll('.progress-bar');
+    updateProgressBars(allProgressBars);
+
+    const newcardallProgressBars = document.querySelectorAll('.newcard-progress-bar');
+    updateProgressBars(newcardallProgressBars);
+</script>
+<script>
+    var currentUrl = window.location.href;
+    document.getElementById('share').addEventListener('click', async () => {
+        if (navigator.share) {
+            try {
+                await navigator.share({
+                    title: 'Chipin @productListWallets.Name',
+                    url: currentUrl
+                });
+                console.log('Data was shared successfully');
+            } catch (err) {
+                console.error('Error: ' + err);
+            }
+        } else {
+            // Fallback for browsers that do not support the Web Share API
+            console.log('Web Share API is not supported in your browser');
+        }
+    });
+</script>
+
+<script>
+    function Link(control, identifier, productId, loc) {
+        var list = document.getElementById(identifier + '-' + productId);
+        var token = localStorage.getItem('token');
+        document.getElementById('token-' + identifier + '-' + productId).value = token;
+        document.getElementById('path-' + identifier + '-' + productId).value = loc;
+        document.getElementById('id-' + identifier + '-' + productId).value = productId;
+        let link = `@Url.Action("Link", "controller")`;
+        link = link.replace("controller", control);
+        list.action = link;
+        list.submit();
+    }
+
+</script>
+<script>
+    var elements = document.querySelectorAll(".tokenToSend");
+
+    elements.forEach(function (element) {
+
+        element.value = localStorage.getItem("token");
+    });
+
+</script>
+
+
+<script>
+
+    function onDecrease(index, maxQuantity) {
+        var currentQuantityElement = document.getElementById("currentQuantity_" + index);
+        var currentQuantity = parseInt(currentQuantityElement.textContent);
+
+        if (currentQuantity > 1) {
+            currentQuantity--;
+            currentQuantityElement.textContent = currentQuantity;
+            var curr = document.getElementById("quantityInput_" + index);
+            curr.value = currentQuantity;
+        }
+    }
+
+    function onIncrease(index, maxQuantity) {
+        var currentQuantityElement = document.getElementById("currentQuantity_" + index);
+        var currentQuantity = parseInt(currentQuantityElement.textContent);
+
+        // Assuming maxQuantity is passed from Razor view
+        // This ensures the quantity doesn't exceed the maximum allowed quantity (item.Quantity)
+        if (currentQuantity < maxQuantity) {
+            currentQuantity++;
+            currentQuantityElement.textContent = currentQuantity;
+
+            var curr = document.getElementById("quantityInput_" + index);
+            curr.value = currentQuantity;
+
+        }
+    }
+
+
+    var deleteButtons = document.querySelectorAll('.trashBtn');
+    deleteButtons.forEach(function (button) {
+        button.addEventListener('click', function () {
+            var token = localStorage.getItem('token');
+            var id = button.getAttribute('data-id');
+            var url = '@Url.Action("DeleteFromList", "ProductListWallets")' + '/?id=' + id + '&token=' + encodeURIComponent(token);
+            window.location.href = url;
+        });
+    });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    var detailButtons = document.querySelectorAll('.RedirectToProductDetails');
+    detailButtons.forEach(function (button) {
+        button.addEventListener('click', function () {
+            var token = localStorage.getItem('token');
+
+            var id = button.getAttribute('data-id');
+
+            var url = '@Url.Action("Details", "Products")' + '?id=' + id + '&token=' + encodeURIComponent(token);
+            window.location.href = url;
+        });
+    });
+    var exDetailButtons = document.querySelectorAll('.RedirectToExternalProductDetails');
+    exDetailButtons.forEach(function (button) {
+        button.addEventListener('click', function () {
+            var token = localStorage.getItem('token');
+
+            var id = button.getAttribute('data-id');
+
+            var url = '@Url.Action("ExternalDetails", "Products")' + '?id=' + id + '&token=' + encodeURIComponent(token);
+            window.location.href = url;
+        });
+    });
+
+</script>
+
+
+
+<script>
+    var acc = document.getElementsByClassName("listaccordion");
+    var j;
+    for (j = 0; j < acc.length; j++) {
+        acc[j].addEventListener("click", function () {
+            this.classList.toggle("listactivex");
+            var panel = this.nextElementSibling;
+            if (panel.style.maxHeight) {
+                panel.style.maxHeight = null;
+            } else {
+                panel.style.maxHeight = panel.scrollHeight + "px";
+            }
+        });
+    }
+</script>
+
+
+
+
+

@@ -1,0 +1,144 @@
+﻿@model Chipin_Rewrite.Models.Entities.ExternalProduct
+
+@{
+    ViewData["Title"] = "ExternalDetails";
+}
+
+@{
+    var products = ViewBag.Products as List<Chipin_Rewrite.Models.Entities.ExternalProduct>;
+    var productListItems = ViewBag.ProductListItems as List<Chipin_Rewrite.Models.Entities.ProductListItem>;
+    var productListWallets = ViewBag.Wallets as List<Chipin_Rewrite.Models.Entities.ProductListWallet>;
+}
+
+
+
+
+
+
+
+<!-- Main CSS-->
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet">
+<link href="~/css/product.css" rel="stylesheet" media="all">
+
+
+<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+<link rel="stylesheet" href="~/css/mynavbar.css" asp-append-version="true" />
+
+
+
+<body>
+    <div>
+        <div class="backBtn-div">
+            <button class="backBtn" id="backBtn" onclick="history.back()"><i class="fa fa-arrow-left" aria-hidden="true"></i></button>
+        </div>
+        <h1 class="pink">@products.First().ProductName</h1>
+
+    </div>
+
+    <div class="container">
+
+
+        <div class="card">
+            <div class="container-fliud">
+                <div class="wrapper row">
+                    <div class="preview col-md-6">
+
+                        <div class="preview-pic tab-content">
+
+                            <div class="hover01 x" id="pic-1">
+                                <figure>
+
+                                    <img id="expandedImg" src=" @products.First().Image" onerror="this.parentNode.removeChild(this)" />
+                                </figure>
+
+
+                            </div>
+
+
+                        </div>
+
+                        <ul class="preview-thumbnail nav nav-tabs column">
+                            @if (!string.IsNullOrEmpty(products.First().Image))
+                            {
+                                <li><a data-target="#pic-1" data-toggle="tab"><img src="@products.First().Image" onclick="expandImgFunc(this);" onerror="this.parentNode.removeChild(this)" /></a></li>
+                            }
+                            @if (!string.IsNullOrEmpty(products.First().Image1))
+                            {
+                                <li><a data-target="#pic-2" data-toggle="tab"><img src="@products.First().Image1" onclick="expandImgFunc(this);" onerror="this.parentNode.removeChild(this)" /></a></li>
+                            }
+                            @if (!string.IsNullOrEmpty(products.First().Image2))
+                            {
+                                <li><a data-target="#pic-3" data-toggle="tab"><img src="@products.First().Image2" onclick="expandImgFunc(this);" onerror="this.parentNode.removeChild(this)" /></a></li>
+                            }
+                            @if (!string.IsNullOrEmpty(products.First().Image3))
+                            {
+                                <li><a data-target="#pic-4" data-toggle="tab"><img src="@products.First().Image3" onclick="expandImgFunc(this);" onerror="this.parentNode.removeChild(this)" /></a></li>
+                            }
+                        </ul>
+                    </div>
+
+
+                    <div class="details col-md-6">
+
+                        <h4  class="product-des-heading">
+                            Description
+                        </h4>
+                        <p style="text-align:start;"> @products.First().ProductDescription</p>
+                        <div class="productTags">
+                            <label>Location: <span> @products.First().Store</span></label>
+                        </div>
+                        <div class="productTags">
+                            <label>Total price: <span> R  @products.First().Price</span></label>
+                        </div>
+                        <div class="productTags">
+                            <a href="#" class="exproduct-link">
+                               <label>
+                                    View product link
+                               </label> 
+                            </a>
+                        </div>
+                       
+
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+</body>
+
+<script>
+
+    function Link(control, identifier, productId, loc) {
+        var list = document.getElementById(identifier + '-' + productId);
+        var token = localStorage.getItem('token');
+        document.getElementById('token-' + identifier + '-' + productId).value = token;
+        document.getElementById('path-' + identifier + '-' + productId).value = loc;
+        document.getElementById('id-' + identifier + '-' + productId).value = productId;
+        let link = `@Url.Action("Link", "controller")`;
+        link = link.replace("controller", control);
+        list.action = link;
+        list.submit();
+    }
+
+    function on() {
+        document.getElementById("overlay").style.display = "block";
+    }
+
+    function off() {
+        document.getElementById("overlay").style.display = "none";
+    }
+
+
+</script>
+
+<script src="~/js/site.js">
+
+</script>

@@ -1,0 +1,272 @@
+﻿@model IEnumerable<Chipin_Rewrite.Models.Entities.Product>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var productListWallets = ViewBag.Wallets as List<Chipin_Rewrite.Models.Entities.ProductListWallet>;
+}
+
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+<link href="~/css/productList.css" rel="stylesheet" media="all">
+
+<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+
+
+
+
+
+
+<h1>
+    Products
+</h1>
+
+<div class="create-div">
+    <a href="@Url.Action("Create", "Products", new {token = "null"  })" class="createBtn link">
+        Create
+    </a>
+</div>
+<body>
+
+
+    <div class="cards">
+
+        @foreach (var item in Model)
+        {
+
+
+
+            <div class="shop-card">
+                @if (User.Identity.IsAuthenticated){
+                <button class="add" onclick="on('@item.ProductId')"><i class="fa fa-plus fa-2x"></i><span class="bg"></span></button>
+
+        }
+
+
+
+
+                <div class="listOverlay" id="overlay-@item.ProductId">
+
+                    <button onclick="off(@item.ProductId)" class="closeBtn"> <i class="fa fa-times" aria-hidden="true"></i></button>
+
+                    <!--<form asp-action="XXX" method="post" asp-route-token="">-->
+
+
+
+                    <form id="ATL-@item.ProductId" method="post">
+                        <input id="path-ATL-@item.ProductId" type="hidden" name="path" />
+                        <input id="token-ATL-@item.ProductId" type="hidden" name="token" />
+                        <input id="id-ATL-@item.ProductId" type="hidden" name="id" />
+
+                        <div class="overlay-card">
+
+                            <input type="number" name="productid" value="@item.ProductId" required hidden>
+
+                            <input type="number" name="quantity" id="quantityInput" required value="1" hidden>
+
+
+
+
+
+
+                            <h2 for="productlistwalletid">Select a list</h2>
+
+
+                            <select name="productlistwalletid">
+
+                                @foreach (var i in productListWallets)
+                                {
+                                    <option value="@i.ProductListWalletId">
+                                        @i.Name
+                                    </option>
+
+                                }
+                            </select>
+
+                            <!-- Add more input fields for other properties if needed
+
+
+
+
+
+                            <input type="submit" value="Add" onclick="off()">-->
+                            <!--  <label for="externalProductId">External Product ID:</label> <button type="submit" value="Add" onclick="off()" id="AddBtn">Add</button>-->
+
+                            <button class="someBtn" id="AddBtn" onclick="Link('Products','ATL',@item.ProductId, 'AddToList')">
+                                Add
+                            </button>
+
+                        </div>
+
+
+                    </form>
+
+
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+       <!--<div class="admin-div">
+
+                    <form id="EPF-@item.ProductId" method="post">
+                        <input id="path-EPF-@item.ProductId" type="hidden" name="path" />
+                        <input id="token-EPF-@item.ProductId" type="hidden" name="token" />
+                        <input id="id-EPF-@item.ProductId" type="hidden" name="id" />
+                    </form>
+
+                    <button class="someBtn" type="button" onclick="Link('Products','EPF',@item.ProductId, 'Edit')">
+                        Edit
+                    </button>
+
+                    <form id="DP-@item.ProductId" method="post">
+                        <input id="path-DP-@item.ProductId" type="hidden" name="path" />
+                        <input id="token-DP-@item.ProductId" type="hidden" name="token" />
+                        <input id="id-DP-@item.ProductId" type="hidden" name="id" />
+                    </form>
+                    <button class="someBtn" type="button" onclick="Link('Products','DP',@item.ProductId, 'Delete')">
+                        Delete
+                    </button>
+                         </div>-->
+
+              @*   <form id="DPF-@item.ProductId" method="post">
+                    <input id="path-DPF-@item.ProductId" type="hidden" name="path" />
+                    <input id="token-DPF-@item.ProductId" type="hidden" name="token" />
+                    <input id="id-DPF-@item.ProductId" type="hidden" name="id" />
+                </form>
+                <div data-id="@item.ProductId" class="detailsBtn" onclick="Link('Products','DPF',@item.ProductId, 'Details')">
+
+
+                    <div>
+                        <figure>
+
+                            <img src="@Html.DisplayFor(modelItem => item.ProductImage)" onerror="src ='/css/resource/Chipin.png';" />
+                        </figure>
+                    </div>
+                    <div class="title">
+                        @Html.DisplayFor(modelItem => item.ProductName)
+                    </div>
+                    <div class="cta">
+                        <div class="price">R @Html.DisplayFor(modelItem => item.Price)</div>
+
+
+                    </div>
+
+
+                </div>
+ *@
+                <a href="@Url.Action("Details", "Products", new {id = item.ProductId})">
+                    <div>
+                        <figure>
+
+                            <img src="@Html.DisplayFor(modelItem => item.ProductImage)" onerror="src ='/css/resource/Chipin.png';" />
+                        </figure>
+                    </div>
+                    <div class="title">
+                        @Html.DisplayFor(modelItem => item.ProductName)
+                    </div>
+                    <div class="cta">
+                        <div class="price">R @Html.DisplayFor(modelItem => item.Price)</div>
+
+
+                    </div>
+                </a>
+            </div>
+
+
+
+
+        }
+
+
+
+    </div>
+
+
+</body>
+
+
+<script>
+    //document.getElementById("token").value = localStorage.getItem("token");
+
+
+    var elements = document.querySelectorAll(".tokenToSend"); // Use a class to select the elements
+
+    elements.forEach(function (element) {
+        element.value = localStorage.getItem("token");
+    });
+
+
+
+
+    function on(productId) {
+        console.log("kkk " + productId)
+        var overlay = document.getElementById('overlay-' + productId);
+        overlay.style.display = "block";
+    }
+
+    function off(productId) {
+        var overlay = document.getElementById('overlay-' + productId);
+        overlay.style.display = "none";
+    }
+
+</script>
+
+
+<script>
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+    function Link(control, identifier, productId, loc) {
+        var list = document.getElementById(identifier + '-' + productId);
+        var token = localStorage.getItem('token');
+        document.getElementById('token-' + identifier + '-' + productId).value = token;
+        document.getElementById('path-' + identifier + '-' + productId).value = loc;
+        document.getElementById('id-' + identifier + '-' + productId).value = productId;
+        let link = `@Url.Action("Link", "controller")`;
+        link = link.replace("controller", control);
+        list.action = link;
+        list.submit();
+    }
+
+
+
+</script>

@@ -1,0 +1,83 @@
+﻿@model IEnumerable<Chipin_Rewrite.Models.Entities.TokenWallet>
+
+@{
+    ViewData["Title"] = "Index";
+}
+<link href="~/css/Created.css" rel="stylesheet" media="all">
+<link href="~/css/site.css" rel="stylesheet" media="all">
+
+<h1 class="pink">Wallet</h1>
+
+
+
+@foreach (var item in Model) {
+<body>
+
+    <div class="card onshadow">
+        <div class="split" style="margin-bottom:20px;">
+            <div class="left">
+                <label class="amount-label">
+                        Chips:
+                </label>
+                   
+            </div>
+            <div class="right">
+                    <label class="amount">
+                        R @Html.DisplayFor(modelItem => item.Amount)
+                    </label>
+            </div>
+               
+                          
+        </div>
+            <button class="someBtn">
+                FUND
+            </button>
+           
+    </div>
+
+
+</body>
+
+}
+
+
+
+
+
+
+
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Amount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Chipin)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Amount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Chipin.ChipinId)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.TokenWalletId">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.TokenWalletId">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.TokenWalletId">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

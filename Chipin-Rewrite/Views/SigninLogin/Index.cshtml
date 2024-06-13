@@ -1,0 +1,75 @@
+﻿@{
+    ViewData["Title"] = "Sign In / Log In";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"] - Chipin</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            text-align: center;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .logo {
+            font-size: 3rem;
+            color: #ff4081;
+        }
+        .logo span {
+            color: #00b0ff;
+        }
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            margin: 10px 0;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .login-btn {
+            background-color: #ff4081;
+            color: white;
+        }
+        .signup-btn {
+            background-color: #00b0ff;
+            color: white;
+        }
+        .image-container {
+            text-align: center;
+        }
+        .image-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+
+        
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">chip<span>in</span></div>
+        <button class="btn login-btn">Log in</button>
+        <button class="btn signup-btn">Sign Up</button>
+        <div class="image-container">
+            <img src="~/images/your_image.png" alt="Happy person">
+        </div>
+    </div>
+</body>
+</html>

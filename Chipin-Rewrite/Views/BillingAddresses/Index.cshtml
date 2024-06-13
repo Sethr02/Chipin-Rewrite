@@ -1,0 +1,126 @@
+﻿@model IEnumerable<Chipin_Rewrite.Models.Entities.BillingAddress>
+
+@{
+    ViewData["Title"] = "Index";
+
+    var billingAddresses = ViewBag.BillingAddresses as List<Chipin_Rewrite.Models.Entities.BillingAddress>;
+}
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+<link href="~/css/Address.css" rel="stylesheet" media="all">
+
+<link rel="stylesheet" href="~/css/mynavbar.css" asp-append-version="true" />
+<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+ 
+
+
+@if (User.Identity.IsAuthenticated)
+{
+   
+
+    <h1>Billing Address</h1>
+    <body>
+
+        <div class="container">
+            @if (billingAddresses.Count() < 1)
+            {
+                <div class="create-div">
+
+                    <a href="@Url.Action("Create", "BillingAddresses", new {token = "null"  })" class="createBtn link">
+                        Create
+                    </a>
+                </div>
+            }
+
+
+            @foreach (var item in billingAddresses)
+            {
+                <div class="card onshadow">
+                    <div class="details-left">
+
+                        @if (item.IsDefault.GetValueOrDefault())
+                        {
+                            <i class="fas fa-home default-icon"></i>
+                        }
+                        <div class="title">
+                            <h3>
+                                @Html.DisplayFor(modelItem => item.AdressName)
+                            </h3>
+
+
+                        </div>
+                        <label class="subtext">
+                             @Html.DisplayFor(modelItem => item.FirstName) @Html.DisplayFor(modelItem => item.LastName)
+
+                        </label>
+
+                        <h4>
+                            @Html.DisplayFor(modelItem => item.Address1), @Html.DisplayFor(modelItem => item.Address2),
+                            @Html.DisplayFor(modelItem => item.City),   @Html.DisplayFor(modelItem => item.Country),   @Html.DisplayFor(modelItem => item.PostCode)
+                        </h4>
+                    </div>
+                    <div class="details-right">
+                        <form id="CE-@item.BillingAddressId" method="post">
+                            <input id="path-CE-@item.BillingAddressId" type="hidden" name="path" />
+                            <input id="token-CE-@item.BillingAddressId" type="hidden" name="token" />
+                            <input id="id-CE-@item.BillingAddressId" type="hidden" name="id" />
+                        </form>
+                        <button type="submit" class="editBtn" onclick="Link('BillingAddresses','CE',@item.BillingAddressId, 'Edit')">Edit</button>
+
+
+                    </div>
+
+                </div>
+
+            }
+        </div>
+
+    </body>
+
+    <script>
+        function Link(control, identifier, productId, loc) {
+            var list = document.getElementById(identifier + '-' + productId);
+            var token = localStorage.getItem('token');
+            document.getElementById('token-' + identifier + '-' + productId).value = token;
+            document.getElementById('path-' + identifier + '-' + productId).value = loc;
+            document.getElementById('id-' + identifier + '-' + productId).value = productId;
+            let link = `@Url.Action("Link", "controller")`;
+            link = link.replace("controller", control);
+            list.action = link;
+            list.submit();
+        }
+    </script>
+
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

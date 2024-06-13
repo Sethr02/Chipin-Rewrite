@@ -1,0 +1,128 @@
+﻿@{
+    ViewData["Title"] = "Chipin";
+}
+
+@model Chipin_Rewrite.Models.CallPay.CallPayKeyResponse;
+
+
+<head>
+
+    <!-- If you do not already use jQuery include it  -->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <!-- The data-origin attribute value is the origin value returned from the payment key API call  -->
+    <!-- Also ensure that the id attribute is set to og-checkout -->
+    <script type="text/javascript" src="https://services.callpay.com/ext/checkout/v3/checkout.js" id="og-checkout" data-origin="https://services.callpay.com"></script>
+</head>
+
+
+
+
+<link href="~/css/Created.css" rel="stylesheet" media="all">
+<link href="~/css/site.css" rel="stylesheet" media="all">
+
+<h1 class="pink">Add Funds to your List</h1>
+
+
+
+<link href="~/css/bubbles.css" rel="stylesheet" media="all">
+<div class="bubbles bubble-1"></div>
+<div class="bubbles bubble-5"></div>
+<div class="bubbles bubble-2"></div>
+<div class="bubbles bubble-6"></div>
+<div class="bubbles bubble-3"></div>
+<div class="bubbles bubble-7"></div>
+<div class="bubbles bubble-4"></div>
+<div class="bubbles bubble-8"></div>
+
+<body>
+
+    <div class="card onshadow">
+        <form id="paymentForm" action="/CallPay/GetKey" method="post">
+            <input type="hidden" id="productListWalletId" value="@ViewBag.Id" name="productListWalletId" />
+            <div class="split" style="margin: 5px; margin-bottom:0px; ">
+                <div class="left" style="width:20%;">
+                    <label class="amount-label chipinLabel">
+                        <i class="fa-solid fa-sack-dollar"></i>
+                        Amount:
+                    </label>
+                </div>
+                <div class="right" style="width:100%;">
+                    <label class="amount input-container">
+                        <input type="number" step="0.01" class="form-control" min="0.00" max="999999.99" required name="amount" id="amount" placeholder="R1,000,000.00">
+                    </label>
+                </div>
+            </div>
+            <button type="submit" class="someBtn" id="chipinAmount">
+                Pay
+            </button>
+        </form>
+    </div>
+
+    <script>
+        $("input[data-type='currency']").on({
+            keyup: function () {
+                formatCurrency($(this));
+            },
+            blur: function () {
+                formatCurrency($(this), "blur");
+            }
+        });
+
+        function formatNumber(n) {
+            // Format number 1000000 to 1,234,567
+            return n.replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        }
+
+        function formatCurrency(input, blur) {
+            var input_val = input.val();
+
+            if (input_val === "") {
+                return;
+            }
+
+            var original_len = input_val.length;
+            var caret_pos = input.prop("selectionStart");
+
+            if (input_val.indexOf(".") >= 0) {
+                var decimal_pos = input_val.indexOf(".");
+                var left_side = input_val.substring(0, decimal_pos);
+                var right_side = input_val.substring(decimal_pos);
+
+                left_side = formatNumber(left_side);
+                right_side = formatNumber(right_side);
+
+                if (blur === "blur") {
+                    right_side += "00";
+                }
+
+                right_side = right_side.substring(0, 2);
+                input_val = "R" + left_side + "." + right_side;
+            } else {
+                input_val = formatNumber(input_val);
+                input_val = "R" + input_val;
+
+                if (blur === "blur") {
+                    input_val += ".00";
+                }
+            }
+
+            input.val(input_val);
+
+            var updated_len = input_val.length;
+            caret_pos = updated_len - original_len + caret_pos;
+            input[0].setSelectionRange(caret_pos, caret_pos);
+        }
+
+        
+
+       
+
+    </script>
+    
+</body>
+
+<script>
+    $(document).ready(function () {
+        $('header').empty();
+    });
+</script>

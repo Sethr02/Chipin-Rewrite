@@ -1,0 +1,157 @@
+﻿@{
+    ViewData["Title"] = "Contact Us";
+}
+
+
+
+
+<!-- Main CSS-->
+<link href="~/css/Created.css" rel="stylesheet" media="all">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+<link rel="stylesheet" href="~/css/mynavbar.css" asp-append-version="true" />
+<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+
+
+
+
+<link href="~/css/bubbles.css" rel="stylesheet" media="all">
+<div class="bubbles bubble-1"></div>
+<div class="bubbles bubble-5"></div>
+<div class="bubbles bubble-2"></div>
+<div class="bubbles bubble-6"></div>
+<div class="bubbles bubble-3"></div>
+<div class="bubbles bubble-7"></div>
+<div class="bubbles bubble-4"></div>
+<div class="bubbles bubble-8"></div>
+
+
+<body>
+    <div>
+        <h1 class="pink">Contact Us</h1>
+    </div>
+
+
+    <div>
+        <div class="card onshadow">
+
+
+            <div class="input-container">
+
+                <h3>
+                    Located at
+                </h3>
+
+
+                <div class="mymap">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d7169.970218432219!2d28.06282407150859!3d-26.03404323822831!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1e9573cda6768453%3A0xdd098bf6d156bbbe!2s8%20Kikuyu%20Rd%2C%20Sunninghill%2C%20Sandton%2C%202191%2C%20South%20Africa!5e0!3m2!1sen!2sca!4v1695729354628!5m2!1sen!2sca" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+
+                <div class="split">
+                    <div class="left">
+                        <div class="blue">
+                            <h3>
+                                Address
+                            </h3>
+
+                        </div>
+
+                        <div>
+                            8 Kikuyu Road
+                        </div>
+                        <div>
+                            Sunninghill
+                        </div>
+                        <div>
+                            Gauteng
+                        </div>
+                        <div>
+                            South Africa
+                        </div>
+                    </div>
+
+                    <div class="right">
+                        <div class="blue">
+                            <h3>Office</h3>
+                        </div>
+                        <div>
+                            <a href="tel:010 020 8600" class="pink">010 020 8600</a>
+                        </div>
+                        <div><a href="mailto:support@chipin.co.za" class="pink">support@chipin.co.za</a></div>
+                        <div>Working Hours:</div>
+                        <div>Monday-Friday</div>
+                        <div>(08h30 - 16h30)</div>
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+
+
+
+            <form asp-action="Create">
+                <input type="hidden" id="token" name="token" />
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+
+
+
+
+                <div class="input-container">
+
+                    <h3 class="blue">
+                        For any enquiries:
+                    </h3>
+                    <h3>
+                        Name
+                        <star class="required" title="required">*</star>
+                    </h3>
+                    <input class="form-control" placeholder="Full Name" required />
+                    
+
+
+
+                    <h3>
+                        Email
+                        <star class="required" title="required">*</star>
+                    </h3>
+
+                    <input class="form-control" placeholder="Email" required />
+                    <h3>
+                        Subject
+                        <star class="required" title="required">*</star>
+                    </h3>
+
+                    <input class="form-control" placeholder="Subject" required />
+
+                 
+
+                    <h3>
+                        Message
+                        <star class="required" title="required">*</star>
+                    </h3>
+
+                    <textarea  rows="4" type="text" placeholder="Message"></textarea>
+               
+
+
+
+                 
+
+                </div>
+
+
+
+
+
+                <div class="btn-div">
+                    <button type="submit" value="Create" disabled>Send(disabled)</button>
+                </div>
+
+
+            </form>
+        </div>
+    </div>
+</body>

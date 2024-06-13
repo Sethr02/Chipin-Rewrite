@@ -1,0 +1,125 @@
+﻿@model IEnumerable<Chipin_Rewrite.Models.Entities.ExternalProduct>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductDescription)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PageUrl)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Store)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CustString1)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CustString2)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CustString3)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CustInt1)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CustInt2)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CustInt3)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Image)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Image1)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Image2)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Image3)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ReturnUrl)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductDescription)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PageUrl)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Store)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CustString1)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CustString2)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CustString3)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CustInt1)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CustInt2)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CustInt3)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Image)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Image1)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Image2)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Image3)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ReturnUrl)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.ExternalProductId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.ExternalProductId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.ExternalProductId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

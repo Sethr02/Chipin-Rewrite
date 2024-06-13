@@ -1,0 +1,205 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Chipin_Rewrite</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+
+
+
+    <link rel="stylesheet" href="~/css/mynavbar.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
+
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+
+</head>
+@using System.Security.Principal
+@using Microsoft.AspNetCore.Authentication.OpenIdConnect
+@using Microsoft.Extensions.Options
+@using Microsoft.Identity.Web
+@using System.Security.Claims;
+
+
+
+<body class="background">
+    <header>
+        <nav>
+
+            <div class="nav-container">
+
+                <div class="chipin-div">
+                    <div class="logo"><a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index"><img src="~/css/resource/logo.png" /></a> </div>
+
+
+                    <div class="walletAmount">
+                        @{
+                            var currentPage = Context.Request.Path.ToString();
+                            if (currentPage.StartsWith("/ProductListWallets", StringComparison.OrdinalIgnoreCase))
+                            {
+                                <h6>Total: R @ViewBag.NavInfo</h6>
+                            }
+                            else
+                            {
+                            }
+                        }
+                    </div>
+
+
+
+                </div>
+                
+
+
+                <ul class="nav-links">
+
+                    @Html.Partial("_navigation")
+
+
+                </ul>
+
+                <div class="expand-icon" onclick="openSideBarFunc()" id="sidebarBtnOpen">&#9776; </div>
+
+                <div class="sidebar" id="sidebar">
+                    <div class="closeSideBarDiv">
+                        <button class="toggle-btn" onclick="closeSideBarFunc()" id="sidebarBtnClose"><i class="fa-solid fa-arrow-right"></i> </button>
+                        <img src="~/css/resource/logo.png" />
+                    </div>
+                    <ul>
+                        @Html.Partial("_sideBar")
+
+
+                    </ul>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+
+                        <div class="LogOutSideBarDiv">
+
+                            <a asp-area="MicrosoftIdentity" asp-controller="Account" asp-action="SignOut">Logout</a>
+
+
+
+
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="LogInSideBarDiv">
+
+                            <a asp-area="MicrosoftIdentity" asp-controller="Account" asp-action="SignIn">Login</a>
+
+                        </div>
+                    }
+                </div>
+            </div>
+            <!--<form>
+                      <div class="search">
+                          <input type="text" placeholder="Search...">
+                          <button type="submit" class="bi bi-search"></button>
+                      </div>
+                        </form>-->
+
+
+        </nav>
+    </header>
+
+
+
+
+
+
+
+
+
+
+
+    <div class="container">
+        <main role="main" class="pb-3">
+            <div id="overlay">
+
+
+
+                <div class="overlay">
+                </div>
+
+            </div>
+            @RenderBody()
+            <script>
+                function replaceTokenOnLoad() {
+                    var newToken = localStorage.getItem('token');
+                    if (newToken) {
+                        var elementsWithClass = document.querySelectorAll('.link');
+
+                        elementsWithClass.forEach(function (element) {
+                            var currentHref = element.getAttribute('href');
+                            var updatedHref = currentHref.replace(/token=[^&]*/, 'token=' + newToken);
+                            element.setAttribute('href', updatedHref);
+                        });
+                    }
+                }
+
+                window.onload = replaceTokenOnLoad;
+            </script>
+            <button id="scrollToTopBtn"><i class="fa-solid fa-angle-up"></i></button>
+            <script>
+                const scrollToTopButton = document.getElementById("scrollToTopBtn");
+                window.onscroll = function () {
+                    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                        scrollToTopButton.style.display = "block";
+                    } else {
+                        scrollToTopButton.style.display = "none";
+                    }
+                };
+                scrollToTopButton.addEventListener("click", () => {
+                    document.body.scrollTop = 0;
+                    document.documentElement.scrollTop = 0;
+                });
+
+            </script>
+            <script>
+
+            </script>
+        </main>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-inner">
+            <ul>
+                <li><a href="@Url.Action("Privacy", "Home")">&copy; Chipin 2023</a></li>
+            </ul>
+        </div>
+        <div id="footer-socials">
+            <div class="socials inline-inside socials-colored">
+
+                <a href="https://www.facebook.com/ChipInGifting" target="_blank" title="Facebook" class="socials-item">
+                    <i class="fab fa-facebook-f facebook"></i>
+                </a>
+
+                <a href="https://www.instagram.com/chipin_za/" target="_blank" title="Instagram" class="socials-item">
+                    <i class="fab fa-instagram instagram"></i>
+                </a>
+                <a href="https://www.youtube.com/channel/UC0f2PM-jsOX4m4Af5dGD_Nw" target="_blank" title="YouTube" class="socials-item">
+                    <i class="fab fa-youtube youtube"></i>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+
+
+</html>

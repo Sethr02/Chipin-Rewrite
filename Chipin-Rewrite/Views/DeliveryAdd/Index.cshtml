@@ -1,0 +1,810 @@
+﻿@model Chipin_Rewrite.Models.Entities.ProductListWallet
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+@{
+    var externalProducts = ViewBag.ExternalProducts as List<Chipin_Rewrite.Models.Entities.ExternalProduct>;
+    var products = ViewBag.Products as List<Chipin_Rewrite.Models.Entities.Product>;
+    var productListItems = ViewBag.ProductListItems as List<Chipin_Rewrite.Models.Entities.ProductListItem>;
+    var productListWallets = ViewBag.Wallets as Chipin_Rewrite.Models.Entities.ProductListWallet;
+    var addresses = ViewBag.Addresses as List<Chipin_Rewrite.Models.Entities.Address>;
+
+}
+
+
+
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+<link href="~/css/Created.css" rel="stylesheet" media="all">
+<link href="~/css/mylistDetails.css" rel="stylesheet" media="all">
+<link href="~/css/site.css" rel="stylesheet" media="all">
+
+
+<head>
+    <style>
+        :root {
+            --others-white: rgba(255, 255, 255, 1);
+            --greyscale-900: rgba(33, 33, 33, 1);
+            --primary-pink: rgba(217, 25, 80, 1);
+            --gray-6: rgba(242, 242, 242, 1);
+            --others-white: rgba(255, 255, 255, 1);
+            --gray-1: rgba(51, 51, 51, 1);
+            --greyscale-900: rgba(33, 33, 33, 1);
+            --primary-pink: rgba(217, 25, 80, 1);
+            --white: rgba(255, 255, 255, 1);
+            --primary-500: rgba(51, 94, 247, 1);
+            --greyscale-700: rgba(97, 97, 97, 1);
+            --body-medium-semibold-font-family: "Urbanist", Helvetica;
+            --body-medium-semibold-font-weight: 600;
+            --body-medium-semibold-font-size: 14px;
+            --body-medium-semibold-letter-spacing: 0.20000000298023224px;
+            --body-medium-semibold-line-height: 139.9999976158142%;
+            --body-medium-semibold-font-style: normal;
+            --h6-bold-font-family: "Urbanist", Helvetica;
+            --h6-bold-font-weight: 700;
+            --h6-bold-font-size: 18px;
+            --h6-bold-letter-spacing: 0px;
+            --h6-bold-line-height: 120.00000476837158%;
+            --h6-bold-font-style: normal;
+            --body-medium-medium-font-family: "Urbanist", Helvetica;
+            --body-medium-medium-font-weight: 500;
+            --body-medium-medium-font-size: 14px;
+            --body-medium-medium-letter-spacing: 0.20000000298023224px;
+            --body-medium-medium-line-height: 139.9999976158142%;
+            --body-medium-medium-font-style: normal;
+            --body-large-bold-font-family: "Urbanist", Helvetica;
+            --body-large-bold-font-weight: 700;
+            --body-large-bold-font-size: 16px;
+            --body-large-bold-letter-spacing: 0.20000000298023224px;
+            --body-large-bold-line-height: 139.9999976158142%;
+            --body-large-bold-font-style: normal;
+            --h4-bold-font-family: "Urbanist", Helvetica;
+            --h4-bold-font-weight: 700;
+            --h4-bold-font-size: 24px;
+            --h4-bold-letter-spacing: 0px;
+            --h4-bold-line-height: 120.00000476837158%;
+            --h4-bold-font-style: normal;
+            --button-shadow-1: 4px 8px 24px 0px rgba(51, 94, 247, 0.25);
+            --others-white: rgba(255, 255, 255, 1);
+            --gray-1: rgba(51, 51, 51, 1);
+            --gray-5: rgba(224, 224, 224, 1);
+            --primary-500: rgba(36, 107, 253, 1);
+            --body-medium-semibold-font-family: "Urbanist", Helvetica;
+            --body-medium-semibold-font-weight: 600;
+            --body-medium-semibold-font-size: 14px;
+            --body-medium-semibold-letter-spacing: 0.20000000298023224px;
+            --body-medium-semibold-line-height: 139.9999976158142%;
+            --body-medium-semibold-font-style: normal;
+        }
+
+        .box {
+            text-align: center; /* Center the text within the group */
+            padding: 0;
+            width: 100%;
+            list-style: none; /* Removes default list styling */
+        }
+
+            .box .radio-group {
+                margin: 5% auto; /* 15% from the top and centered */
+                width: 383px;
+                height: 331px;
+            }
+
+            .box .add-to-list {
+                width: 386px;
+                height: 139px;
+                cursor: pointer;
+            }
+
+            .box .overlap-group {
+                position: relative;
+                width: 382px;
+                height: 139px;
+                background-color: #c4c4c4;
+                border-radius: 30px;
+            }
+
+            .box .ellipse {
+                top: 16px;
+                position: absolute;
+                width: 40px;
+                height: 40px;
+                left: 13px;
+                background-color: #ffffff;
+                border-radius: 20px;
+            }
+
+            .box .ellipsebg {
+                top: 24px;
+                position: absolute;
+                width: 40px;
+                height: 40px;
+                left: 13px;
+                background-color: transparent;
+                border-radius: 20px;
+                display: none;
+            }
+
+            .box .text-wrapper {
+                position: absolute;
+                width: 276px;
+                top: 17px;
+                left: 53px;
+                font-family: "Nunito-Black", Helvetica;
+                font-weight: 900;
+                color: #ffffff;
+                font-size: 32px;
+                text-align: center;
+                letter-spacing: 0;
+                line-height: 38.4px;
+            }
+
+            .box .line {
+                top: 69px;
+                left: 0;
+                position: absolute;
+                width: 382px;
+                height: 1px;
+                object-fit: cover;
+                background-color: white;
+            }
+
+            .box .div {
+                position: absolute;
+                width: 296px;
+                top: 81px;
+                left: 43px;
+                font-family: "Nunito-SemiBold", Helvetica;
+                font-weight: 600;
+                color: #ffffff;
+                font-size: 16px;
+                text-align: center;
+                letter-spacing: 0.2px;
+                line-height: 22.4px;
+            }
+
+            .box .pay-using-chips {
+                margin-top: 20px;
+                width: 391px;
+                height: 168px;
+                cursor: pointer;
+            }
+
+            .box .overlap {
+                position: relative;
+                width: 383px;
+                height: 168px;
+            }
+
+            .box .type-button-type {
+                position: absolute;
+                width: 382px;
+                height: 168px;
+                top: 0;
+                left: 0;
+                background-color: #c4c4c4;
+                border-radius: 30px;
+            }
+
+            .box .img {
+                top: 116px;
+                left: 1px;
+                position: absolute;
+                width: 382px;
+                height: 1px;
+                object-fit: cover;
+                background-color: white;
+            }
+
+            .box .ellipse-2 {
+                top: 12px;
+                position: absolute;
+                width: 40px;
+                height: 40px;
+                left: 13px;
+                background-color: #ffffff;
+                border-radius: 20px;
+            }
+
+            .box .ellipse-2bg {
+                top: 20px;
+                position: absolute;
+                width: 40px;
+                height: 40px;
+                left: 13px;
+                background-color: transparent;
+                border-radius: 20px;
+                display: none;
+            }
+
+            .box .text-wrapper-2 {
+                position: absolute;
+                width: 276px;
+                top: 13px;
+                left: 53px;
+                font-family: "Nunito-Black", Helvetica;
+                font-weight: 900;
+                color: #ffffff;
+                font-size: 25px;
+                text-align: center;
+                letter-spacing: 0;
+                line-height: 38.4px;
+            }
+
+            .box .text-wrapper-3 {
+                position: absolute;
+                width: 276px;
+                top: 60px;
+                left: 53px;
+                font-family: "Nunito-Black", Helvetica;
+                font-weight: 900;
+                color: #ffffff;
+                font-size: 20px;
+                text-align: center;
+                letter-spacing: 0;
+                line-height: 24px;
+            }
+
+            .box .text-wrapper-4 {
+                position: absolute;
+                width: 276px;
+                top: 126px;
+                left: 53px;
+                font-family: "Nunito-Black", Helvetica;
+                font-weight: 900;
+                color: #ffffff;
+                font-size: 32px;
+                text-align: center;
+                letter-spacing: 0;
+                line-height: 38.4px;
+            }
+
+            .box .text-wrapper-5 {
+                position: absolute;
+                width: 276px;
+                top: 84px;
+                left: 54px;
+                font-family: "Nunito-Black", Helvetica;
+                font-weight: 900;
+                color: #ffffff;
+                font-size: 24px;
+                text-align: center;
+                letter-spacing: 0;
+                line-height: 28.8px;
+            }
+
+        .button {
+            background-color: #00ccff; /* Adjust the color to match your specific blue */
+            color: white;
+            padding: 20px 40px; /* Adjust padding to match the desired size */
+            border-radius: 50px; /* This gives a pill-like shape */
+            border: none;
+            font-size: 18px; /* Adjust font size as needed */
+            cursor: pointer;
+            outline: none; /* Removes the outline */
+            box-shadow: none; /* Removes the box-shadow if any */
+            width: 100%; /* Adjust width as needed */
+            margin: 15px auto;
+            display: block;
+        }
+
+            .button.cancel {
+                background-color: #dddddd; /* Light gray background for cancel button */
+                color: #444; /* Darker text color for contrast */
+            }
+
+            /* Removes default styling from buttons on focus to prevent blue outline on click */
+            .button:focus {
+                outline: none;
+            }
+
+            /* Optional: Add hover effects for buttons */
+            .button:hover {
+                background-color: #0099cc; /* A slightly darker blue for hover state */
+            }
+
+            .button.cancel:hover {
+                background-color: #cccccc; /* A slightly darker gray for hover state */
+            }
+
+        /* Payment Successful Modal*/
+
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgb(0,0,0); /* Fallback color */
+            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+        }
+
+        .theme-light-modal {
+            position: relative;
+            margin: 10% auto; /* 15% from the top and centered */
+            width: 340px;
+            height: 511px;
+            background-color: var(--others-white);
+            border-radius: 24px;
+        }
+
+            .theme-light-modal .auto-layout-vertical {
+                display: flex;
+                flex-direction: column;
+                width: 276px;
+                align-items: flex-start;
+                gap: 16px;
+                position: absolute;
+                top: 252px;
+                left: 32px;
+            }
+
+            .theme-light-modal .text-wrapper {
+                position: relative;
+                align-self: stretch;
+                margin-top: -1px;
+                font-family: "Nunito-Black", Helvetica;
+                font-weight: 900;
+                color: var(--greyscale-900);
+                font-size: 24px;
+                text-align: center;
+                letter-spacing: 0;
+                line-height: 28.8px;
+            }
+
+            .theme-light-modal .div {
+                position: relative;
+                align-self: stretch;
+                font-family: "Nunito-Regular", Helvetica;
+                font-weight: 400;
+                color: var(--greyscale-900);
+                font-size: 16px;
+                text-align: center;
+                letter-spacing: 0.2px;
+                line-height: 22.4px;
+            }
+
+            .theme-light-modal .auto-layout-vertical-2 {
+                position: absolute;
+                width: 276px;
+                margin: 10px 0;
+                height: 128px;
+                top: 351px;
+                left: 32px;
+            }
+
+            .theme-light-modal .type-button-type {
+                all: unset;
+                box-sizing: border-box;
+                top: 0;
+                background-color: var(--primary-pink);
+                position: absolute;
+                width: 276px;
+                height: 58px;
+                left: 0;
+                border-radius: 100px;
+            }
+
+            .theme-light-modal .button-1 {
+                all: unset;
+                box-sizing: border-box;
+                position: absolute;
+                width: 244px;
+                height: 22px;
+                top: 17px;
+                left: 16px;
+                font-family: "Nunito-Bold", Helvetica;
+                cursor: pointer;
+                font-weight: 700;
+                color: var(--others-white);
+                font-size: 16px;
+                text-align: center;
+                letter-spacing: 0.2px;
+                line-height: 22.4px;
+            }
+
+            .theme-light-modal .button-wrapper {
+                top: 70px;
+                background-color: var(--gray-6);
+                position: absolute;
+                width: 276px;
+                height: 58px;
+                left: 0;
+                border-radius: 100px;
+            }
+
+            .theme-light-modal .button-2 {
+                all: unset;
+                box-sizing: border-box;
+                position: absolute;
+                width: 244px;
+                height: 22px;
+                top: 17px;
+                left: 16px;
+                font-family: "Nunito-Bold", Helvetica;
+                cursor: pointer;
+                font-weight: 700;
+                color: var(--primary-pink);
+                font-size: 16px;
+                text-align: center;
+                letter-spacing: 0.2px;
+                line-height: 22.4px;
+            }
+
+            .theme-light-modal .chipin-logo {
+                position: absolute;
+                width: 170px;
+                height: 194px;
+                top: 34px;
+                left: 85px;
+            }
+
+
+    </style>
+</head>
+<body>
+
+
+
+    <div>
+        <div class="backBtn-div">
+
+            <a href="@Url.Action("Index", "CheckoutOptions")" class="backBtn link">
+                <i class="fa fa-arrow-left" aria-hidden="true"></i>
+            </a>
+        </div>
+       
+
+
+        <h1 class="pink" style="cursor:default">
+            
+        </h1>
+
+    </div>
+
+
+
+
+
+  
+        <div class="cart-container onshadow ">
+            <h2 class="listheading">
+                Address
+
+            </h2>
+
+
+
+
+
+            @if (true)
+            {
+
+                
+                   
+
+                        <div class="detailedListView" onclick="onx()" style="width:100%; cursor:pointer">
+                            <div class="details-left">
+
+
+                                <div class="title">
+                                    <h3>
+                            82 Tamboti Road
+                                    </h3>
+                                    <h3 class="subtext">
+                            • Seth Ramsamy
+
+                                    </h3>
+
+                                </div>
+
+
+                                <h4>
+                        Home, Carlswald Luxury Apartments Unit 25D, Midrand, South Africa, 1685
+                                </h4>
+                            </div>
+
+
+                        </div>
+
+                    
+
+
+
+                
+            }
+            else
+            {
+
+
+                <div class="detailedListView" onclick="onx()" style="width:100%; cursor:pointer; padding-bottom:20px;">
+                    <h3 class="selectText">Select an Address</h3>
+
+                </div>
+               
+            }
+
+
+        <div>
+            <button id="purchasebtn" class="createBtn" type="submit">Purchase</button>
+        </div>
+        
+            <div id="overlayx">
+
+                <button onclick="offx()" class="closeBtn"> <i class="fa fa-times" aria-hidden="true"></i></button>
+
+
+
+                <div class="overlay-card">
+                    <form id="myForm" method="post">
+                        
+                            <select name="AddressId">
+                            82 Tamboti Road
+                            </select>
+                        
+
+                      
+                        <button type="submit" class="createBtn">
+                            Save
+                        </button>
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+        <p>or</p>
+        <h3 class="listaccordion">Add Address</h3>
+
+    <div class="  listpanel address-card">
+            <form id="myForm3" method="post">
+              
+
+
+                <div class="input-container">
+                    <h3>
+                        Address Name
+                        <star class="required" title="required">*</star>
+                    </h3>
+                    <input name="AdressName" class="form-control" placeholder="Address name..." required />
+
+                    <h3>
+                        Name
+                        <star class="required" title="required">*</star>
+                    </h3>
+                    <div class="split">
+                        <div class="left">
+                            <input name="FirstName" class="form-control" placeholder="First Name" required />
+
+                        </div>
+                        <div class="right">
+                            <input name="LastName" class="form-control" placeholder="Last Name" required />
+
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+                <hr />
+
+                <div class="input-container">
+                    <h3>
+                        Street Address
+                        <star class="required" title="required">*</star>
+                    </h3>
+
+                    <input name="Address1" class="form-control" placeholder="House number & street name" required />
+
+
+                    <input name="Address2" class="form-control" placeholder="Suburb" required />
+
+
+
+                    <h3>
+                        Town / City
+                        <star class="required" title="required">*</star>
+                    </h3>
+                    <input name="City" class="form-control" required />
+
+                    <h3>
+                        Province / State
+                        <star class="required" title="required">*</star>
+                    </h3>
+                    <select name="State" class="form-control">
+                        <option value="Western Cape">
+                            Western Cape
+                        </option>
+                        <option value="Northen Cape">
+                            Northen Cape
+                        </option>
+                        <option value="Eastern Cape">
+                            Eastern Cape
+                        </option>
+                        <option value="Free State">
+                            Free State
+                        </option>
+                        <option value="KwaZulu-Natal">
+                            KwaZulu-Natal
+                        </option>
+                        <option value="Limpopo">
+                            Limpopo
+                        </option>
+                        <option value="North West">
+                            North West
+                        </option>
+
+                        <option value="Mpumalanga">
+                            Mpumalanga
+                        </option>
+
+                        <option value="Gauteng">
+                            Gauteng
+                        </option>
+                    </select>
+
+
+
+
+                    <h3>
+                        Country
+                        <star class="required" title="required">*</star>
+                    </h3>
+                    <input name="Country" class="form-control" required value="South Africa" />
+
+                    <h3>
+                        Postal Code
+                        <star class="required" title="required">*</star>
+                    </h3>
+                    <input name="PostCode" class="form-control" required />
+
+
+
+                    <h3>
+                        Phone number
+                        <star class="required" title="required">*</star>
+                    </h3>
+                    <input name="PhoneNumber" class="form-control" type="number" required />
+
+                    <h3>
+                        Email
+                        <star class="required" title="required">*</star>
+                    </h3>
+                    <input name="Email" class="form-control" type="email" required />
+
+
+
+
+
+                    <h3>
+                        Default
+                        <star class="required" title="required">*</star>
+                    </h3>
+                    <select name="IsDefault" class="form-control" required>
+                        <option value="False">
+                            False
+                        </option>
+                        <option value="True">
+                            True
+                        </option>
+                    </select>
+
+
+
+                </div>
+
+
+
+
+
+                <div class="btn-div">
+                <button type="submit" value="Save" class="createBtn">Save</button>
+                </div>
+
+
+            </form>
+        </div>
+
+
+    <div id="myModal" class="modal">
+        <div class="theme-light-modal">
+            <div class="auto-layout-vertical">
+                <div class="text-wrapper">Purchase Successful!</div>
+                <p class="div">Thank you for choosing Chipin!</p>
+            </div>
+            <div class="auto-layout-vertical-2">
+                <button class="type-button-type"><button class="button-1">Home</button></button>
+                <div class="button-wrapper"><button class="button-2">Close</button></div>
+            </div>
+            <img class="chipin-logo" src="~/css/resource/chipin_logo.svg" />
+        </div>
+    </div>
+
+    <div class="loader"></div>
+   
+</body>
+
+
+<script>
+    var paymentSuccessModal = document.getElementById("myModal");
+
+    var purchasebtn = document.getElementById("purchasebtn");
+
+    var modalHomeBtn = document.getElementsByClassName("button-1")[0];
+
+    var modalCloseBtn = document.getElementsByClassName("button-2")[0];
+
+    var delayInMilliseconds = 3000; //1 second
+
+    purchasebtn.onclick = function () {
+        setTimeout(function () {
+            paymentSuccessModal.style.display = "block";
+        }, 3000);
+    }
+
+    modalHomeBtn.onclick = function () {
+        paymentSuccessModal.style.display = "none";
+        window.location.href = '@Url.Action("Index", "Home")';
+    }
+
+    modalCloseBtn.onclick = function () {
+        paymentSuccessModal.style.display = "none";
+        window.location.href = '@Url.Action("Index", "Home")';
+    }
+
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            paymentSuccessModal.style.display = "none";
+        }
+    }
+</script>
+
+
+<script>
+    var elements = document.querySelectorAll(".tokenToSend");
+
+    elements.forEach(function (element) {
+
+        element.value = localStorage.getItem("token");
+    });
+
+</script>
+
+<script>
+    function onx() {
+        document.getElementById("overlayx").style.display = "block";
+    }
+
+    function offx() {
+        document.getElementById("overlayx").style.display = "none";
+    }
+</script>
+
+<script>
+    var acc = document.getElementsByClassName("listaccordion");
+    var j;
+    for (j = 0; j < acc.length; j++) {
+        acc[j].addEventListener("click", function () {
+            this.classList.toggle("listactivex");
+            var panel = this.nextElementSibling;
+            if (panel.style.maxHeight) {
+                panel.style.maxHeight = null;
+            } else {
+                panel.style.maxHeight = panel.scrollHeight + "px";
+            }
+        });
+    }
+</script>
+

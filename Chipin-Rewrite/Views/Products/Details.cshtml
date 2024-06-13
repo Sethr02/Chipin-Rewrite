@@ -1,0 +1,283 @@
+﻿@model Chipin_Rewrite.Models.Entities.Product
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+@{
+    var products = ViewBag.Products as List<Chipin_Rewrite.Models.Entities.Product>;
+    var productListItems = ViewBag.ProductListItems as List<Chipin_Rewrite.Models.Entities.ProductListItem>;
+    var productListWallets = ViewBag.Wallets as List<Chipin_Rewrite.Models.Entities.ProductListWallet>;
+}
+
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+
+<!-- Main CSS-->
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet">
+<link href="~/css/product.css" rel="stylesheet" media="all">
+
+
+<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+
+
+
+<body>
+    <div>
+        <div class="backBtn-div">
+
+            <a href="@Url.Action("Index", "Products", new {token = "null"  })" class="backBtn link">
+                <i class="fa fa-arrow-left" aria-hidden="true"></i>
+            </a>
+        </div>
+        <h1 class="pink">@products.First().ProductName</h1>
+
+    </div>
+
+    <div class="container">
+
+
+        <div class="card">
+            <div class="container-fliud">
+                <div class="wrapper row">
+                    <div class="preview col-md-6">
+
+                        <div class="preview-pic tab-content">
+
+                            <div class="hover01 x" id="pic-1">
+                                <figure>
+
+                                    <img id="expandedImg" src=" @products.First().ProductImage" onerror="this.parentNode.removeChild(this)" />
+                                </figure>
+
+
+                            </div>
+
+
+                        </div>
+
+                        <ul class="preview-thumbnail nav nav-tabs column">
+                            @if (!string.IsNullOrEmpty(products.First().ProductImage))
+                            {
+                                <li><a data-target="#pic-1" data-toggle="tab"><img src="@products.First().ProductImage" onclick="expandImgFunc(this);" onerror="this.parentNode.removeChild(this)" /></a></li>
+                            }
+                            @if (!string.IsNullOrEmpty(products.First().ProductImage1))
+                            {
+                                <li><a data-target="#pic-2" data-toggle="tab"><img src="@products.First().ProductImage1" onclick="expandImgFunc(this);" onerror="this.parentNode.removeChild(this)" /></a></li>
+                            }
+                            @if (!string.IsNullOrEmpty(products.First().ProductImage2))
+                            {
+                                <li><a data-target="#pic-3" data-toggle="tab"><img src="@products.First().ProductImage2" onclick="expandImgFunc(this);" onerror="this.parentNode.removeChild(this)" /></a></li>
+                            }
+                            @if (!string.IsNullOrEmpty(products.First().ProductImage3))
+                            {
+                                <li><a data-target="#pic-4" data-toggle="tab"><img src="@products.First().ProductImage3" onclick="expandImgFunc(this);" onerror="this.parentNode.removeChild(this)" /></a></li>
+                            }
+                        </ul>
+                    </div>
+
+
+                    <div class="details col-md-6">
+
+                        <h4 class="product-des-heading">
+                            Description
+                        </h4>
+                        <p style="text-align:start;"> @products.First().ProductDescription</p>
+                        <div class="productTags">
+                            <label>Location: <span> @products.First().Store</span></label>
+                        </div>
+                        <div class="productTags">
+                            <label>Total price: <span> R  @products.First().Price</span></label>
+                        </div>
+
+
+
+
+
+
+
+                        @if (User.Identity.IsAuthenticated)
+                        {
+
+
+                            <div class="quantity-div" style="margin-top:0px;">
+                                <label> <span> @products.First().Quantity</span> in stock</label>
+
+                                <div class="quantity-toggle">
+                                    <button onclick="onDecrease()">-</button>
+                                    <span class="value" id="currentQuantity">1</span>
+                                    <button onclick="onIncrease()">+</button>
+                                </div>
+
+                            </div>
+
+
+                            <a class="addToListBtn myfontHeadings" onclick="on()">
+                                Add to list
+                            </a>
+                        }
+
+
+
+                        <div id="overlay">
+
+                            <button onclick="off()" class="closeBtn"> <i class="fa fa-times" aria-hidden="true"></i></button>
+
+                            <!--<form asp-action="XXX" method="post" asp-route-token="">-->
+
+
+                            <form id="ATL-@products.First().ProductId" method="post">
+                                <input id="path-ATL-@products.First().ProductId" type="hidden" name="path" />
+                                <input id="token-ATL-@products.First().ProductId" type="hidden" name="token" />
+                                <input id="id-ATL-@products.First().ProductId" type="hidden" name="id" />
+
+
+
+
+                                <div class="overlay-card">
+
+                                    <input type="number" name="productid" value="@products.First().ProductId" required hidden>
+
+                                    <input type="number" name="quantity" id="quantityInput" required value="1" hidden>
+
+
+
+
+
+
+                                    <h2 for="productlistwalletid">Select a list</h2>
+
+
+                                    <select name="productlistwalletid">
+
+                                        @foreach (var item in productListWallets)
+                                        {
+                                            <option value="@item.ProductListWalletId">
+                                                @item.Name
+                                            </option>
+
+                                        }
+                                    </select>
+
+                                    <!-- Add more input fields for other properties if needed
+
+
+
+
+
+                                                                        <input type="submit" value="Add" onclick="off()">                                    <button type="submit" value="Add" onclick="off()" id="AddBtn">Add</button>
+                                    -->
+
+
+
+
+                                    <button class="someBtn" id="AddBtn" onclick="Link('Products','ATL',@products.First().ProductId, 'AddToList')">
+                                        Add
+                                    </button>
+
+                                </div>
+
+
+                            </form>
+
+
+                        </div>
+
+
+
+
+
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+</body>
+<script>
+    let quantity = 1;
+    function onIncrease() {
+        if (quantity < @products.First().Quantity) {
+            quantity++;
+            var inputElement = document.getElementById("quantityInput");
+            inputElement.value = quantity;
+            document.getElementById("currentQuantity").textContent = quantity;
+        }
+
+
+    }
+    function onDecrease() {
+        if (quantity > 1) {
+            quantity--;
+            var inputElement = document.getElementById("quantityInput");
+            inputElement.value = quantity;
+            document.getElementById("currentQuantity").textContent = quantity;
+        }
+
+    }
+
+</script>
+
+<script>
+ 
+    function Link(control, identifier, productId, loc) {
+        var list = document.getElementById(identifier + '-' + productId);
+        var token = localStorage.getItem('token');
+        document.getElementById('token-' + identifier + '-' + productId).value = token;
+        document.getElementById('path-' + identifier + '-' + productId).value = loc;
+        document.getElementById('id-' + identifier + '-' + productId).value = productId;
+        let link = `@Url.Action("Link", "controller")`;
+        link = link.replace("controller", control);
+        list.action = link;
+        list.submit();
+    }
+
+ 
+
+
+    function on() {
+        document.getElementById("overlay").style.display = "block";
+    }
+
+    function off() {
+        document.getElementById("overlay").style.display = "none";
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+
+<script src="~/js/site.js">
+
+</script>

@@ -1,0 +1,122 @@
+﻿<link rel="stylesheet" href="~/css/mynavbar.css" asp-append-version="true" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+@functions {
+    private bool IsCurrentPage(string page)
+    {
+        var currentPage = Context.Request.Path.ToString();
+        return currentPage.StartsWith(page, StringComparison.OrdinalIgnoreCase);
+    }
+
+    private bool IsSameCurrentPage(string page)
+    {
+        var currentPage = Context.Request.Path.ToString();
+        return currentPage.Equals(page);
+    }
+}
+
+@if (User.Identity.IsAuthenticated)
+{
+
+
+
+    <li>
+        <a href="@Url.Action("Index", "Home", new { token = "null" })" class="navBtn link " id="Home">
+            <i class="@(IsCurrentPage("/Home") ||IsSameCurrentPage("/") ? "fa-solid fa-house icon active" : "fa-solid fa-house icon")" alt="Home" loading="eager" draggable="false"></i>
+
+            <span title="Home">Home</span>
+
+        </a>
+    </li>
+    <li>
+        <a href="@Url.Action("Index", "Products", new { token = "null" })" class="navBtn link" id="Products">
+            <i class="@(IsCurrentPage("/Products") ? "fa-solid fa-cart-shopping icon active" : "fa-solid fa-cart-shopping icon")" alt="Products" loading="eager" draggable="false"></i>
+
+            <span title="Products">Products</span>
+
+        </a>
+    </li>
+    <li>
+        <a href="@Url.Action("Index", "ProductListWallets", new { token = "null" })" class="navBtn link" id="Lists">
+            <i class="@(IsCurrentPage("/ProductListWallets") ? "fa-solid fa-heart icon active" : "fa-solid fa-heart icon")" alt="Lists" loading="eager" draggable="false"></i>
+
+            <span title="Lists">Lists</span>
+
+        </a>
+    </li>
+    <li class="accordion myclass">
+        <a id="MyProfile">
+            <iclass ="@(IsCurrentPage("/UserTables") || IsCurrentPage("/Addresses") || IsCurrentPage("/BillingAddresses") || IsCurrentPage("/TokenWallet") ? "fa-solid fa-user icon active" : "fa-solid fa-user icon")" alt="Profile" loading="eager" draggable="false">
+                
+            <span title="Profile">Profile</span>
+
+        </a>
+
+
+
+    </li>
+    <div class="sidepanel">
+        <a href="@Url.Action("Edit", "UserTables", new { token = "null" })" class="navBtn link sidebarLink" >
+            Edit Profile
+        </a>
+        <a href="@Url.Action("Index", "Addresses", new { token = "null" })" class="navBtn link sidebarLink">
+            Addresses
+        </a>
+        <a href="@Url.Action("Index", "BillingAddresses", new { token = "null" })" class="navBtn link sidebarLink">
+           Billing Address
+        </a>
+        <!--
+
+       
+        <a href="@Url.Action("Index", "TokenWallets", new { token = "null" })" class="navBtn link sidebarLink">
+            Wallet
+        </a>
+        -->
+    </div>
+}
+else
+{
+
+    <li>
+        <a href="@Url.Action("Index", "Home",new { token = "null" })" class="navBtn link" id="Home">
+
+            <i class="@(IsCurrentPage("/Home") ||IsSameCurrentPage("/") ? "fa-solid fa-house icon active" : "fa-solid fa-house icon")" alt="Home" loading="eager" draggable="false"></i>
+
+            <span title="Home">Home</span>
+
+        </a>
+    </li>
+    <li>
+        <a href="@Url.Action("Index", "Products",new { token = "null" })" class="navBtn link" id="Products">
+            <i class="@(IsCurrentPage("/Products") ? "fa-solid fa-cart-shopping icon active" : "fa-solid fa-cart-shopping icon")" alt="Products" loading="eager" draggable="false"></i>
+
+            <span title="Products">Products</span>
+
+        </a>
+    </li>
+
+
+
+
+}
+
+<script>
+    function replaceTokenOnLoad() {
+        var newToken = localStorage.getItem('token');
+        if (newToken) {
+            // Get all elements with the desired class
+            var elementsWithClass = document.querySelectorAll('.link');
+
+            // Loop through each element and update its href attribute
+            elementsWithClass.forEach(function (element) {
+                var currentHref = element.getAttribute('href');
+                var updatedHref = currentHref.replace(/token=[^&]*/, 'token=' + newToken);
+                element.setAttribute('href', updatedHref);
+            });
+        }
+    }
+
+    window.onload = replaceTokenOnLoad;
+
+</script>
+

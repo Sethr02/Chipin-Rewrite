@@ -1,0 +1,1117 @@
+﻿@using System.Web;
+@model Chipin_Rewrite.Models.Entities.ProductListWallet
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    var products = ViewBag.Products as List<Chipin_Rewrite.Models.Entities.Product>;
+    var externalProducts = ViewBag.ExternalProducts as List<Chipin_Rewrite.Models.Entities.ExternalProduct>;
+    var productListWallets = ViewBag.ProductListWallets as List<Chipin_Rewrite.Models.Entities.ProductListWallet>;
+    var FilteredProductListItems = ViewBag.FilteredProductListItems as List<Chipin_Rewrite.Models.Entities.ProductListItem>;
+    string externalProductInformation = ViewBag.ExternalProductInformation;
+}
+
+<script>
+    // Function to save the token in local storage
+    function saveTokenToLocalStorage(token) {
+        if (token) {
+            localStorage.setItem('token', token);
+        }
+    }
+
+    // Get the token from the ViewBag (provided by the controller)
+    var token = '@ViewBag.Token';
+
+    // Save the token to the local storage on page load
+    document.addEventListener('DOMContentLoaded', function () {
+        saveTokenToLocalStorage(token);
+    });
+</script>
+
+<style>
+    :root {
+        --others-white: rgba(255, 255, 255, 1);
+        --gray-1: rgba(51, 51, 51, 1);
+        --primary-500: rgba(36, 107, 253, 1);
+        --body-medium-semibold-font-family: "Urbanist", Helvetica;
+        --body-medium-semibold-font-weight: 600;
+        --body-medium-semibold-font-size: 14px;
+        --body-medium-semibold-letter-spacing: 0.20000000298023224px;
+        --body-medium-semibold-line-height: 139.9999976158142%;
+        --body-medium-semibold-font-style: normal;
+        --others-white: rgba(255, 255, 255, 1);
+        --greyscale-900: rgba(33, 33, 33, 1);
+        --primary-pink: rgba(217, 25, 80, 1);
+        --gray-6: rgba(242, 242, 242, 1);
+        --others-white: rgba(255, 255, 255, 1);
+        --gray-1: rgba(51, 51, 51, 1);
+        --greyscale-900: rgba(33, 33, 33, 1);
+        --primary-pink: rgba(217, 25, 80, 1);
+        --white: rgba(255, 255, 255, 1);
+        --primary-500: rgba(51, 94, 247, 1);
+        --greyscale-700: rgba(97, 97, 97, 1);
+        --body-medium-semibold-font-family: "Urbanist", Helvetica;
+        --body-medium-semibold-font-weight: 600;
+        --body-medium-semibold-font-size: 14px;
+        --body-medium-semibold-letter-spacing: 0.20000000298023224px;
+        --body-medium-semibold-line-height: 139.9999976158142%;
+        --body-medium-semibold-font-style: normal;
+        --h6-bold-font-family: "Urbanist", Helvetica;
+        --h6-bold-font-weight: 700;
+        --h6-bold-font-size: 18px;
+        --h6-bold-letter-spacing: 0px;
+        --h6-bold-line-height: 120.00000476837158%;
+        --h6-bold-font-style: normal;
+        --body-medium-medium-font-family: "Urbanist", Helvetica;
+        --body-medium-medium-font-weight: 500;
+        --body-medium-medium-font-size: 14px;
+        --body-medium-medium-letter-spacing: 0.20000000298023224px;
+        --body-medium-medium-line-height: 139.9999976158142%;
+        --body-medium-medium-font-style: normal;
+        --body-large-bold-font-family: "Urbanist", Helvetica;
+        --body-large-bold-font-weight: 700;
+        --body-large-bold-font-size: 16px;
+        --body-large-bold-letter-spacing: 0.20000000298023224px;
+        --body-large-bold-line-height: 139.9999976158142%;
+        --body-large-bold-font-style: normal;
+        --h4-bold-font-family: "Urbanist", Helvetica;
+        --h4-bold-font-weight: 700;
+        --h4-bold-font-size: 24px;
+        --h4-bold-letter-spacing: 0px;
+        --h4-bold-line-height: 120.00000476837158%;
+        --h4-bold-font-style: normal;
+        --button-shadow-1: 4px 8px 24px 0px rgba(51, 94, 247, 0.25);
+        --others-white: rgba(255, 255, 255, 1);
+        --gray-1: rgba(51, 51, 51, 1);
+        --gray-5: rgba(224, 224, 224, 1);
+        --primary-500: rgba(36, 107, 253, 1);
+        --body-medium-semibold-font-family: "Urbanist", Helvetica;
+        --body-medium-semibold-font-weight: 600;
+        --body-medium-semibold-font-size: 14px;
+        --body-medium-semibold-letter-spacing: 0.20000000298023224px;
+        --body-medium-semibold-line-height: 139.9999976158142%;
+        --body-medium-semibold-font-style: normal;
+    }
+
+    .frame {
+        background-color: transparent;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        width: 100%;
+        margin: 10px 10px;
+    }
+
+        .frame .div {
+            background-color: #ffffff;
+            border-radius: 32px;
+            box-shadow: 0px 4px 4px #00000040;
+            overflow-x: hidden;
+            width: 450px;
+            height: 267px;
+            position: relative;
+        }
+
+        .frame .size-small-type {
+            display: flex;
+            width: 93px;
+            height: 30px;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            padding: 6px 16px;
+            position: absolute;
+            top: 95px;
+            border-color: transparent;
+            left: 321px;
+            background-color: #1fae62;
+            border-radius: 100px;
+        }
+
+        .frame .chips {
+            position: relative;
+            width: fit-content;
+            margin-top: -2px;
+            font-family: "Urbanist-Black", Helvetica;
+            font-weight: 900;
+            color: var(--others-white);
+            font-size: 14px;
+            text-align: center;
+            letter-spacing: 0.2px;
+            line-height: 19.6px;
+            white-space: nowrap;
+        }
+
+        .frame .overlap-group {
+            position: absolute;
+            width: 81px;
+            height: 46px;
+            top: 110px;
+            left: 28px;
+        }
+
+        .frame .element {
+            position: absolute;
+            width: 166px;
+            top: 15px;
+            left: 0;
+            font-family: "Nunito-Black", Helvetica;
+            font-weight: 900;
+            color: #1fae62;
+            font-size: 18px;
+            text-align: left;
+            letter-spacing: 0;
+            line-height: 32px;
+        }
+
+        .frame .total-receivable {
+            width: 81px;
+            left: 0;
+            position: absolute;
+            top: 0;
+            font-family: "Nunito Sans-Regular", Helvetica;
+            font-weight: 400;
+            color: #1e1f20;
+            font-size: 14px;
+            letter-spacing: 0;
+            line-height: 16px;
+        }
+
+        .frame .overlap {
+            position: absolute;
+            width: 133px;
+            height: 45px;
+            top: 109px;
+            left: 173px;
+        }
+
+        .frame .text-wrapper {
+            position: absolute;
+            width: 133px;
+            top: 13px;
+            left: 0;
+            font-family: "Nunito-Black", Helvetica;
+            font-weight: 900;
+            color: #1e1f20;
+            font-size: 18px;
+            text-align: right;
+            letter-spacing: 0;
+            line-height: 32px;
+        }
+
+        .frame .total-payable {
+            width: 79px;
+            left: 52px;
+            text-align: right;
+            position: absolute;
+            top: 0;
+            font-family: "Nunito Sans-Regular", Helvetica;
+            font-weight: 400;
+            color: #1e1f20;
+            font-size: 14px;
+            letter-spacing: 0;
+            line-height: 16px;
+        }
+
+        .frame .chips-wrapper {
+            display: flex;
+            width: 93px;
+            height: 30px;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            padding: 6px 16px;
+            position: absolute;
+            top: 133px;
+            left: 321px;
+            background-color: #1fae62;
+            border-radius: 100px;
+        }
+
+        .frame .chips-2 {
+            position: relative;
+            width: fit-content;
+            margin-top: -2px;
+            margin-left: -2.5px;
+            margin-right: -2.5px;
+            font-family: "Urbanist-Black", Helvetica;
+            font-weight: 900;
+            color: var(--others-white);
+            font-size: 14px;
+            text-align: center;
+            letter-spacing: 0.2px;
+            line-height: 19.6px;
+            white-space: nowrap;
+        }
+
+        .frame .rectangle {
+            position: absolute;
+            width: 386px;
+            height: 6px;
+            top: 172px;
+            left: 28px;
+            background-color: #e0e0e0;
+            border-radius: 100px;
+        }
+
+        .frame .text-wrapper-2 {
+            position: absolute;
+            height: 29px;
+            top: 20px;
+            left: 74px;
+            font-family: "Nunito-Black", Helvetica;
+            font-weight: 900;
+            color: var(--gray-1);
+            font-size: 24px;
+            letter-spacing: 0;
+            line-height: 28.8px;
+            white-space: nowrap;
+        }
+
+        .frame .text-wrapper-3 {
+            position: absolute;
+            top: 67px;
+            left: 28px;
+            font-family: "Nunito-Bold", Helvetica;
+            font-weight: 700;
+            color: #1fae62;
+            font-size: 14px;
+            text-align: right;
+            letter-spacing: 0.2px;
+            line-height: 19.6px;
+            white-space: nowrap;
+        }
+
+        .frame .text-wrapper-4 {
+            position: absolute;
+            top: 24px;
+            left: 335px;
+            font-family: "Nunito-Black", Helvetica;
+            font-weight: 900;
+            color: #000000;
+            font-size: 14px;
+            text-align: right;
+            letter-spacing: 0.2px;
+            line-height: 19.6px;
+            white-space: nowrap;
+        }
+
+        .frame .image {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            top: 199px;
+            left: 20px;
+        }
+
+        .frame .vector {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            top: 21px;
+            left: 20px;
+        }
+
+    /*css*/
+
+    .modal {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 1; /* Sit on top */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgb(0,0,0); /* Fallback color */
+        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    }
+
+    .theme-light-modal {
+        position: relative;
+        margin: 10% auto; /* 15% from the top and centered */
+        width: 340px;
+        height: 511px;
+        background-color: var(--others-white);
+        border-radius: 24px;
+    }
+
+        .theme-light-modal .auto-layout-vertical {
+            display: flex;
+            flex-direction: column;
+            width: 276px;
+            align-items: flex-start;
+            gap: 16px;
+            position: absolute;
+            top: 252px;
+            left: 32px;
+        }
+
+        .theme-light-modal .text-wrapper {
+            position: relative;
+            align-self: stretch;
+            margin-top: -1px;
+            font-family: "Nunito-Black", Helvetica;
+            font-weight: 900;
+            color: var(--greyscale-900);
+            font-size: 24px;
+            text-align: center;
+            letter-spacing: 0;
+            line-height: 28.8px;
+        }
+
+        .theme-light-modal .div {
+            position: relative;
+            align-self: stretch;
+            font-family: "Nunito-Regular", Helvetica;
+            font-weight: 400;
+            color: var(--greyscale-900);
+            font-size: 16px;
+            text-align: center;
+            letter-spacing: 0.2px;
+            line-height: 22.4px;
+        }
+
+        .theme-light-modal .auto-layout-vertical-2 {
+            position: absolute;
+            width: 276px;
+            margin: 10px 0;
+            height: 128px;
+            top: 351px;
+            left: 32px;
+        }
+
+        .theme-light-modal .type-button-type {
+            all: unset;
+            box-sizing: border-box;
+            top: 0;
+            background-color: var(--primary-pink);
+            position: absolute;
+            width: 276px;
+            height: 58px;
+            left: 0;
+            border-radius: 100px;
+        }
+
+        .theme-light-modal .button {
+            all: unset;
+            box-sizing: border-box;
+            position: absolute;
+            width: 244px;
+            height: 22px;
+            top: 17px;
+            left: 16px;
+            font-family: "Nunito-Bold", Helvetica;
+            cursor: pointer;
+            font-weight: 700;
+            color: var(--others-white);
+            font-size: 16px;
+            text-align: center;
+            letter-spacing: 0.2px;
+            line-height: 22.4px;
+        }
+
+        .theme-light-modal .button-wrapper {
+            top: 70px;
+            background-color: var(--gray-6);
+            position: absolute;
+            width: 276px;
+            height: 58px;
+            left: 0;
+            border-radius: 100px;
+        }
+
+        .theme-light-modal .button-2 {
+            all: unset;
+            box-sizing: border-box;
+            position: absolute;
+            width: 244px;
+            height: 22px;
+            top: 17px;
+            left: 16px;
+            font-family: "Nunito-Bold", Helvetica;
+            cursor: pointer;
+            font-weight: 700;
+            color: var(--primary-pink);
+            font-size: 16px;
+            text-align: center;
+            letter-spacing: 0.2px;
+            line-height: 22.4px;
+        }
+
+        .theme-light-modal .chipin-logo {
+            position: absolute;
+            width: 170px;
+            height: 194px;
+            top: 34px;
+            left: 85px;
+        }
+
+    /*cd*/
+
+    .element-dash-and-checkout {
+        position: relative;
+        margin: 10% auto;
+        width: 340px;
+        height: 511px;
+        background-color: var(--others-white);
+        border-radius: 24px;
+    }
+
+    .auto-layout-vertical-3 {
+        position: relative;
+        margin: 2% auto; /* 15% from the top and centered */
+        width: 428px;
+        height: 882px;
+        background-color: var(--others-white);
+        border-radius: 24px;
+    }
+
+        .auto-layout-vertical-3 .theme-light-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 39px;
+            top: 24px;
+            width: 380px;
+            position: absolute;
+            left: 24px;
+        }
+
+        .auto-layout-vertical-3 .theme-light {
+            display: flex;
+            height: 48px;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 0px;
+            position: relative;
+            align-self: stretch;
+            width: 100%;
+        }
+
+        .auto-layout-vertical-3 .auto-layout {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            position: relative;
+            flex: 1;
+            flex-grow: 1;
+            margin-top: -2.5px;
+            margin-bottom: -2.5px;
+        }
+
+        .auto-layout-vertical-3 .iconly-light-outline {
+            position: relative;
+            width: 28px;
+            cursor: pointer;
+            height: 28px;
+        }
+
+        .auto-layout-vertical-3 .title-section {
+            position: relative;
+            flex: 1;
+            margin-top: -1px;
+            font-family: "Nunito-Black", Helvetica;
+            font-weight: 900;
+            color: var(--gray-1);
+            font-size: 24px;
+            letter-spacing: 0;
+            line-height: 28.8px;
+        }
+
+        .auto-layout-vertical-3 .type-button-type-2 {
+            display: flex;
+            width: 380px;
+            height: 58px;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 18px 16px;
+            position: absolute;
+            top: 783px;
+            left: 24px;
+            background-color: var(--primary-pink);
+            border-radius: 100px;
+        }
+
+        .auto-layout-vertical-3 .button {
+            all: unset;
+            box-sizing: border-box;
+            position: relative;
+            flex: 1;
+            height: 22px;
+            margin-top: -1px;
+            font-family: "Nunito-Black", Helvetica;
+            font-weight: 900;
+            color: #ffffff;
+            cursor: pointer;
+            font-size: 16px;
+            text-align: center;
+            letter-spacing: 0.2px;
+            line-height: 22.4px;
+            white-space: nowrap;
+        }
+
+        .auto-layout-vertical-3 .div {
+            height: 480px;
+            top: 102px;
+            width: 380px;
+            position: absolute;
+            left: 24px;
+        }
+
+        .auto-layout-vertical-3 .group {
+            top: 1px;
+            position: absolute;
+            width: 375px;
+            height: 60px;
+            left: 0;
+        }
+
+        .auto-layout-vertical-3 .overlap-group {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            top: 0;
+            left: 0;
+            background-color: var(--white);
+            border-radius: 30px;
+            border: 2px solid;
+            border-color: var(--primary-pink);
+        }
+
+        .auto-layout-vertical-3 .text-wrapper {
+            position: absolute;
+            width: 38px;
+            top: 16px;
+            left: 14px;
+            font-family: "Nunito-Black", Helvetica;
+            font-weight: 900;
+            color: var(--primary-pink);
+            font-size: 24px;
+            letter-spacing: 0;
+            line-height: 28.8px;
+            white-space: nowrap;
+        }
+
+        .auto-layout-vertical-3 .text-wrapper-2 {
+            position: absolute;
+            width: 215px;
+            height: 22px;
+            top: 21px;
+            left: 80px;
+            font-family: "Nunito-Bold", Helvetica;
+            font-weight: 700;
+            color: var(--greyscale-900);
+            font-size: 18px;
+            letter-spacing: 0;
+            line-height: 21.6px;
+        }
+
+        .auto-layout-vertical-3 .size-small-type {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            padding: 6px 16px;
+            position: absolute;
+            top: 13px;
+            left: 303px;
+            background-color: #d91950;
+            border-radius: 100px;
+        }
+
+        .auto-layout-vertical-3 .chips {
+            position: relative;
+            width: fit-content;
+            margin-top: -1px;
+            font-family: "Nunito-Black", Helvetica;
+            font-weight: 900;
+            color: var(--others-white);
+            font-size: 14px;
+            text-align: center;
+            letter-spacing: 0.2px;
+            line-height: 19.6px;
+            white-space: nowrap;
+        }
+
+        .auto-layout-vertical-3 .group-2 {
+            top: 77px;
+            position: absolute;
+            width: 375px;
+            height: 60px;
+            left: 0;
+        }
+
+        .auto-layout-vertical-3 .group-3 {
+            top: 153px;
+            position: absolute;
+            width: 375px;
+            height: 60px;
+            left: 0;
+        }
+
+        .auto-layout-vertical-3 .group-4 {
+            top: 229px;
+            position: absolute;
+            width: 375px;
+            height: 60px;
+            left: 0;
+        }
+
+        .auto-layout-vertical-3 .group-5 {
+            top: 305px;
+            position: absolute;
+            width: 375px;
+            height: 60px;
+            left: 0;
+        }
+
+        .auto-layout-vertical-3 .group-6 {
+            top: 381px;
+            position: absolute;
+            width: 375px;
+            height: 60px;
+            left: 0;
+        }
+
+    .newcard-delete-btn {
+        float: left;
+        position: relative;
+        top: 0px;
+        left: 5px;
+        margin-bottom: -30px;
+        border: 0pt;
+        font-size: 10px;
+        background-color: transparent;
+        transition: all 0.5s;
+    }
+
+        .newcard-delete-btn:hover {
+            color: #d91950;
+        }
+</style>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link href="~/css/ripple.css" rel="stylesheet" media="all">
+<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+<link href="~/css/mylists.css" rel="stylesheet" media="all">
+
+@* @if (User.Identity.IsAuthenticated) *@
+@if (true)
+{
+    <body>
+        <div>
+            <div class="backBtn-div">
+                <button class="backBtn" onclick="history.back()">
+                    <i class="fa fa-arrow-left" aria-hidden="true"></i>
+                </button>
+            </div>
+        </div>
+
+        <h1>
+            My Lists
+        </h1>
+        <div class="btnContainer">
+        </div>
+
+        @if (ViewBag.ExternalAddition == null)
+        {
+            <form id="CreateListForm" method="post">
+                <input id="path" type="hidden" name="path" />
+                <input id="token" type="hidden" name="token" />
+            </form>
+            <button class="createBtn" type="button" id="CreateBtn">Create</button>
+        }
+        else if (@ViewBag.ExternalAddition)
+        {
+            <form id="NewListForm" method="post">
+                <input id="token" type="hidden" name="token" />
+                <input id="ExternalProductInfo" type="hidden" name="externalProductInformation" />
+            </form>
+            <button class="createBtn" type="button" id="AddToNewList">Add to new list</button>
+        }
+        else
+        {
+            <div class="create-div">
+                <a href="@Url.Action("Create", "ProductListWallets", new {token = "null"  })" class="createBtn link">
+                    Create
+                </a>
+            </div>
+        }
+
+        @if (productListWallets.Count.Equals(0))
+        {
+            <div class="ripple">
+                <span class="key">E</span>
+                <span class="key">M</span>
+                <span class="key">P</span>
+                <span class="key">T</span>
+                <span class="key">Y</span>
+            </div>
+        }
+        else
+        {
+            @foreach (var item in productListWallets.Where(i => i.Closed == 0))
+            {
+                float? num1 = @item.Total;
+                float? num2 = @item.Funded;
+                float? remaining = null;
+                int? percent = null;
+                bool funded = false;
+                if (num1.HasValue && num2.HasValue)
+                {
+                    if (num1 != 0 && num2 >= num1)
+                    {
+                        funded = true;
+                    }
+                    remaining = num1 - num2;
+                    if (num1 != 0)
+                    {
+                        percent = (int)((num2 / num1) * 100);
+                    }
+                    else
+                    {
+                        percent = 0;
+                    }
+                }
+
+                <div class="frame">
+                    <div class="div">
+                        <div class="size-small-type"><div class="chips">Chip In</div></div>
+                        @if (funded)
+                        {
+                            @if (item.Closed == 1)
+                            {
+                                <div class="size-small-type"><div class="chips">Closed</div></div>
+                            }
+                            else
+                            {
+                                <form method="post" action="@Url.Action("DeliveryAddress", "ProductListWallets")">
+                                    <input type="hidden" name="id" value="@item.ProductListWalletId" />
+                                    <input type="hidden" class="tokenToSend" name="token" />
+                                    <button type="submit" class="size-small-type">
+                                        <div class="chips">Checkout</div>
+                                    </button>
+                                </form>
+                            }
+                        }
+                        else
+                        {
+                            <form method="post" action="@Url.Action("ChipinAmount", "ProductListWallets")">
+                                <input type="hidden" name="id" value="@item.ProductListWalletId" />
+                                <input type="hidden" class="tokenToSend" name="token" />
+                                <button type="submit" class="size-small-type">
+                                    <div class="chips">Add Funds!</div>
+                                </button>
+                            </form>
+                        }
+                        <div class="overlap-group">
+                            <div class="element"> + R @num2</div>
+                            <div class="total-receivable">Chipped in</div>
+                        </div>
+                        <div class="overlap">
+                            <div class="text-wrapper">R @remaining</div>
+                            <div class="total-payable">Remaining</div>
+                        </div>
+                        <a id="share" href="@Url.Action("Index", "ShareLink")">
+                            <div class="chips-wrapper"><div class="chips-2">Share List</div></div>
+                        </a>
+                        <div class="rectangle" data-percent="@percent ?? 0"></div>
+                        <div class="rectangle" data-percent="@percent ?? 0">
+
+
+                            <div class="newcard-progress-bar"></div>
+                        </div>
+                        <a href="@Url.Action("Details", "ProductListWallets", new {id=@item.ProductListWalletId })">
+                            <div class="text-wrapper-2">@item.Name</div>
+                        </a>
+                        <a id="btn2" class="text-wrapper-3">See all</a>
+                        <div class="text-wrapper-4">@item.EndAt.Value.Date.Day/@item.EndAt.Value.Date.Month/@item.EndAt.Value.Date.Year</div>
+                        <ul>
+                            @foreach (var i in FilteredProductListItems)
+                            {
+
+                                @if (item.ProductListWalletId == @i.ProductListWallet.ProductListWalletId)
+                                {
+
+                                    @if (i.ProductId == null)
+                                    {
+                                        @foreach (var j in externalProducts)
+                                        {
+                                            @if (j.ExternalProductId == @i.ExternalProductId)
+                                            {
+
+                                                <li>
+
+                                                    <img class="image" src="@j.Image" loading="lazy" />
+
+                                                </li>
+
+                                            }
+                                        }
+                                    }
+                                    else
+                                    {
+
+                                        <li><img class="image" src="@i.Product.ProductImage" loading="lazy" /></li>
+
+                                    }
+
+                                }
+
+                            }
+
+                        </ul>
+                        <div class="vector">
+                            <button class="newcard-delete-btn" data-id="@item.ProductListWalletId" onclick="on('@item.ProductListWalletId')"> <i class="fa fa-trash fa-2x" style="color:black"></i></button>
+                            <div class="listOverlay" id="overlay-@item.ProductListWalletId">
+                                <div class="overlay-card">
+                                    <h3>
+                                        Confirm delete?
+                                    </h3>
+                                    <div class="btns-div">
+                                        <a href="@Url.Action("Delete", "ProductListWallets", new {id=@item.ProductListWalletId, token = "null"  })" class="someBtn link">
+                                            Delete
+                                        </a>
+
+                                        <a class="someBtn cancelBtn" onclick="off(@item.ProductListWalletId)">
+                                            Cancel
+                                        </a>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div id="myModal2" class="modal">
+                    <div class="auto-layout-vertical-3">
+                        <div class="theme-light-wrapper">
+                            <div class="theme-light">
+                                <div class="auto-layout">
+                                    <img class="iconly-light-outline" src="~/css/resource/arrow-left.svg" />
+                                    <div class="title-section">Friends Chipping In</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="type-button-type-2"><button class="button">Invite Friend</button></div>
+                        <div class="div">
+                            <div class="group">
+                                <div class="overlap-group"><div class="text-wrapper">SR</div></div>
+                                <div class="text-wrapper-2">Seth Ramsamy</div>
+                                <div class="size-small-type"><div class="chips">R9299.98</div></div>
+                            </div>
+                            @*<div class="group-2">
+                <div class="overlap-group"><div class="text-wrapper">OJ</div></div>
+                <div class="text-wrapper-2">Olivia Johnson</div>
+                <div class="size-small-type"><div class="chips">R1520</div></div>
+                </div>
+                <div class="group-3">
+                <div class="overlap-group"><div class="text-wrapper">LS</div></div>
+                <div class="text-wrapper-2">Lucas Smith</div>
+                <div class="size-small-type"><div class="chips">R865</div></div>
+                </div>
+                <div class="group-4">
+                <div class="overlap-group"><div class="text-wrapper">SB</div></div>
+                <div class="text-wrapper-2">Sophia Brown</div>
+                <div class="size-small-type"><div class="chips">R1175</div></div>
+                </div>
+                <div class="group-5">
+                <div class="overlap-group"><div class="text-wrapper">EW</div></div>
+                <div class="text-wrapper-2">Ethan Wilson</div>
+                <div class="size-small-type"><div class="chips">R420</div></div>
+                </div>
+                <div class="group-6">
+                <div class="overlap-group"><div class="text-wrapper">AT</div></div>
+                <div class="text-wrapper-2">Ava Thompson</div>
+                <div class="size-small-type"><div class="chips">R1985</div></div>
+                </div>*@
+                        </div>
+                    </div>
+                </div>
+
+                <script>
+                    var currentUrl = window.location.href;
+                    document.getElementById('share').addEventListener('click', async () => {
+                        if (navigator.share) {
+                            try {
+                                await navigator.share({
+                                    title: 'Chipin @item.Name',
+                                    url: currentUrl
+                                });
+                                console.log('Data was shared successfully');
+                            } catch (err) {
+                                console.error('Error: ' + err);
+                            }
+                        } else {
+                            // Fallback for browsers that do not support the Web Share API
+                            console.log('Web Share API is not supported in your browser');
+                        }
+                    });
+                </script>
+
+            }
+
+            <h4 class="pink listaccordion">
+                CLOSED LISTS
+            </h4>
+
+
+        }
+
+
+        <script>
+            var modal2 = document.getElementById("myModal2");
+
+            var btn2 = document.getElementById("btn2");
+
+            var span2 = document.getElementsByClassName("iconly-light-outline")[0];
+
+            btn2.onclick = function () {
+                modal2.style.display = "block";
+            }
+
+            span2.onclick = function () {
+                modal2.style.display = "none";
+            }
+
+            window.onclick = function (event) {
+                if (event.target == modal2) {
+                    modal2.style.display = "none";
+                }
+            }
+        </script>
+
+
+
+
+    </body>
+
+
+
+    <script>
+        var acc = document.getElementsByClassName("listaccordion");
+        var j;
+        for (j = 0; j < acc.length; j++) {
+            acc[j].addEventListener("click", function () {
+                this.classList.toggle("listactivex");
+                var panel = this.nextElementSibling;
+                if (panel.style.maxHeight) {
+                    panel.style.maxHeight = null;
+                } else {
+                    panel.style.maxHeight = panel.scrollHeight + "px";
+                }
+            });
+        }
+    </script>
+
+
+}
+@if (ViewBag.ExternalAddition)
+{
+
+    <script>
+        document.getElementById('AddToNewList').addEventListener('click', function () {
+            console.log(document.getElementById('NewListForm').action);
+            var token = localStorage.getItem('token');
+
+            document.getElementById('ExternalProductInfo').value = "@externalProductInformation";
+            document.getElementById('token').value = token;
+            document.getElementById('NewListForm').action = '@Url.Action("NewListAddition", "ProductListWallets")';
+            document.getElementById('NewListForm').submit();
+
+        });
+
+    </script>
+
+}
+else
+{
+
+}
+
+
+<script>
+
+
+    function Link(control, identifier, productId, loc) {
+        var list = document.getElementById(identifier + '-' + productId);
+        var token = localStorage.getItem('token');
+        document.getElementById('token-' + identifier + '-' + productId).value = token;
+        document.getElementById('path-' + identifier + '-' + productId).value = loc;
+        document.getElementById('id-' + identifier + '-' + productId).value = productId;
+        let link = `@Url.Action("Link", "controller")`;
+        link = link.replace("controller", control);
+        list.action = link;
+        list.submit();
+    }
+
+
+
+
+
+
+    function on(productId) {
+
+        var overlay = document.getElementById('overlay-' + productId);
+        overlay.style.display = "block";
+    }
+
+    function off(productId) {
+        var overlay = document.getElementById('overlay-' + productId);
+        overlay.style.display = "none";
+
+    }
+
+</script>
+
+
+
+
+
+
+<script>
+    function updateProgressBars(progressBars) {
+        if (!progressBars || progressBars.length === 0) {
+            console.error('No progress bars found');
+            return;
+        }
+
+        progressBars.forEach(progressBar => {
+            const percent = parseInt(progressBar.parentElement.getAttribute('data-percent'));
+
+            let colorClass = '';
+            if (percent <= 30) {
+                colorClass = 'red';
+            } else if (percent <= 60) {
+                colorClass = 'orange';
+            } else if (percent <= 99) {
+                colorClass = 'yellow';
+            } else {
+                colorClass = 'green';
+            }
+
+            progressBar.classList.add(colorClass);
+            progressBar.style.width = percent + '%';
+        });
+    }
+
+    // Example usage: Get all elements with class 'progress-bar' and update them
+    const allProgressBars = document.querySelectorAll('.progress-bar');
+    updateProgressBars(allProgressBars);
+
+    const newcardallProgressBars = document.querySelectorAll('.newcard-progress-bar');
+    updateProgressBars(newcardallProgressBars);
+</script>
+
+<script>
+    $(document).ready(function () {
+        $('header').empty();
+    });
+</script>

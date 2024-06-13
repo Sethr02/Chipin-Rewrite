@@ -1,0 +1,41 @@
+﻿@{
+    ViewBag.Title = "External additions test";
+}
+
+<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+
+
+<h1 class="blue">Payment Method</h1>
+<body>
+    <div style="text-align: center; border-radius:20px; margin-top:50px;" class="onshadow">
+
+      
+        <form action="@Url.Action("AddToList", "ExternalAdditions")" method="post">
+            <input type="hidden" name="token" value="@ViewBag.token" />
+            <input type="hidden" name="cart" value="@ViewBag.cart" />
+            <input type="hidden" name="data" value="@ViewBag.data" />
+            <button type="submit" class="btn onHoverShadow" style="margin-bottom:25px;">Add to list</button>
+        </form>
+        <div>
+            <p class="blue" style="margin-bottom:-20px; font-weight:700; font-size:15px;">or Pay With</p>
+            <a href="/TokenWallets/Chipin"> <label class="btn onHoverShadow">Wallet</label></a>
+            <!--<a href="@Url.Action("PayWithWallet", "ExternalAdditions", new {token = "null"  })" class="link">
+                <label class="btn onHoverShadow">Wallet</label>
+            </a>-->
+        </div>
+    </div>
+
+</body>
+<script>
+    function saveTokenToLocalStorage(token) {
+        if (token) {
+            localStorage.setItem('token', token);
+        }
+    }
+
+    var token = '@ViewBag.token';
+
+    document.addEventListener('DOMContentLoaded', function () {
+        saveTokenToLocalStorage(token);
+    });
+</script>

@@ -1,0 +1,200 @@
+﻿@using System.Security.Claims;
+
+
+
+﻿
+<link rel="stylesheet" href="~/css/mynavbar.css" asp-append-version="true" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+
+
+
+@if (User.Identity.IsAuthenticated)
+{
+    string chipinId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+    
+    /*<li>
+        <a href="#" class="navBtn link">
+            <span class="navbar-wallet">Wallet: $@ViewBag.WalletBalance</span>
+        </a>
+    </li>*/
+    <li>
+        <a href="/Home_" class="navBtn link">
+            <i class="@(IsCurrentPage("/Home_") ||IsSameCurrentPage("/") ? "fa-solid fa-house icon active" : "fa-solid fa-house icon")"></i>
+            <div class="hoverText">
+                <span title="Home">Home</span>
+            </div>
+        </a>
+
+    </li>
+    <li>
+        <a href="/Products" class="navBtn link">
+            <i class="@(IsCurrentPage("/Products") ? "fa-solid fa-cart-shopping icon active" : "fa-solid fa-cart-shopping icon")"></i>
+            <div class="hoverText">
+                <span title="Products">Products</span>
+            </div>
+        </a>
+    </li>
+
+@*     <li>
+        <a href="@Url.Action("Index", "ProductListWallets", new { token = "null" })" class="navBtn link" id="Lists">
+            <i class="fa-solid fa-heart icon @(ViewContext.RouteData.Values["controller"].ToString() == "ProductListWallets" && ViewContext.RouteData.Values["action"].ToString() == "Index" ? "active" : "") " alt="Lists" loading="eager" draggable="false"></i>
+            <div class="hoverText">
+                <span title="Lists">Lists</span>
+            </div>
+        </a>
+    </li>
+ *@
+    <li>
+        <a href="/ProductListWallets" class="navBtn link">
+            <i class="@(IsCurrentPage("/ProductListWallets") ? "fa-solid fa-heart icon active" : "fa-solid fa-heart icon")"></i>
+            <div class="hoverText">
+                <span title="Lists">Lists</span>
+            </div>
+        </a>
+
+    </li>
+
+
+
+
+
+    <li>
+
+        <div class="dropdown">
+
+            <button class="dropbtn">
+                <i class="@(IsCurrentPage("/UserTables") || IsCurrentPage("/Addresses") || IsCurrentPage("/BillingAddresses") ? "fa-solid fa-user icon active" : "fa-solid fa-user icon")" alt="Profile" loading="eager" draggable="false"></i>
+            </button>
+            <div class="dropdown-content">
+                <a href="@Url.Action("Edit", "UserTables", new { token = "null" })" class=" link">
+                    Edit Profile
+                </a>
+                <a href="@Url.Action("Index", "Addresses", new { token = "null" })" class=" link">
+                    Addresses
+                </a>
+                <a href="@Url.Action("Index", "BillingAddresses", new { token = "null" })" class=" link">
+                    Billing Address
+                </a>
+
+                <!--                <a href="@Url.Action("Index", "TokenWallets", new { token = "null" })" class=" link">
+                                    Wallet
+                                </a>
+                                                -->
+
+                <div class="dropdownLogoutBtn">
+                    <a asp-area="MicrosoftIdentity" asp-controller="Account" asp-action="SignOut">Logout</a>
+                </div>
+
+              
+
+                <script>
+                    const logoutButton = document.getElementById('logoutDropdown');
+                    logoutButton.addEventListener('click', function () {
+                        localStorage.removeItem('token');
+                        var url = '@Url.Action("Index", "Home")';
+                        window.location.href = url;
+                    });
+                </script>
+
+            </div>
+        </div>
+
+    </li>
+}
+else
+{
+
+    @*     <li>
+        <a href="@Url.Action("Index", "Home",new { token = "null" })" class="navBtn link" id="Home">
+
+            <i class="fa-solid fa-house icon @(ViewContext.RouteData.Values["controller"].ToString() == "Home" && ViewContext.RouteData.Values["action"].ToString() == "Index" ? "active" : "") " alt="Home" loading="eager" draggable="false"></i>
+            <div class="hoverText">
+                <span title="Home">Home</span>
+            </div>
+        </a>
+    </li>
+    <li>
+        <a href="@Url.Action("Index", "Products",new { token = "null" })" class="navBtn link" id="Products">
+            <i class="fa-solid fa-cart-shopping icon @(ViewContext.RouteData.Values["controller"].ToString() == "Products" && ViewContext.RouteData.Values["action"].ToString() == "Index" ? "active" : "") " alt="Products" loading="eager" draggable="false"></i>
+            <div class="hoverText">
+                <span title="Products">Products</span>
+            </div>
+        </a>
+    </li>
+    <li>
+        <a href="@Url.Action("Index", "UserTables")" class="loginBtn" id="Login">
+            Login
+        </a>
+    </li> *@
+
+
+    <!-- Navigation.cshtml -->
+    <!-- Navigation.cshtml -->
+
+    <li>
+        <a href="/Home" class="navBtn link">
+            <i class="@(IsCurrentPage("/Home") || IsSameCurrentPage("/") ? "fa-solid fa-house icon active" : "fa-solid fa-house icon")"></i>
+            <div class="hoverText">
+                <span title="Home">Home</span>
+            </div>
+        </a>
+
+    </li>
+    <li>
+        <a href="/Products" class="navBtn link">
+            <i class="@(IsCurrentPage("/Products") ? "fa-solid fa-cart-shopping icon active" : "fa-solid fa-cart-shopping icon")"></i>
+            <div class="hoverText">
+                <span title="Products">Products</span>
+            </div>
+        </a>
+    </li>
+   
+    <li>
+
+        <a asp-area="MicrosoftIdentity" asp-controller="Account" asp-action="SignIn" class="loginBtn" id="Login">Login</a>
+        @* <a href="@Url.Action("Index", "UserTables")" class="loginBtn" id="Login">
+            Login
+        </a> *@
+    </li>
+
+    @functions {
+    private bool IsCurrentPage(string page)
+    {
+        var currentPage = Context.Request.Path.ToString();
+        return currentPage.StartsWith(page, StringComparison.OrdinalIgnoreCase);
+    }
+
+    private bool IsSameCurrentPage(string page)
+    {
+        var currentPage = Context.Request.Path.ToString();
+        return currentPage.Equals(page);
+    }
+}
+
+
+
+}
+
+<script>
+    function replaceTokenOnLoad() {
+        var newToken = localStorage.getItem('token');
+        if (newToken) {
+
+            // Get all elements with the desired class
+            var elementsWithClass = document.querySelectorAll('.link');
+
+            // Loop through each element and update its href attribute
+            elementsWithClass.forEach(function (element) {
+                var currentHref = element.getAttribute('href');
+                var updatedHref = currentHref.replace(/token=[^&]*/, 'token=' + newToken);
+                element.setAttribute('href', updatedHref);
+            });
+        }
+
+    }
+
+    window.onload = replaceTokenOnLoad;
+
+</script>

@@ -1,0 +1,150 @@
+﻿@model Chipin_Rewrite.Models.Entities.ShareList
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+
+
+
+
+
+<link href="~/css/Created.css" rel="stylesheet" media="all">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+
+
+
+<link href="~/css/bubbles.css" rel="stylesheet" media="all">
+<div class="bubbles bubble-1"></div>
+<div class="bubbles bubble-5"></div>
+<div class="bubbles bubble-2"></div>
+<div class="bubbles bubble-6"></div>
+<div class="bubbles bubble-3"></div>
+<div class="bubbles bubble-7"></div>
+<div class="bubbles bubble-4"></div>
+<div class="bubbles bubble-8"></div>
+<body >
+    <div>
+        <div class="backBtn-div">
+
+            <a href="@Url.Action("Details", "ProductListWallets", new {id =@ViewBag.ProductListWalletTransactionId, token = "null"  })" class="backBtn link">
+                <i class="fa fa-arrow-left" aria-hidden="true"></i>
+            </a>
+        </div>
+        <h1 class="pink">Message</h1>
+
+    </div>
+    <div class="card onshadow">
+        <form asp-action="Create">
+            <input type="hidden" id="token" name="token" />
+            <input name="transactionId" id="transactionId" value="@ViewBag.TransactionId" type="hidden" />
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+
+
+
+
+            <div class="input-container">
+                <h3>
+                    Name
+                    <star class="required" title="required">*</star>
+                </h3>
+                <input asp-for="ShareName" class="form-control" placeholder="Full Name" required />
+                <small>
+                    <span asp-validation-for="ShareName" class="text-danger"></span>
+                </small>
+
+
+
+                <h3>
+                    Email
+                    <star class="required" title="required">*</star>
+                </h3>
+
+                <input asp-for="ShareEmail" class="form-control" placeholder="Email" required />
+
+                <small>
+                    <span asp-validation-for="ShareEmail" class="text-danger"></span>
+                </small>
+
+                <h3>
+                    Message
+                    <star class="required" title="required">*</star>
+                </h3>
+                
+                <textarea asp-for="ShareMessage" rows="4" type="text" placeholder="Message"> </textarea>
+                <small>
+                    <span asp-validation-for="ShareMessage" class="text-danger"></span>
+                </small>
+
+
+
+                <input asp-for="ShareDate" type="hidden"/>
+
+                
+
+
+            </div>
+
+
+
+
+
+            <div class="btn-div">
+                <button type="submit" value="Create">Create</button>
+            </div>
+
+
+        </form>
+    </div>
+
+
+
+
+</body>
+
+
+<!--
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="ShareName" class="control-label"></label>
+                <input asp-for="ShareName" class="form-control" />
+                <span asp-validation-for="ShareName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ShareEmail" class="control-label"></label>
+                <input asp-for="ShareEmail" class="form-control" />
+                <span asp-validation-for="ShareEmail" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ShareMessage" class="control-label"></label>
+                <input asp-for="ShareMessage" class="form-control" />
+                <span asp-validation-for="ShareMessage" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ShareDate" class="control-label"></label>
+                <input asp-for="ShareDate" class="form-control" />
+                <span asp-validation-for="ShareDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ProductListWalletTransactionId" class="control-label"></label>
+                <select asp-for="ProductListWalletTransactionId" class ="form-control" asp-items="ViewBag.ProductListWalletTransactionId"></select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+-->
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

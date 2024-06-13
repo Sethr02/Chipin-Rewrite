@@ -1,0 +1,26 @@
+﻿
+@{
+    ViewData["Title"] = "SignUpSuccess";
+}
+
+<h1>Sign Up Success</h1>
+<h2>TODO: Impliment email verification for signup</h2>
+
+@if (!string.IsNullOrEmpty(Model))
+{
+    <div>
+        <h3>Your authentication token:</h3>
+        <p>@Model</p>
+    </div>
+    <script>
+        // Save the token to local storage
+        var token = '@Html.Raw(Model)';
+        localStorage.setItem('token', token);
+    </script>
+}
+else
+{
+    
+}
+
+

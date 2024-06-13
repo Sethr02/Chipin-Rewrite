@@ -1,0 +1,457 @@
+﻿@model Chipin_Rewrite.Models.Entities.UserTable
+
+@{
+    ViewData["Title"] = "Index";
+    var userTable = ViewBag.UserTable as List<Chipin_Rewrite.Models.Entities.UserTable>;
+
+}
+
+@using System.Security.Principal
+@using Microsoft.AspNetCore.Authentication.OpenIdConnect
+@using Microsoft.Extensions.Options
+@using Microsoft.Identity.Web
+@using System.Security.Claims;
+
+<head>
+    <style>
+
+        :root {
+            --others-white: rgba(255, 255, 255, 1);
+            --gray-1: rgba(51, 51, 51, 1);
+            --button-shadow-1: 4px 8px 24px 0px rgba(16, 16, 16, 0.25);
+        }
+
+        .element-signin-create {
+            position: absolute;
+            width: 428px;
+            height: 926px;
+            top: 47%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: var(--others-white);
+        }
+
+            .element-signin-create .auto-layout-vertical {
+                position: relative;
+                height: 881px;
+                top: 45px;
+            }
+
+            .element-signin-create .overlap {
+                position: relative;
+                width: 434px;
+                height: 925px;
+                top: -43px;
+                left: -4px;
+            }
+
+            .element-signin-create .rectangle {
+                width: 428px;
+                height: 218px;
+                top: 0;
+                background-color: #ffffff;
+                position: absolute;
+                left: 4px;
+            }
+
+            .element-signin-create .div {
+                width: 428px;
+                height: 133px;
+                top: 190px;
+                background-color: #da2859;
+                border-radius: 30px 30px 0px 0px;
+                position: absolute;
+                left: 4px;
+            }
+
+            .element-signin-create .rectangle-2 {
+                width: 428px;
+                height: 636px;
+                top: 286px;
+                background-color: #ffffff;
+                border-radius: 30px 30px 0px 0px;
+                position: absolute;
+                left: 4px;
+            }
+
+            .element-signin-create .text-wrapper {
+                position: absolute;
+                width: 380px;
+                height: 43px;
+                top: 127px;
+                left: 32px;
+                font-family: "Nunito-Black", Helvetica;
+                font-weight: 900;
+                color: var(--gray-1);
+                font-size: 36px;
+                letter-spacing: 0;
+                line-height: 43.2px;
+            }
+
+            .element-signin-create .text-wrapper-2 {
+                position: absolute;
+                width: 428px;
+                height: 43px;
+                top: 236px;
+                left: 4px;
+                font-family: "Nunito-Black", Helvetica;
+                font-weight: 900;
+                color: #ffffff;
+                font-size: 36px;
+                text-align: center;
+                letter-spacing: 0;
+                line-height: 43.2px;
+            }
+
+            .element-signin-create .vector {
+                position: absolute;
+                width: 123px;
+                height: 50px;
+                top: 59px;
+                left: 32px;
+            }
+
+            .element-signin-create .text-wrapper-3 {
+                position: absolute;
+                width: 428px;
+                height: 22px;
+                top: 205px;
+                left: 4px;
+                text-shadow: 4px 8px 24px #10101040;
+                font-family: "Urbanist-Bold", Helvetica;
+                font-weight: 700;
+                color: var(--others-white);
+                font-size: 20px;
+                text-align: center;
+                letter-spacing: 0.2px;
+                line-height: 28px;
+                white-space: nowrap;
+            }
+
+            .element-signin-create .group {
+                top: 315px;
+                left: 18px;
+                position: absolute;
+                width: 194px;
+                height: 142px;
+            }
+
+            .element-signin-create .overlap-group {
+                position: relative;
+                width: 192px;
+                height: 142px;
+                background-color: #ffffff;
+                border-radius: 20px;
+                border: 3px solid;
+                border-color: #1bbdeb;
+            }
+
+            .element-signin-create .img {
+                position: absolute;
+                width: 50px;
+                height: 50px;
+                top: 36px;
+                left: 68px;
+                object-fit: cover;
+            }
+
+            .element-signin-create .text-wrapper-4 {
+                position: absolute;
+                width: 192px;
+                height: 22px;
+                top: 98px;
+                left: -3px;
+                text-shadow: 4px 8px 24px #10101040;
+                font-family: "Urbanist-Bold", Helvetica;
+                font-weight: 700;
+                color: #000000;
+                font-size: 20px;
+                text-align: center;
+                letter-spacing: 0.2px;
+                line-height: 28px;
+                white-space: nowrap;
+            }
+
+            .element-signin-create .overlap-wrapper {
+                top: 476px;
+                left: 18px;
+                position: absolute;
+                width: 194px;
+                height: 142px;
+            }
+
+            .element-signin-create .user {
+                position: absolute;
+                width: 50px;
+                height: 50px;
+                top: 34px;
+                left: 74px;
+                object-fit: cover;
+            }
+
+            .element-signin-create .text-wrapper-5 {
+                top: 100px;
+                position: absolute;
+                width: 192px;
+                height: 22px;
+                left: -3px;
+                text-shadow: 4px 8px 24px #10101040;
+                font-family: "Urbanist-Bold", Helvetica;
+                font-weight: 700;
+                color: #000000;
+                font-size: 20px;
+                text-align: center;
+                letter-spacing: 0.2px;
+                line-height: 28px;
+                white-space: nowrap;
+            }
+
+            .element-signin-create .overlap-group-wrapper {
+                top: 315px;
+                left: 225px;
+                position: absolute;
+                width: 194px;
+                height: 142px;
+            }
+
+            .element-signin-create .div-wrapper {
+                top: 476px;
+                left: 225px;
+                position: absolute;
+                width: 194px;
+                height: 142px;
+            }
+
+            .element-signin-create .information {
+                position: absolute;
+                width: 50px;
+                height: 50px;
+                top: 34px;
+                left: 68px;
+                object-fit: cover;
+            }
+
+            .element-signin-create .rectangle-3 {
+                width: 430px;
+                height: 191px;
+                top: 802px;
+                background-color: #da2859;
+                border-radius: 15px 15px 0px 0px;
+                position: absolute;
+                left: 4px;
+            }
+
+            .element-signin-create .instagram {
+                position: absolute;
+                width: 30px;
+                height: 30px;
+                top: 829px;
+                left: 203px;
+                object-fit: cover;
+            }
+
+            .element-signin-create .tiktok {
+                position: absolute;
+                width: 30px;
+                height: 30px;
+                top: 829px;
+                left: 165px;
+                object-fit: cover;
+            }
+
+            .element-signin-create .youtube {
+                position: absolute;
+                width: 30px;
+                height: 30px;
+                top: 829px;
+                left: 126px;
+                object-fit: cover;
+            }
+
+            .element-signin-create .facebook {
+                position: absolute;
+                width: 30px;
+                height: 30px;
+                top: 829px;
+                left: 280px;
+                object-fit: cover;
+            }
+
+            .element-signin-create .linkedin {
+                position: absolute;
+                width: 30px;
+                height: 30px;
+                top: 829px;
+                left: 242px;
+                object-fit: cover;
+            }
+
+            .element-signin-create .text-wrapper-6 {
+                position: absolute;
+                width: 90px;
+                height: 22px;
+                top: 883px;
+                left: 0;
+                text-shadow: 4px 8px 24px #10101040;
+                font-family: "Urbanist-Bold", Helvetica;
+                font-weight: 700;
+                color: var(--others-white);
+                font-size: 18px;
+                text-align: center;
+                letter-spacing: 0.2px;
+                line-height: 25.2px;
+                text-decoration: underline;
+                white-space: nowrap;
+            }
+
+            .element-signin-create .text-wrapper-7 {
+                position: absolute;
+                width: 90px;
+                height: 22px;
+                top: 883px;
+                left: 68px;
+                text-shadow: 4px 8px 24px #10101040;
+                font-family: "Urbanist-Bold", Helvetica;
+                font-weight: 700;
+                color: var(--others-white);
+                font-size: 18px;
+                text-align: center;
+                letter-spacing: 0.2px;
+                line-height: 25.2px;
+                text-decoration: underline;
+                white-space: nowrap;
+            }
+
+            .element-signin-create .text-wrapper-8 {
+                position: absolute;
+                width: 132px;
+                height: 22px;
+                top: 883px;
+                left: 159px;
+                text-shadow: 4px 8px 24px #10101040;
+                font-family: "Urbanist-Bold", Helvetica;
+                font-weight: 700;
+                color: var(--others-white);
+                font-size: 18px;
+                text-align: center;
+                letter-spacing: 0.2px;
+                line-height: 25.2px;
+                white-space: nowrap;
+            }
+
+            .element-signin-create .copyright {
+                position: absolute;
+                width: 15px;
+                height: 15px;
+                top: 887px;
+                left: 159px;
+                object-fit: cover;
+            }
+    </style>
+</head>
+
+@if (User.Identity.IsAuthenticated)
+{
+    <body>
+        <div class="element-signin-create">
+            <div class="auto-layout-vertical">
+                <div class="overlap">
+                    <div class="rectangle"></div>
+                    <div class="div"></div>
+                    <div class="rectangle-2"></div>
+
+                    <div class="text-wrapper">Hi, @userTable.FirstOrDefault().ChipinName</div>
+                    <div class="text-wrapper-2">R0.00</div>
+
+                    <img class="vector" src="~/css/resource/chipin_logo_2.svg" />
+                    <div class="text-wrapper-3">Balance</div>
+                    <a href="https://chipin4.odoo.com/store-directory" target="_blank">
+                        <div class="group">
+                            <div class="overlap-group">
+                                <img class="img" src="~/css/resource/shopping-cart-logo.png" />
+                                <div class="text-wrapper-4">Shop now</div>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="@Url.Action("Edit", "UserTables", new { token = "null" })">
+                        <div class="overlap-wrapper">
+                            <div class="overlap-group">
+                                <img class="user" src="~/css/resource/user-logo.png" />
+                                <div class="text-wrapper-5">My account</div>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="@Url.Action("Index", "ProductListWallets", new { token = "null" })">
+                        <div class="overlap-group-wrapper">
+                            <div class="overlap-group">
+                                <div class="text-wrapper-4">My lists</div>
+                                <img class="img" src="~/css/resource/to-do-list-logo.png" />
+                            </div>
+                        </div>
+                    </a>
+                    <a href="@Url.Action("FAQs", "Home")">
+                        <div class="div-wrapper">
+                            <div class="overlap-group">
+                                <div class="text-wrapper-5">FAQs</div>
+                                <img class="information" src="~/css/resource/information-logo.png" />
+                            </div>
+                        </div>
+                    </a>
+                    <div class="rectangle-3"></div>
+                    <a href="https://www.instagram.com/chipin_za/" target="_blank" title="Instagram">
+                        <img class="instagram" src="~/css/resource/instagram-logo.png" />
+                    </a>
+                    <a href="https://www.tiktok.com/&#64;chipin_za" target="_blank" title="TikTok">
+                        <img class="tiktok" src="~/css/resource/tiktok-logo.png" />
+                    </a>
+                    <a href="https://www.youtube.com/channel/UC0f2PM-jsOX4m4Af5dGD_Nw" target="_blank" title="YouTube">
+                        <img class="youtube" src="~/css/resource/youtube-logo.png" />
+                    </a>
+                    <a href="https://www.facebook.com/ChipInGifting" target="_blank" title="Facebook">
+                        <img class="facebook" src="~/css/resource/facebook-logo.png" />
+                    </a>
+                    <a href="https://www.linkedin.com/company/chipin-za/" target="_blank" title="Facebook">
+                        <img class="linkedin" src="~/css/resource/linkedin-logo.png" />
+                    </a>
+                    <a href="https://chipin4.odoo.com/privacy-policy" target="_blank">
+                        <div class="text-wrapper-6">Privacy Policy</div>
+                    </a>
+                    <a href="https://chipin4.odoo.com/terms-and-conditions" target="_blank">
+                        <div class="text-wrapper-7">Terms & Conditions</div>
+                    </a>
+                    <div class="text-wrapper-8">&copy; Chipin 2023</div>
+                </div>
+            </div>
+        </div>
+    </body>
+}
+
+<script>
+    $(document).ready(function () {
+        $('header').empty();
+        $('footer').hide();
+    });
+</script>
+
+<script>
+    function handleTokenAndRedirect() {
+        if (performance.navigation.type === 1) {
+            const token = localStorage.getItem('token');
+            if (token) {
+
+                const url = '/Home_/Index?token=' + encodeURIComponent(token);
+                window.location.href = url;
+            }
+        }
+    }
+
+    // Call the function when the page loads
+    handleTokenAndRedirect();
+
+    document.getElementById('Products1').addEventListener('click', function () {
+
+        var token = localStorage.getItem('token');
+        var url = '@Url.Action("Index", "Products")' + '?token=' + encodeURIComponent(token);
+        window.location.href = url;
+    });
+</script>

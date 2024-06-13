@@ -1,0 +1,83 @@
+﻿@model Chipin_Rewrite.Models.Entities.TestModel
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test View</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 50%;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+            white-space: nowrap;
+        }
+
+        td {
+            width = 100/12%;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h2>Test Data Table</h2>
+    <table>
+        <tr>
+            <td>
+                @Model.externalProduct.ProductName
+            </td>
+            <td>
+                @Model.externalProduct.ProductDescription
+            </td>
+            <td>
+                @Model.externalProduct.Price
+            </td>
+            <td>
+                @Model.externalProduct.PageUrl
+            </td>
+            <td>
+                @Model.externalProduct.Store
+            </td>
+            <td>
+                @Model.externalProduct.Image
+            </td>
+            <td>
+                @Model.externalProduct.CustString1
+            </td>
+            <td>
+                @Model.externalProduct.CustString2
+            </td>
+            <td>
+                @Model.externalProduct.CustString3
+            </td>
+            <td>
+                @Model.externalProduct.CustInt1
+            </td>
+            <td>
+                @Model.externalProduct.CustInt2
+            </td>
+            <td>
+                @Model.externalProduct.CustInt3
+            </td>
+        </tr>       
+    </table>
+   //form that posts the selected productlistwalletid from a dropdown menu of the viewbag.ProductListWalletID to Add as a paramater when a button is clicked.
+    @using (Html.BeginForm("Add", "Test", FormMethod.Post))
+    {
+        <div class="form-group">
+            @Html.LabelFor(model => model.productListItem.ProductListWalletId, "Product List Wallet ID:")
+            @Html.DropDownListFor(model => model.productListItem.ProductListWalletId, (IEnumerable<SelectListItem>)ViewBag.ProductListWalletId, new { @class = "form-control" })
+        </div>
+        <input type="submit" value="Add Product List Item" class="btn btn-primary" />
+    }
+
+
+</body>
+</html>

@@ -1,0 +1,355 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<head>
+    <style>
+        .box {
+            position: relative;
+            width: 100%;
+        }
+
+            .box .group {
+                position: relative;
+                width: 428px;
+                height: 1001px;
+                margin: 5% auto;
+                top: 0;
+                left: 0;
+            }
+
+            .box .overlap {
+                position: relative;
+                width: 428px;
+                height: 1048px;
+            }
+
+            .box .overlap-group {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 428px;
+                height: 1048px;
+            }
+
+            .box .vector {
+                position: absolute;
+                width: 335px;
+                height: 161px;
+                top: 0;
+                left: 49px;
+            }
+
+            .box .auto-layout-vertical {
+                position: absolute;
+                width: 428px;
+                height: 949px;
+                top: 99px;
+                left: 0;
+                background-color: #ffffff;
+                border-radius: 32px 32px 0px 0px;
+                overflow: hidden;
+                border: 1px solid;
+                border-color: #f5f5f5;
+            }
+
+            .box .text-wrapper {
+                position: absolute;
+                width: 380px;
+                height: 29px;
+                top: 53px;
+                left: 24px;
+                font-family: "Nunito-Black", Helvetica;
+                font-weight: 900;
+                color: #333333;
+                font-size: 24px;
+                text-align: center;
+                letter-spacing: 0;
+                line-height: 28.8px;
+            }
+
+            .box .auto-layout-wrapper {
+                top: 175px;
+                display: flex;
+                flex-direction: column;
+                width: 380px;
+                align-items: flex-start;
+                gap: 16px;
+                padding: 24px;
+                position: absolute;
+                left: 24px;
+                background-color: #ffffff;
+                border-radius: 20px;
+                box-shadow: 0px 4px 60px #04060f0d;
+            }
+
+            .box .auto-layout {
+                position: relative;
+                align-self: stretch;
+                width: 100%;
+                height: 29px;
+            }
+
+            .box .div {
+                position: absolute;
+                width: 259px;
+                height: 24px;
+                top: 2px;
+                left: 49px;
+                font-family: "Nunito-Bold", Helvetica;
+                font-weight: 700;
+                color: #212121;
+                font-size: 18px;
+                letter-spacing: 0;
+                line-height: 21.6px;
+                white-space: nowrap;
+            }
+
+            .box .text-wrapper-2 {
+                position: absolute;
+                top: -1px;
+                left: 7px;
+                font-family: "Nunito-Black", Helvetica;
+                font-weight: 900;
+                color: #d91950;
+                font-size: 24px;
+                letter-spacing: 0;
+                line-height: 28.8px;
+                white-space: nowrap;
+            }
+
+            .box .div-wrapper {
+                top: 352px;
+                display: flex;
+                flex-direction: column;
+                width: 380px;
+                align-items: flex-start;
+                gap: 16px;
+                padding: 24px;
+                position: absolute;
+                left: 24px;
+                background-color: #ffffff;
+                border-radius: 20px;
+                box-shadow: 0px 4px 60px #04060f0d;
+            }
+
+            .box .auto-layout-2 {
+                display: flex;
+                align-items: flex-start;
+                gap: 16px;
+                position: relative;
+                align-self: stretch;
+                width: 100%;
+                flex: 0 0 auto;
+            }
+
+            .box .img {
+                position: relative;
+                width: 24px;
+                height: 24px;
+            }
+
+            .box .text-wrapper-3 {
+                position: relative;
+                flex: 1;
+                margin-top: -1px;
+                font-family: "Nunito-Bold", Helvetica;
+                font-weight: 700;
+                font-size: 18px;
+                line-height: 21.6px;
+                white-space: nowrap;
+                height: 24px;
+                color: #212121;
+                letter-spacing: 0;
+            }
+
+            .box .auto-layout-vertical-2 {
+                top: 448px;
+                display: flex;
+                flex-direction: column;
+                width: 380px;
+                align-items: flex-start;
+                gap: 16px;
+                padding: 24px;
+                position: absolute;
+                left: 24px;
+                background-color: #ffffff;
+                border-radius: 20px;
+                box-shadow: 0px 4px 60px #04060f0d;
+            }
+
+            .box .vector-2 {
+                position: absolute;
+                width: 134px;
+                height: 5px;
+                top: 928px;
+                left: 147px;
+            }
+
+            .box .text-wrapper-4 {
+                position: absolute;
+                width: 380px;
+                height: 24px;
+                top: 128px;
+                left: 24px;
+                font-family: "Nunito-Black", Helvetica;
+                font-weight: 900;
+                color: #212121;
+                font-size: 20px;
+                letter-spacing: 0;
+                line-height: 24px;
+            }
+
+            .box .text-wrapper-5 {
+                position: absolute;
+                width: 380px;
+                top: 304px;
+                left: 24px;
+                font-family: "Nunito-Black", Helvetica;
+                font-weight: 900;
+                font-size: 20px;
+                line-height: 24px;
+                height: 24px;
+                color: #212121;
+                letter-spacing: 0;
+            }
+
+            .box .text-wrapper-6 {
+                position: absolute;
+                width: 380px;
+                height: 24px;
+                top: 572px;
+                left: 24px;
+                font-family: "Nunito-Black", Helvetica;
+                font-weight: 900;
+                color: #212121;
+                font-size: 20px;
+                letter-spacing: 0;
+                line-height: 24px;
+            }
+
+            .box .p {
+                position: absolute;
+                width: 332px;
+                height: 125px;
+                top: 749px;
+                left: 47px;
+                font-family: "Nunito Sans-Regular", Helvetica;
+                font-weight: 400;
+                color: #212121;
+                font-size: 18px;
+                letter-spacing: 0;
+                line-height: 21.6px;
+            }
+
+            .box .type-button-type {
+                all: unset;
+                box-sizing: border-box;
+                display: flex;
+                width: 382px;
+                height: 58px;
+                align-items: center;
+                justify-content: center;
+                gap: 10px;
+                padding: 18px 16px;
+                position: absolute;
+                top: 945px;
+                left: 26px;
+                background-color: #d91950;
+                border-radius: 100px;
+            }
+
+            .box .text-wrapper-7 {
+                position: relative;
+                width: fit-content;
+                margin-top: -1px;
+                text-shadow: 4px 8px 24px #10101040;
+                font-family: "Nunito-Black", Helvetica;
+                font-weight: 900;
+                color: #ffffff;
+                font-size: 16px;
+                text-align: center;
+                letter-spacing: 0.2px;
+                line-height: 22.4px;
+                white-space: nowrap;
+            }
+
+            .box .vector-3 {
+                position: relative;
+                width: 15px;
+                height: 10px;
+            }
+
+            .box .text-wrapper-8 {
+                position: absolute;
+                width: 309px;
+                top: 14px;
+                left: 69px;
+                font-family: "Nunito-Black", Helvetica;
+                font-weight: 900;
+                color: black;
+                font-size: 24px;
+                letter-spacing: 0;
+                line-height: 28.8px;
+            }
+
+            .box .vector-4 {
+                position: absolute;
+                width: 28px;
+                height: 28px;
+                top: 20px;
+                left: 25px;
+            }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <div class="group">
+            <div class="overlap">
+                <div class="overlap-group">
+                    <img class="vector" src="~/css/resource/vector.svg" />
+                    <div class="auto-layout-vertical">
+                        <div class="text-wrapper">Confirm</div>
+                        <div class="auto-layout-wrapper">
+                            <div class="auto-layout">
+                                <div class="div">250.00</div>
+                                <div class="text-wrapper-2">R</div>
+                            </div>
+                        </div>
+                        <div class="div-wrapper">
+                            <div class="auto-layout-2">
+                                <img class="img" src="~/css/resource/profile_icon.svg" />
+                                <div class="text-wrapper-3">Your Name</div>
+                            </div>
+                        </div>
+                        <div class="auto-layout-vertical-2">
+                            <div class="auto-layout-2">
+                                <img class="img" src="~/css/resource/email_icon.svg" />
+                                <div class="text-wrapper-3">Your Email</div>
+                            </div>
+                        </div>
+                        <img class="vector-2" src="img/vector-2.svg" />
+                        <div class="text-wrapper-4">Chipping in</div>
+                        <div class="text-wrapper-5">Your details</div>
+                        <div class="text-wrapper-6">Personal message</div>
+                    </div>
+                    <p class="p">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Eu sem quam sit adipiscing dignissim tellus.
+                        Vitae habitasse nulla pellentesque tortor, ut mattis sit.
+                    </p>
+                    <a href="@Url.Action("Index", "SharedList6")">
+                        <button class="type-button-type">
+                            <div class="text-wrapper-7">Next</div>
+                            <img class="vector-3" src="~/css/resource/arrow-next.svg" />
+                        </button>
+                    </a>
+                    <div class="text-wrapper-8">Name’s Birthday Gift</div>
+                </div>
+                <img class="vector-4" src="~/css/resource/arrow-left.svg" />
+            </div>
+        </div>
+    </div>
+  </body>

@@ -1,0 +1,79 @@
+﻿@{
+
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <link href="~/css/site.css" rel="stylesheet" media="all">
+    <link rel="stylesheet" href="/css/Error.css" media="all">
+
+</head>
+
+<link href="~/css/bubbles.css" rel="stylesheet" media="all">
+<div class="bubbles bubble-1"></div>
+<div class="bubbles bubble-5"></div>
+<div class="bubbles bubble-2"></div>
+<div class="bubbles bubble-6"></div>
+<div class="bubbles bubble-3"></div>
+<div class="bubbles bubble-7"></div>
+<div class="bubbles bubble-4"></div>
+<div class="bubbles bubble-8"></div>
+
+@if (ViewBag.ErrorCode == "Login Successful")
+{
+    
+    <script>
+        // Function to save the token in local storage
+        function saveTokenToLocalStorage(token) {
+            if (token) {
+                localStorage.setItem('token', token);
+            }
+        }
+
+        // Get the token from the ViewBag (provided by the controller)
+        var token = '@ViewBag.Token';
+
+        // Save the token to the local storage on page load
+        document.addEventListener('DOMContentLoaded', function () {
+            saveTokenToLocalStorage(token);
+        });
+    </script>
+   
+}
+<body>
+   
+    <div class="error-container">
+        
+        <h1> @ViewBag.ErrorType</h1>
+        <h1>@ViewBag.ErrorCode!</h1>
+        <p>@ViewBag.ErrorMessage</p>
+
+
+        <button type="submit" class="createBtn" id="backBtn">@ViewBag.btnText</button>
+
+
+
+       
+
+    </div>
+    <div class="mylogo"> <img src="/css/resource/logo.png" /></div>
+    <script>
+        document.getElementById('backBtn').addEventListener('click', function () {
+            var token = localStorage.getItem('token');
+            var url = '@Url.Action("action", "controller")';
+            url = url.replace('action', '@ViewBag.ReturnAction');
+            url = url.replace('controller', '@ViewBag.ReturnController');
+            
+            window.location.href = url + "?token=" + token;
+            
+        });
+    </script>
+
+
+
+</body>
+
+</html>

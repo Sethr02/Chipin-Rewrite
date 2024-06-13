@@ -1,0 +1,709 @@
+h3 {
+    color: #d91950;
+    font-weight: 600;
+    margin: 0px;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.container {
+    padding: 0px;
+    margin-bottom: 100px;
+    justify-content: center;
+    align-items: center;
+}
+
+#expandedImg {
+    object-fit: contain;
+    image-rendering: optimizeSpeed;
+}
+
+.card {
+    background: #fcfcff;
+    padding: 10px 30px;
+    border-radius: 20px;
+    height: auto;
+    width: auto;
+    margin: 10px 10px;
+    overflow: hidden;
+    min-width: 350px;
+    border: 3px solid #0000000f;
+    margin: auto;
+    margin-bottom: 10px;
+    max-width: 800px;
+}
+
+    .card:hover {
+        border: 3px solid #11bff1;
+    }
+
+.tab-content {
+    overflow: hidden;
+    border-radius: 15px;
+}
+
+    .tab-content img {
+        -webkit-animation-name: opacity;
+        animation-name: opacity;
+        -webkit-animation-duration: .3s;
+        animation-duration: .3s;
+    }
+
+
+
+@media screen and (min-width: 997px) {
+    .wrapper {
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+    }
+
+    .tab-content {
+        width: 500px;
+    }
+}
+/* Media query for smaller screens */
+@media screen and (min-width: 770px) {
+    .tab-content {
+        width: 500px;
+    }
+}
+
+.hover01 figure {
+    max-width: 100%;
+    max-height: 100%;
+    aspect-ratio: auto;
+    height: 200px;
+    display: flex;
+}
+    /* Zoom In #1 */
+    .hover01 figure img {
+        border-radius: 15px;
+        -webkit-transition: .5s ease-in-out;
+        transition: .5s ease-in-out;
+        height: 100%;
+        object-fit: cover;
+        width: 100%;
+        transform: scale(0.7);
+        -webkit-transform: scale(0.7);
+    }
+
+.card:hover img {
+    -webkit-transform: scale(0.6);
+    transform: scale(0.6);
+}
+
+.card:hover .icon-tabs ul li img {
+    -webkit-transform: scale(1);
+}
+
+
+.split .left {
+    width: 100%;
+}
+
+.split .right {
+    width: 40%;
+}
+
+
+
+
+
+.icon-tabs ul {
+    border: none;
+    margin: -10px 0px 10px 0px;
+    height: 50px;
+    display: flex;
+    padding: 0px;
+    overflow: clip;
+    gap: 0px;
+    scroll-behavior: smooth;
+    background-color: #f3f3f3;
+    border-radius: 10px;
+}
+
+    .icon-tabs ul li {
+        height: 50px;
+        border: none;
+    }
+
+
+
+        .icon-tabs ul li img {
+            border-radius: 10px;
+            height: 48px;
+            image-rendering: optimizeSpeed;
+            -webkit-transform: scale(1);
+            width: 50px;
+            margin: 1px 1px;
+            background-color: white;
+            z-index: 1;
+        }
+
+
+
+.blackandwhiteimg {
+    filter: grayscale(70%);
+}
+
+.key {
+    font-family: 'Nunito', sans-serif;
+}
+
+
+
+.btnContainer {
+    display: flex;
+}
+
+.CreateListBtn {
+    background-color: #d91950;
+    border: 0pt;
+    color: white;
+    padding: 10px;
+    border-radius: 50px;
+    font-weight: 800;
+    width: 150px;
+    margin: auto;
+    margin-top: 20px
+}
+
+    .CreateListBtn:hover {
+        color: rgba(255, 255, 255, 1);
+        box-shadow: 0 5px 15px rgba(145, 92, 182, .8);
+    }
+
+    .CreateListBtn a {
+        text-decoration: none;
+        color: white;
+    }
+
+.details {
+    padding: 5px;
+    height: 100%;
+}
+
+    .details h1 {
+        color: #11bff1;
+        padding: 0px;
+    }
+
+    .details label:hover {
+        color: black;
+    }
+
+.listTitle {
+    height: 55px;
+    margin: auto;
+    margin-top: 10px;
+    overflow: hidden;
+    line-break: strict;
+}
+
+.ViewListBtn {
+    background-color: #d91950;
+    border: none;
+    color: white;
+    border-radius: 50px;
+    font-weight: 900;
+    margin: auto;
+    padding: 15px 50px;
+    margin: 10px 0px;
+    max-width: 900px;
+    width: 100%;
+}
+
+    .ViewListBtn:hover {
+        color: white;
+    }
+
+
+
+
+
+
+
+
+
+.editBtn {
+    position: absolute;
+    background-color: #ffffff;
+    left: 65px;
+    top: 15px;
+    border: 0pt;
+    font-size: 12px;
+    border-radius: 50px;
+    color: #11bff1;
+    transform: translateX(-100px);
+}
+
+    .editBtn:hover {
+        color: #d91950;
+    }
+
+
+
+.enddate {
+    font-size: 15px;
+    color: #11bff1;
+    text-align: center;
+}
+
+.someDeleteBtn {
+    position: absolute;
+    background-color: #ffffff00;
+    left: 10px;
+    top: 15px;
+    border: 0pt;
+    font-size: 12px;
+    border-radius: 0px 0px 15px 0px;
+    color: #11bff1;
+}
+
+    .someDeleteBtn:hover {
+        color: #d91950;
+    }
+
+
+
+
+
+
+.info {
+    padding-top: 10px;
+}
+
+    .info label:hover {
+        cursor: pointer;
+        color: black;
+    }
+
+    .info label {
+        font-weight: 600;
+        margin: 0px;
+        color: black;
+    }
+
+    .info h6 {
+        font-weight: 600;
+    }
+
+.colorway {
+    color: #d91950;
+}
+
+.colorway2 {
+    color: #0dbef1;
+    font-size: medium;
+    font-weight: 600;
+}
+
+
+
+
+@media screen and (max-width: 996px) {
+    .preview {
+        margin-bottom: 20px;
+    }
+}
+
+
+
+
+
+@media screen and (max-width: 770px) {
+    .preview-thumbnail.nav-tabs {
+        width: 300px;
+    }
+}
+
+@media screen and (max-width: 550px) {
+    .preview-thumbnail.nav-tabs {
+        width: 100%;
+    }
+
+    .ViewListBtn {
+        padding: 15px 30px;
+    }
+}
+
+
+
+
+
+
+.progress {
+    margin: auto;
+    width: 100%;
+    background-color: #f3f3f3;
+    height: 15px;
+    border-radius: 15px;
+    margin-bottom: 10px;
+}
+
+.progress-bar {
+    width: 0;
+    height: 100%;
+    background-color: #d91950; /* Change this color to the desired progress bar color */
+    border-radius: 10px;
+    transition: width 0.2s; /* Add animation to the progress bar */
+}
+
+.listOverlay {
+    z-index: 20;
+}
+
+
+
+
+
+.progress-bar.red {
+    background-color: #d91950;
+}
+
+.progress-bar.orange {
+    background-color: #ffc944;
+}
+
+.progress-bar.green {
+    background-color: #1fae62;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.listaccordion {
+    cursor: pointer;
+    padding: 30px 2px;
+    max-height: 0px;
+    overflow: hidden;
+    margin: auto;
+}
+
+
+
+
+
+    .listaccordion:after {
+        content: '\002B';
+        color: #11bff1;
+        font-weight: bold;
+        float: right;
+        margin-left: 5px;
+        position: absolute;
+    }
+
+.listactivex:after {
+    content: "\2212";
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Slideshow container */
+.slideshow-container {
+    max-width: 1000px;
+    position: relative;
+    margin: auto;
+    background-color: aqua;
+}
+
+.active {
+    background-color: #717171;
+}
+
+/* Fading animation */
+.fade {
+    animation-name: fade;
+    animation-duration: 1.5s;
+}
+
+@keyframes fade {
+    from {
+        opacity: .4
+    }
+
+    to {
+        opacity: 1
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.newcard {
+    background: white;
+    padding: 10px 0px;
+    border-radius: 20px;
+    height: auto;
+    width: auto;
+    margin: 10px 10px;
+    overflow: hidden;
+    min-width: 350px;
+    border: 3px solid #0000000f;
+    margin: auto;
+    margin-bottom: 10px;
+    max-width: 450px;
+    transition: all 0.5s;
+}
+
+    .newcard:hover {
+        border: 3px solid #11bff1;
+        cursor: pointer;
+    }
+
+        .newcard:hover .newcard-label-text {
+            color: black;
+        }
+
+.newcard-img-div {
+    height: 150px;
+    background-color: #f3f3f3;
+}
+
+    .newcard-img-div img {
+        height: 100%;
+        width: 100%;
+        overflow: hidden;
+        background-color: white;
+        margin-top: -10px;
+    }
+
+
+.newcard-label {
+    padding: 0px 10px;
+    font-size: 24px;
+    font-weight: 900;
+    line-height: 24px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    color: #d91950;
+}
+
+
+.newcard-items ul {
+    background-color: white;
+    display: flex;
+    gap: 5px;
+    padding: 3px 5px;
+    margin-bottom: 5px;
+}
+
+.newcard-items img {
+    height: 33px;
+    border-radius: 5px;
+}
+
+.newcard-split {
+    display: flex;
+    background-color: white;
+    height: 50px;
+}
+
+    .newcard-split .left {
+        width: 50%;
+    }
+
+    .newcard-split .right {
+        width: 50%;
+    }
+
+.newcard-label-text {
+    font: 600;
+}
+
+
+.newcard-label-amount {
+    font: 900;
+    color: #d91950;
+    font-size: 20px;
+}
+
+.newcard-add-button {
+    background-color: #d91950;
+    border-radius: 50px;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
+    border: 2px solid #d91950;
+    box-shadow: 2px 2px 10px 1px rgba(125, 125, 125, 0.2);
+    transition: all 0.5s;
+    width: 50%;
+    color:white;
+    margin-top:10px;
+    margin-bottom:10px;
+}
+
+
+    .newcard-add-button:hover {
+        background-color: #ffffff;
+        color:#d91950;
+    }
+
+      
+.newcard-progress {
+    width: 100%;
+    height: 10px;
+    background-color: #f3f3f3; /* Change this color to the desired progress bar color */
+    border-radius: 0px;
+    transition: width 0.2s; /* Add animation to the progress bar */
+    margin: 5px 0px;
+    margin-top: -10px;
+}
+
+.newcard-progress-bar {
+    width: 0;
+    height: 100%;
+    background-color: #d91950; /* Change this color to the desired progress bar color */
+    border-radius: 0px 5px 5px 0px;
+    transition: width 0.2s; /* Add animation to the progress bar */
+}
+
+    .newcard-progress-bar.red {
+        background-color: #d91950;
+    }
+    .newcard-progress-bar.orange {
+        background-color: #f68a35;
+    }
+    .newcard-progress-bar.yellow {
+        background-color: #ffc944;
+    }
+
+    .newcard-progress-bar.green {
+        background-color: #1fae62;
+
+    }
+        .newcard-progress-bar.green.newcard-progress-bar {
+            border-radius: 0px;
+        }
+
+
+        .newcard-outter-delete-btn {
+            float: left;
+            position: relative;
+            top: 0px;
+            left: 5px;
+            margin-bottom: -30px;
+            border: 0pt;
+            font-size: 10px;
+            border-radius: 0px 0px 15px 0px;
+            transition: all 0.5s;
+        }
+
+    .newcard-outter-delete-btn:hover {
+        color: #d91950;
+    }
+
+.newcard-enddate {
+    font-size: 12px;
+    float: right;
+    position: relative;
+    top: 0px;
+    right: 10px;
+    margin-bottom: -30px;
+    color: white;
+}
+
+
+
+
+
+
+.fade-container {
+    position: relative;
+    overflow: hidden;
+}
+
+    .fade-container::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        z-index: 15;
+        width: 10%;
+    }
+
+    .fade-container::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        z-index: 15;
+        right: 0;
+        left: auto;
+        width: 10%;
+        background: linear-gradient(to right, rgba(255, 255, 255, 0), white);
+    }
+.panel {
+    border:none;
+    background-color: #fdfdfd00;
+}
