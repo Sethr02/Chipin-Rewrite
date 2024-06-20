@@ -36,6 +36,7 @@ namespace Chipin_Rewrite.Controllers
             Console.WriteLine(paymentParams);
             Console.WriteLine("Amount: " + paymentParams.Amount);
             Console.WriteLine("Token: " + paymentParams.Token);
+            Console.WriteLine("OrderId: " + paymentParams.OrderId);
 
             CallPayAuthTokenGenerator authTokenGenerator = new CallPayAuthTokenGenerator();
             CallPayAuthParams authParams = authTokenGenerator.GenerateToken();
@@ -56,7 +57,7 @@ namespace Chipin_Rewrite.Controllers
                     new KeyValuePair<string, string>("amount", amount),
                     new KeyValuePair<string, string>("merchant_reference", merchantRef),
                     new KeyValuePair<string, string>("notify_url", "https://chipinrewritewebappservice.azurewebsites.net/CallPay/notify"),
-                    new KeyValuePair<string, string>("success_url", $"https://chipinrewritewebappservice.azurewebsites.net/CallPay/success"),
+                    new KeyValuePair<string, string>("success_url", $"https://chipinrewritewebappservice.azurewebsites.net/CallPay/Success?orderId={paymentParams.OrderId}"),
                     new KeyValuePair<string, string>("payment_type", "credit_card"),
                 });
 
@@ -74,8 +75,12 @@ namespace Chipin_Rewrite.Controllers
                         string responseString = await response.Content.ReadAsStringAsync();
                         CallPayKeyResponse keyResponse = JsonConvert.DeserializeObject<CallPayKeyResponse>(responseString);
 
+                        // Pass the orderId to the view
+                        ViewBag.OrderId = paymentParams.OrderId;
+
                         // Redirect to the URL from the response
-                        return Redirect(keyResponse.Url);
+                        //return Redirect(keyResponse.Url);
+                        return Ok(new { url = "https://agent.callpay.com/pay/hosted?payment_key=" + keyResponse.Key + "&payment_type=credit_card" });
                     }
                     catch (Exception ex)
                     {
@@ -198,12 +203,11 @@ namespace Chipin_Rewrite.Controllers
             }
         }
 
-        [Route("success")]
-        [HttpPost]
-        public async Task<IActionResult> Success([FromBody] object data)
+        public IActionResult Success()
         {
-            Console.WriteLine(data);
-            return Ok();
+            var orderId = HttpContext.Session.GetInt32("OrderId").GetValueOrDefault();
+            ViewBag.OrderId = orderId;
+            return View();
         }
 
         [Route("cancel")]

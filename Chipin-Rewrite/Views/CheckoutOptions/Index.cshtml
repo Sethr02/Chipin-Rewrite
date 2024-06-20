@@ -14,7 +14,11 @@
     string externalProductInformation = ViewBag.ExternalProductInformation;
 }
 
+<script src="~/js/payment.js"></script>
+
 <script>
+    sessionStorage.setItem('orderId', '@ViewBag.OrderId');
+    sessionStorage.setItem('cartTotalRaw', '@ViewBag.CartTotalRaw');
     // Function to save the token in local storage
     function saveTokenToLocalStorage(token) {
         if (token) {
@@ -512,7 +516,7 @@
             <img class="chipin-logo" src="~/css/resource/chipin_logo.svg" />
         </div>
     </div>
-
+   
     <script>
         var paymentSuccessModal = document.getElementById("myModal");
 
@@ -559,10 +563,8 @@
             if (selectedOption === 'addToList') {
                 window.location.href = '@Url.Action("Create", "ProductListWallets", new { token = "null" })';
             } else if (selectedOption === 'payUsingChips') {
-
-
-
-                window.location.href = '@Url.Action("Index", "DeliveryAdd")';
+                getPaymentKey();
+                //window.location.href = '@Url.Action("Index", "DeliveryAdd")';
                 //paymentSuccessModal.style.display = "block";
             }
         }

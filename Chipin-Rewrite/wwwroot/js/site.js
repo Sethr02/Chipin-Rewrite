@@ -113,10 +113,3 @@ function refreshNavOnResize() {
 
 // Call the refreshNavOnResize function when the DOM is ready
 document.addEventListener('DOMContentLoaded', refreshNavOnResize);
-
-
-
-
-
-
-

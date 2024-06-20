@@ -28,7 +28,14 @@ namespace Chipin_Rewrite.Controllers
 
                 // Calculate the cart total
                 decimal cartTotal = checkoutData.CartInfo.Sum(item => item.Total);
-                ViewBag.CartTotal = cartTotal.ToString("C"); 
+
+                HttpContext.Session.SetInt32("OrderId", checkoutData.OrderId); // Assuming OrderId is part of checkoutData
+                HttpContext.Session.SetString("CartTotal", cartTotal.ToString());
+
+                ViewBag.CartTotal = cartTotal.ToString("C");
+                ViewBag.CartTotalRaw = cartTotal;
+                ViewBag.OrderId = checkoutData.OrderId;
+
                 _logger.LogInformation("ViewBag.CartTotal");
 
                 return View(checkoutData);
@@ -38,5 +45,6 @@ namespace Chipin_Rewrite.Controllers
                 return BadRequest("Invalid data format.");
             }
         }
+
     }
 }

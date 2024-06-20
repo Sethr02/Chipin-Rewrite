@@ -1,0 +1,32 @@
+﻿@{
+    ViewData["Title"] = "Payment Success";
+    var orderId = ViewBag.OrderId;
+}
+
+<h2>Payment Successful</h2>
+<p>Your payment was processed successfully.</p>
+<button id="redirectButton">Go Back to Store</button>
+
+<script>
+    document.getElementById('redirectButton').addEventListener('click', function () {
+        // Make a callback to complete the order
+        fetch('https://bestwayshop.co.za/wp-json/chipin/v1/complete-order', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ order_id: '@orderId' }) // Pass the order ID from the URL
+        })
+        .then(response => {
+            if (response.ok) {
+                // Redirect back to the store after successful order completion
+                window.location.href = 'https://bestwayshop.co.za';
+            } else {
+                console.error('Failed to complete the order:', response.statusText);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    });
+</script>
