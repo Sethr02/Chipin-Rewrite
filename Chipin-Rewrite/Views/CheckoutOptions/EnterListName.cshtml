@@ -1,0 +1,79 @@
+﻿@{
+    ViewData["Title"] = "Enter List Name";
+    //var queryParams = Context.Request.QueryString.ToString();
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enter List Name</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .form-container {
+            max-width: 400px;
+            margin: 50px auto;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            background: #f8f9fa;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h2 class="text-center">Enter List Name</h2>
+        <form method="get" action="/CheckoutOptions/EnterDeliveryDate">
+            <div class="form-group">
+                <label for="listName">List Name</label>
+                <input type="text" class="form-control" id="listName" name="listName" required>
+            </div>
+            <input type="hidden" name="ProductName" id="ProductName" />
+            <input type="hidden" name="ProductDescription" id="ProductDescription" />
+            <input type="hidden" name="Price" id="Price" />
+            <input type="hidden" name="Image" id="Image" />
+            <input type="hidden" name="Store" id="Store" />
+            <input type="hidden" name="CustString1" id="CustString1" />
+            <input type="hidden" name="CustInt1" id="CustInt1" />
+            <input type="hidden" name="ProductId" id="ProductId" />
+            <input type="hidden" name="Quantity" id="Quantity" />
+            <button type="submit" class="btn btn-primary btn-block">Next</button>
+        </form>
+    </div>
+
+    <script>
+        function getQueryParams() {
+            const params = new URLSearchParams(window.location.search);
+            return {
+                productName: params.get('product_name'),
+                productDescription: params.get('product_description'),
+                price: params.get('price'),
+                image: params.get('image'),
+                store: params.get('store'),
+                custString1: params.get('cust_string1'),
+                custInt1: params.get('cust_int1'),
+                productId: params.get('product_id'),
+                quantity: params.get('quantity')
+            };
+        }
+
+        function populateFormFields(params) {
+            $('#ProductName').val(params.productName);
+            $('#ProductDescription').val(decodeURIComponent(params.productDescription));
+            $('#Price').val(params.price);
+            $('#Image').val(params.image);
+            $('#Store').val(params.store);
+            $('#CustString1').val(params.custString1);
+            $('#CustInt1').val(params.custInt1);
+            $('#ProductId').val(params.productId);
+            $('#Quantity').val(params.quantity);
+        }
+
+        $(document).ready(function () {
+            const params = getQueryParams();
+            populateFormFields(params);
+        });
+    </script>
+</body>
+</html>

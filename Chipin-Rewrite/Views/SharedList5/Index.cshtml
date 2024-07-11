@@ -1,355 +1,304 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿@{
+    ViewData["Title"] = "Index";
 }
 
+@{
+    var externalProducts = ViewBag.ExternalProducts as List<Chipin_Rewrite.Models.Entities.ExternalProduct>;
+    var products = ViewBag.Products as List<Chipin_Rewrite.Models.Entities.Product>;
+    var productListItems = ViewBag.ProductListItems as List<Chipin_Rewrite.Models.Entities.ProductListItem>;
+    var productListWallets = ViewBag.Wallets as Chipin_Rewrite.Models.Entities.ProductListWallet;
+    var addresses = ViewBag.Addresses as List<Chipin_Rewrite.Models.Entities.Address>;
+}
+
+<!DOCTYPE html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dad's Bday</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        .box {
+        body {
+            background-color: #F74B94;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 428px;
+            margin: 0 auto;
+            padding: 0 0 70px 0;
             position: relative;
+            min-height: 100vh;
+        }
+
+        .header-container {
+            background-color: #F74B94;
+            background-image: url('vector.svg');
+            background-repeat: no-repeat;
+            background-size: cover;
+            border-radius: 20px 20px 0 0;
+            margin-top: 20px;
+            padding: 20px;
+            color: #fff;
+            text-align: left;
+            position: relative;
+            height: 200px; /* Adjust height as needed */
+            display: flex;
+            align-items: flex-end;
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            margin-bottom: 95px;
+        }
+
+        .header-container .back-arrow {
+            font-size: 24px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+
+        .header-container h1 {
+            font-size: 24px;
+            font-weight: bold;
+            margin: 0;
+        }
+
+        .card {
+            border-radius: 20px;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            padding: 20px;
+            margin-top: -75px;
+            height: calc(100vh - 295px);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        @@media (max-width: 414px) and (max-height: 896px) {
+            .card {
+                height: auto; /* Remove height for smaller screens */
+            }
+        }
+
+        .review-container {
+            text-align: left;
+            margin-bottom: 20px;
+        }
+
+            .review-container h5 {
+                font-size: 20px;
+                font-weight: bold;
+                color: #333;
+                margin-bottom: 20px;
+                text-align: center; /* Center the heading */
+            }
+
+        .review-section {
+            margin-bottom: 20px;
+        }
+
+            .review-section h6 {
+                font-size: 16px;
+                font-weight: bold;
+                color: #333;
+                margin-bottom: 10px;
+            }
+
+        .input-group, .message-group {
+            display: flex;
+            align-items: center;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 10px;
+            width: 100%; /* Make it the same width as the inner card */
+            box-sizing: border-box; /* Ensure padding is included in the width */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add shadow effect */
+            background-color: #fff; /* Add background color for contrast */
+        }
+
+            .input-group span.input-icon, .message-group span.input-icon {
+                color: #F74B94;
+                font-size: 24px;
+                font-weight: bold;
+                margin-right: 10px;
+                display: flex;
+                align-items: center; /* Center the icon vertically */
+            }
+
+            .input-group span.review-info, .message-group span.review-info {
+                font-size: 16px;
+                color: #333;
+            }
+
+        .review-message {
+            font-size: 14px;
+            color: #333;
+            margin: 0; /* Remove margin for consistency */
             width: 100%;
         }
 
-            .box .group {
-                position: relative;
-                width: 428px;
-                height: 1001px;
-                margin: 5% auto;
-                top: 0;
-                left: 0;
+        .btn-chip {
+            width: 100%;
+            border-radius: 30px;
+            margin-top: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 50px; /* Adjust height as needed */
+            background-color: #F74B94;
+            color: #fff;
+            border: none;
+        }
+
+            .btn-chip img {
+                margin-left: 10px;
             }
 
-            .box .overlap {
-                position: relative;
-                width: 428px;
-                height: 1048px;
-            }
 
-            .box .overlap-group {
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: 428px;
-                height: 1048px;
-            }
+        @@media{
 
-            .box .vector {
-                position: absolute;
-                width: 335px;
-                height: 161px;
-                top: 0;
-                left: 49px;
-            }
+        }
 
-            .box .auto-layout-vertical {
-                position: absolute;
-                width: 428px;
-                height: 949px;
-                top: 99px;
-                left: 0;
-                background-color: #ffffff;
-                border-radius: 32px 32px 0px 0px;
-                overflow: hidden;
-                border: 1px solid;
-                border-color: #f5f5f5;
-            }
-
-            .box .text-wrapper {
-                position: absolute;
-                width: 380px;
-                height: 29px;
-                top: 53px;
-                left: 24px;
-                font-family: "Nunito-Black", Helvetica;
-                font-weight: 900;
-                color: #333333;
-                font-size: 24px;
-                text-align: center;
-                letter-spacing: 0;
-                line-height: 28.8px;
-            }
-
-            .box .auto-layout-wrapper {
-                top: 175px;
-                display: flex;
-                flex-direction: column;
-                width: 380px;
-                align-items: flex-start;
-                gap: 16px;
-                padding: 24px;
-                position: absolute;
-                left: 24px;
-                background-color: #ffffff;
-                border-radius: 20px;
-                box-shadow: 0px 4px 60px #04060f0d;
-            }
-
-            .box .auto-layout {
-                position: relative;
-                align-self: stretch;
-                width: 100%;
-                height: 29px;
-            }
-
-            .box .div {
-                position: absolute;
-                width: 259px;
-                height: 24px;
-                top: 2px;
-                left: 49px;
-                font-family: "Nunito-Bold", Helvetica;
-                font-weight: 700;
-                color: #212121;
-                font-size: 18px;
-                letter-spacing: 0;
-                line-height: 21.6px;
-                white-space: nowrap;
-            }
-
-            .box .text-wrapper-2 {
-                position: absolute;
-                top: -1px;
-                left: 7px;
-                font-family: "Nunito-Black", Helvetica;
-                font-weight: 900;
-                color: #d91950;
-                font-size: 24px;
-                letter-spacing: 0;
-                line-height: 28.8px;
-                white-space: nowrap;
-            }
-
-            .box .div-wrapper {
-                top: 352px;
-                display: flex;
-                flex-direction: column;
-                width: 380px;
-                align-items: flex-start;
-                gap: 16px;
-                padding: 24px;
-                position: absolute;
-                left: 24px;
-                background-color: #ffffff;
-                border-radius: 20px;
-                box-shadow: 0px 4px 60px #04060f0d;
-            }
-
-            .box .auto-layout-2 {
-                display: flex;
-                align-items: flex-start;
-                gap: 16px;
-                position: relative;
-                align-self: stretch;
-                width: 100%;
-                flex: 0 0 auto;
-            }
-
-            .box .img {
-                position: relative;
-                width: 24px;
-                height: 24px;
-            }
-
-            .box .text-wrapper-3 {
-                position: relative;
-                flex: 1;
-                margin-top: -1px;
-                font-family: "Nunito-Bold", Helvetica;
-                font-weight: 700;
-                font-size: 18px;
-                line-height: 21.6px;
-                white-space: nowrap;
-                height: 24px;
-                color: #212121;
-                letter-spacing: 0;
-            }
-
-            .box .auto-layout-vertical-2 {
-                top: 448px;
-                display: flex;
-                flex-direction: column;
-                width: 380px;
-                align-items: flex-start;
-                gap: 16px;
-                padding: 24px;
-                position: absolute;
-                left: 24px;
-                background-color: #ffffff;
-                border-radius: 20px;
-                box-shadow: 0px 4px 60px #04060f0d;
-            }
-
-            .box .vector-2 {
-                position: absolute;
-                width: 134px;
-                height: 5px;
-                top: 928px;
-                left: 147px;
-            }
-
-            .box .text-wrapper-4 {
-                position: absolute;
-                width: 380px;
-                height: 24px;
-                top: 128px;
-                left: 24px;
-                font-family: "Nunito-Black", Helvetica;
-                font-weight: 900;
-                color: #212121;
-                font-size: 20px;
-                letter-spacing: 0;
-                line-height: 24px;
-            }
-
-            .box .text-wrapper-5 {
-                position: absolute;
-                width: 380px;
-                top: 304px;
-                left: 24px;
-                font-family: "Nunito-Black", Helvetica;
-                font-weight: 900;
-                font-size: 20px;
-                line-height: 24px;
-                height: 24px;
-                color: #212121;
-                letter-spacing: 0;
-            }
-
-            .box .text-wrapper-6 {
-                position: absolute;
-                width: 380px;
-                height: 24px;
-                top: 572px;
-                left: 24px;
-                font-family: "Nunito-Black", Helvetica;
-                font-weight: 900;
-                color: #212121;
-                font-size: 20px;
-                letter-spacing: 0;
-                line-height: 24px;
-            }
-
-            .box .p {
-                position: absolute;
-                width: 332px;
-                height: 125px;
-                top: 749px;
-                left: 47px;
-                font-family: "Nunito Sans-Regular", Helvetica;
-                font-weight: 400;
-                color: #212121;
-                font-size: 18px;
-                letter-spacing: 0;
-                line-height: 21.6px;
-            }
-
-            .box .type-button-type {
-                all: unset;
-                box-sizing: border-box;
-                display: flex;
-                width: 382px;
-                height: 58px;
-                align-items: center;
-                justify-content: center;
-                gap: 10px;
-                padding: 18px 16px;
-                position: absolute;
-                top: 945px;
-                left: 26px;
-                background-color: #d91950;
-                border-radius: 100px;
-            }
-
-            .box .text-wrapper-7 {
-                position: relative;
-                width: fit-content;
-                margin-top: -1px;
-                text-shadow: 4px 8px 24px #10101040;
-                font-family: "Nunito-Black", Helvetica;
-                font-weight: 900;
-                color: #ffffff;
-                font-size: 16px;
-                text-align: center;
-                letter-spacing: 0.2px;
-                line-height: 22.4px;
-                white-space: nowrap;
-            }
-
-            .box .vector-3 {
-                position: relative;
-                width: 15px;
-                height: 10px;
-            }
-
-            .box .text-wrapper-8 {
-                position: absolute;
-                width: 309px;
-                top: 14px;
-                left: 69px;
-                font-family: "Nunito-Black", Helvetica;
-                font-weight: 900;
-                color: black;
-                font-size: 24px;
-                letter-spacing: 0;
-                line-height: 28.8px;
-            }
-
-            .box .vector-4 {
-                position: absolute;
-                width: 28px;
-                height: 28px;
-                top: 20px;
-                left: 25px;
-            }
     </style>
 </head>
-
 <body>
-    <div class="box">
-        <div class="group">
-            <div class="overlap">
-                <div class="overlap-group">
-                    <img class="vector" src="~/css/resource/vector.svg" />
-                    <div class="auto-layout-vertical">
-                        <div class="text-wrapper">Confirm</div>
-                        <div class="auto-layout-wrapper">
-                            <div class="auto-layout">
-                                <div class="div">250.00</div>
-                                <div class="text-wrapper-2">R</div>
-                            </div>
-                        </div>
-                        <div class="div-wrapper">
-                            <div class="auto-layout-2">
-                                <img class="img" src="~/css/resource/profile_icon.svg" />
-                                <div class="text-wrapper-3">Your Name</div>
-                            </div>
-                        </div>
-                        <div class="auto-layout-vertical-2">
-                            <div class="auto-layout-2">
-                                <img class="img" src="~/css/resource/email_icon.svg" />
-                                <div class="text-wrapper-3">Your Email</div>
-                            </div>
-                        </div>
-                        <img class="vector-2" src="img/vector-2.svg" />
-                        <div class="text-wrapper-4">Chipping in</div>
-                        <div class="text-wrapper-5">Your details</div>
-                        <div class="text-wrapper-6">Personal message</div>
+
+    <div class="container">
+        <div class="header-container">
+            <div class="header-content">
+                <span class="back-arrow" onclick="history.back()">&lt;</span>
+                <h1>@productListWallets.Name</h1>
+            </div>
+        </div>
+        <div class="card">
+            <div class="review-container">
+                <h5>Confirm</h5>
+
+                <div class="review-section">
+                    <h6>Chipping in</h6>
+                    <div class="input-group shadow">
+                        <span class="input-icon">R</span>
+                        <span class="review-info" id="chipinAmount">250.00</span>
                     </div>
-                    <p class="p">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Eu sem quam sit adipiscing dignissim tellus.
-                        Vitae habitasse nulla pellentesque tortor, ut mattis sit.
-                    </p>
-                    <a href="@Url.Action("Index", "SharedList6")">
-                        <button class="type-button-type">
-                            <div class="text-wrapper-7">Next</div>
-                            <img class="vector-3" src="~/css/resource/arrow-next.svg" />
-                        </button>
-                    </a>
-                    <div class="text-wrapper-8">Name’s Birthday Gift</div>
                 </div>
-                <img class="vector-4" src="~/css/resource/arrow-left.svg" />
+
+                <div class="review-section">
+                    <h6>Your details</h6>
+                    <div class="input-group shadow">
+                        <span class="input-icon"><i class="fa fa-user"></i></span>
+                        <span class="review-info" id="yourName">Your Name</span>
+                    </div>
+                    <div class="input-group shadow">
+                        <span class="input-icon"><i class="fa fa-envelope"></i></span>
+                        <span class="review-info" id="yourEmail">Your Email</span>
+                    </div>
+                </div>
+
+                <div class="review-section" id="personalMessageSection">
+                    <h6>Personal message</h6>
+                    <div class="message-group shadow">
+                        <p class="review-message" id="personalMessage">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Eu sem quam sit adipiscing dignissim tellus. Vitae habitasse nulla pellentesque tortor, ut mattis sit.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-auto">
+                <button class="btn btn-chip" onclick="redirectToSharedList6()">Next <img src="~/css/resource/arrow-next.svg" alt="Arrow"></button>
             </div>
         </div>
     </div>
-  </body>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
+
+<script>
+    $(document).ready(function () {
+        $('header').empty();
+    });
+</script>
+
+<script>
+    function getQueryParams(url) {
+        let params = {};
+        let parser = new URL(url);
+        for (let pair of parser.searchParams.entries()) {
+            params[pair[0]] = pair[1];
+        }
+        return params;
+    }
+
+    function constructBaseUrl(includeMessage = true) {
+        const params = getQueryParams(window.location.href);
+        const chipinAmt = params['chipinAmount'];
+        const yourName = params['yourName'];
+        const yourEmail = params['yourEmail'];
+
+        let baseUrl = '@Url.Action("Index", "SharedList6")' + `?id=${@productListWallets.ProductListWalletId}`;
+
+        if (chipinAmt) {
+            baseUrl += `&chipinAmount=${encodeURIComponent(chipinAmt)}`;
+        }
+
+        if (yourName) {
+            baseUrl += `&yourName=${encodeURIComponent(yourName)}`;
+        }
+
+        if (yourEmail) {
+            baseUrl += `&yourEmail=${encodeURIComponent(yourEmail)}`;
+        }
+
+        if (includeMessage) {
+            const personalMessage = document.getElementById('personalMessage').value;
+            if (personalMessage) {
+                baseUrl += `&personalMessage=${encodeURIComponent(personalMessage)}`;
+            }
+        }
+
+        return baseUrl;
+    }
+
+    function populateFields() {
+        const params = getQueryParams(window.location.href);
+        console.log('Extracted URL params:', params);
+
+        if (params['chipinAmount']) {
+            document.getElementById('chipinAmount').textContent = params['chipinAmount'];
+        }
+
+        if (params['yourName']) {
+            document.getElementById('yourName').textContent = params['yourName'];
+        }
+
+        if (params['yourEmail']) {
+            document.getElementById('yourEmail').textContent = params['yourEmail'];
+        }
+
+        if (params['personalMessage']) {
+            document.getElementById('personalMessage').textContent = params['personalMessage'];
+        } else {
+            document.getElementById('personalMessageSection').style.display = 'none';
+        }
+    }
+
+    function redirectToSharedList6() {
+        const url = constructBaseUrl(true);
+        console.log("Redirecting to URL with message:", url);
+        window.location.href = url;
+    }
+
+    // Populate fields on document ready
+    $(document).ready(function () {
+        populateFields();
+        console.log('Current URL params:', getQueryParams(window.location.href));
+    });
+</script>

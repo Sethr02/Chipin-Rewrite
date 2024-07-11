@@ -24,7 +24,7 @@ h1 {
         }
 
 .createBtn {
-    background-color: #d91950;
+    background-color: #F74B94;
     border: 0pt;
     color: white;
     padding: 10px;
@@ -44,7 +44,7 @@ h1 {
 
 
 .CreateListBtn {
-    background-color: #d91950;
+    background-color: #F74B94;
     border: 0pt;
     color: white;
     padding: 10px;
@@ -69,7 +69,7 @@ h1 {
 
 
 h3 {
-    color: #d91950;
+    color: #F74B94;
     font-weight: 600;
     line-height: 1;
 
@@ -146,18 +146,18 @@ h3 {
     color: white;
     font-weight: 800;
     font-size: large;
-    background-color: #d91950;
+    background-color: #F74B94;
     position: absolute;
     bottom: 20px;
     right: 20px;
     transition: all 0.5s;
-    border:2px solid #d91950;
+    border:2px solid #F74B94;
     box-shadow: 2px 2px 10px 1px rgba(125, 125, 125, 0.2);
 }
 
     .editBtn:hover {
        background-color:white;
-       color:#d91950;
+       color:#F74B94;
         cursor: pointer;
 
     }
@@ -181,7 +181,7 @@ h3 {
 }
 
     .someDeleteBtn:hover {
-        color: #d91950;
+        color: #F74B94;
     }
 
 
@@ -233,7 +233,7 @@ h3 {
 
     .overlay-card button {
         margin: auto;
-        background-color: #d91950;
+        background-color: #F74B94;
         border: 0pt;
         color: white;
         padding: 10px;
@@ -252,11 +252,11 @@ h3 {
         width: 50px;
         border-radius: 100%;
         background-color: #ffffff;
-        color: #d91950;
+        color: #F74B94;
     }
 
         .overlay-card .addNewAddressBtn:hover {
-            background-color: #d91950;
+            background-color: #F74B94;
             color: #ffffff;
         }
 
@@ -269,7 +269,7 @@ h3 {
     left: 50%;
     margin: -80px 0 0 -40%;
     z-index: 4;
-    color: #d91950;
+    color: #F74B94;
     background-color: #fff;
 }
 
@@ -284,7 +284,7 @@ h3 {
 .someBtn {
     margin: 5px;
     border: none;
-    background-color: #d91950;
+    background-color: #F74B94;
     color: #fff;
     border-radius: 15px;
 }

@@ -4,7 +4,7 @@
 }
 
 .ListBtn {
-    background-color: #d91950;
+    background-color: #F74B94;
     color: white;
     padding: 15px;
     border-radius: 10px;
@@ -111,7 +111,7 @@
 }
 
     .details-card h2 {
-        color: #d91950;
+        color: #F74B94;
         font-weight: 800;
         margin-bottom: 20px;
     }
@@ -120,18 +120,18 @@
 
     .details-card div {
         text-align: left;
-        color: #d91950;
+        color: #F74B94;
         font-weight: 600;
         font-size: large;
         padding: 10px;
     }
         .details-card div label {
-            color: #d91950;
+            color: #F74B94;
         }
 
 @media screen and (max-width: 500px) {
     .details-card h1 {
-        color: #d91950;
+        color: #F74B94;
         font-weight: 800;
         margin-bottom: 20px;
     }

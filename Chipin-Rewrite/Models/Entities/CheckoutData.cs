@@ -7,6 +7,6 @@ namespace Chipin_Rewrite.Models.Entities
         public int OrderId { get; set; }
         public BillingInfo BillingInfo { get; set; }
         public List<CartItem> CartInfo { get; set; }
-        public string CustomField { get; set; }
+        public decimal CartTotal { get; set; }
     }
 }

@@ -1,5 +1,5 @@
 h3 {
-    color: #d91950;
+    color: #F74B94;
     font-weight: 600;
     margin: 0px;
     font-size: 24px;
@@ -159,7 +159,7 @@ h3 {
 }
 
 .CreateListBtn {
-    background-color: #d91950;
+    background-color: #F74B94;
     border: 0pt;
     color: white;
     padding: 10px;
@@ -203,7 +203,7 @@ h3 {
 }
 
 .ViewListBtn {
-    background-color: #d91950;
+    background-color: #F74B94;
     border: none;
     color: white;
     border-radius: 50px;
@@ -240,7 +240,7 @@ h3 {
 }
 
     .editBtn:hover {
-        color: #d91950;
+        color: #F74B94;
     }
 
 
@@ -263,7 +263,7 @@ h3 {
 }
 
     .someDeleteBtn:hover {
-        color: #d91950;
+        color: #F74B94;
     }
 
 
@@ -291,7 +291,7 @@ h3 {
     }
 
 .colorway {
-    color: #d91950;
+    color: #F74B94;
 }
 
 .colorway2 {
@@ -346,7 +346,7 @@ h3 {
 .progress-bar {
     width: 0;
     height: 100%;
-    background-color: #d91950; /* Change this color to the desired progress bar color */
+    background-color: #F74B94; /* Change this color to the desired progress bar color */
     border-radius: 10px;
     transition: width 0.2s; /* Add animation to the progress bar */
 }
@@ -360,7 +360,7 @@ h3 {
 
 
 .progress-bar.red {
-    background-color: #d91950;
+    background-color: #F74B94;
 }
 
 .progress-bar.orange {
@@ -368,7 +368,7 @@ h3 {
 }
 
 .progress-bar.green {
-    background-color: #1fae62;
+    background-color: #18BEF0;
 }
 
 
@@ -544,7 +544,7 @@ h3 {
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
-    color: #d91950;
+    color: #F74B94;
 }
 
 
@@ -582,18 +582,18 @@ h3 {
 
 .newcard-label-amount {
     font: 900;
-    color: #d91950;
+    color: #F74B94;
     font-size: 20px;
 }
 
 .newcard-add-button {
-    background-color: #d91950;
+    background-color: #F74B94;
     border-radius: 50px;
     cursor: pointer;
     align-items: center;
     justify-content: center;
     height: 40px;
-    border: 2px solid #d91950;
+    border: 2px solid #F74B94;
     box-shadow: 2px 2px 10px 1px rgba(125, 125, 125, 0.2);
     transition: all 0.5s;
     width: 50%;
@@ -605,7 +605,7 @@ h3 {
 
     .newcard-add-button:hover {
         background-color: #ffffff;
-        color:#d91950;
+        color:#F74B94;
     }
 
       
@@ -622,13 +622,13 @@ h3 {
 .newcard-progress-bar {
     width: 0;
     height: 100%;
-    background-color: #d91950; /* Change this color to the desired progress bar color */
+    background-color: #F74B94; /* Change this color to the desired progress bar color */
     border-radius: 0px 5px 5px 0px;
     transition: width 0.2s; /* Add animation to the progress bar */
 }
 
     .newcard-progress-bar.red {
-        background-color: #d91950;
+        background-color: #F74B94;
     }
     .newcard-progress-bar.orange {
         background-color: #f68a35;
@@ -659,7 +659,7 @@ h3 {
         }
 
     .newcard-outter-delete-btn:hover {
-        color: #d91950;
+        color: #F74B94;
     }
 
 .newcard-enddate {

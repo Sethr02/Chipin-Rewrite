@@ -1,5 +1,7 @@
 using AspNetCoreRateLimit;
+using Chipin_Rewrite.Configuration;
 using Chipin_Rewrite.Models.Entities;
+using Chipin_Rewrite.Services;
 using Chipin_Rewrite.Utility.CallPay;
 using Chipin_Rewrite.Utility.Encryption;
 using Chipin_Rewrite.Utility.Payfast;
@@ -69,7 +71,7 @@ builder.Services.AddAuthentication(OpenIdConnectDefaults.AuthenticationScheme)
                 // Retrieve the original URL from the AuthenticationProperties
                 if (context.Properties.Items.TryGetValue("original_redirect_uri", out var originalUrl))
                 {
-                    string redirectUri = $"/UserTables/userSignInSignUp?redirectUrl={originalUrl}";
+                    string redirectUri = originalUrl;
                     context.ReturnUri = redirectUri;
                 }
                 else
@@ -91,6 +93,7 @@ builder.Services.AddAuthentication(OpenIdConnectDefaults.AuthenticationScheme)
 
 builder.Services.AddLogging();
 builder.Services.AddControllersWithViews();
+builder.Services.AddTransient<OdooGoogleEmailService>();
 builder.Services.AddRazorPages()
     .AddMicrosoftIdentityUI();
 builder.Services.AddDbContext<ChipinDbContext>(ServiceLifetime.Scoped);
@@ -119,6 +122,8 @@ builder.Services.AddSingleton<IRateLimitCounterStore, MemoryCacheRateLimitCounte
 builder.Services.AddSingleton<IIpPolicyStore, MemoryCacheIpPolicyStore>();
 builder.Services.AddSingleton<IRateLimitConfiguration, RateLimitConfiguration>();
 
+builder.Services.Configure<MailSettings>(builder.Configuration.GetSection("MailSettings"));
+builder.Services.AddTransient<IMailService, MailService>();
 
 builder.Services.AddSession(options =>
 {
@@ -137,12 +142,14 @@ builder.Services.AddCors(options =>
                           .AllowCredentials());
 });
 
+builder.Services.AddHttpContextAccessor(); // Add this line
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
-    app.UseExceptionHandler("/Home/Error");
+    app.UseExceptionHandler("/Home_/Error");
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
@@ -154,9 +161,8 @@ app.UseRouting();
 
 app.UseCors("AllowSpecificOrigin");
 
-app.UseSession();
-
 app.UseAuthorization();
+app.UseSession();
 
 app.MapControllerRoute(
     name: "default",

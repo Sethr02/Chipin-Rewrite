@@ -93,7 +93,7 @@
                     const logoutButton = document.getElementById('logoutDropdown');
                     logoutButton.addEventListener('click', function () {
                         localStorage.removeItem('token');
-                        var url = '@Url.Action("Index", "Home")';
+                        var url = '@Url.Action("Index", "Home_")';
                         window.location.href = url;
                     });
                 </script>

@@ -1,0 +1,289 @@
+﻿@{
+    ViewData["Title"] = "Index";
+}
+
+@{
+    var externalProducts = ViewBag.ExternalProducts as List<Chipin_Rewrite.Models.Entities.ExternalProduct>;
+    var products = ViewBag.Products as List<Chipin_Rewrite.Models.Entities.Product>;
+    var productListItems = ViewBag.ProductListItems as List<Chipin_Rewrite.Models.Entities.ProductListItem>;
+    var productListWallets = ViewBag.Wallets as Chipin_Rewrite.Models.Entities.ProductListWallet;
+    var addresses = ViewBag.Addresses as List<Chipin_Rewrite.Models.Entities.Address>;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dad's Bday</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #F74B94;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 428px;
+            margin: 0 auto;
+            padding: 0 0 70px 0;
+            position: relative;
+            min-height: 100vh;
+        }
+
+        .header-container {
+            background-color: #F74B94;
+            background-image: url('vector.svg');
+            background-repeat: no-repeat;
+            background-size: cover;
+            border-radius: 20px 20px 0 0;
+            margin-top: 20px;
+            padding: 20px;
+            color: #fff;
+            text-align: left;
+            position: relative;
+            height: 200px; /* Adjust height as needed */
+            display: flex;
+            align-items: flex-end;
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            margin-bottom: 95px;
+        }
+
+        .header-container .back-arrow {
+            font-size: 24px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+
+        .header-container h1 {
+            font-size: 24px;
+            font-weight: bold;
+            margin: 0;
+        }
+
+        .card {
+            border-radius: 20px;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            padding: 20px;
+            margin-top: -75px;
+            height: calc(100vh - 295px);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .payment-container {
+            text-align: left;
+            margin-bottom: 20px;
+        }
+
+            .payment-container h5 {
+                font-size: 20px;
+                font-weight: bold;
+                color: #333;
+                margin-bottom: 20px;
+                text-align: center; /* Center the heading */
+            }
+
+            .payment-container .select-text {
+                font-size: 14px;
+                color: #999;
+                margin-bottom: 20px;
+                text-align: center;
+            }
+
+        .payment-method {
+            display: flex;
+            align-items: center;
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 24px;
+            width: 100%;
+            box-sizing: border-box;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+        }
+
+            .payment-method .payment-icon {
+                color: #F74B94;
+                font-size: 24px;
+                font-weight: bold;
+                margin-right: 10px;
+                display: flex;
+                align-items: center; /* Center the icon vertically */
+            }
+
+            .payment-method .payment-info {
+                font-size: 16px;
+                color: #333;
+                flex-grow: 1; /* Ensure the info takes the remaining space */
+            }
+
+            .payment-method .payment-radio {
+                display: flex;
+                align-items: center; /* Center the radio button vertically */
+            }
+
+                .payment-method .payment-radio input[type="radio"] {
+                    appearance: none;
+                    -webkit-appearance: none;
+                    width: 20px;
+                    height: 20px;
+                    border: 2px solid #F74B94;
+                    border-radius: 50%;
+                    cursor: pointer;
+                    position: relative;
+                    margin: 0;
+                }
+
+                    .payment-method .payment-radio input[type="radio"]:checked::before {
+                        content: '';
+                        display: inline-block;
+                        position: absolute;
+                        top: 50%;
+                        left: 50%;
+                        width: 12px;
+                        height: 12px;
+                        background-color: #F74B94; /* Inner circle color */
+                        border-radius: 50%;
+                        transform: translate(-50%, -50%);
+                    }
+
+
+        .btn-chip {
+            width: 100%;
+            border-radius: 30px;
+            margin-top: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 50px; /* Adjust height as needed */
+            background-color: #F74B94;
+            color: #fff;
+            border: none;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="header-container">
+            <div class="header-content">
+                <span class="back-arrow" onclick="history.back()">&lt;</span>
+                <h1>@productListWallets.Name</h1>
+            </div>
+        </div>
+        <div class="card">
+            <div class="payment-container">
+                <h5>Payment Methods</h5>
+                <p class="select-text">Select the payment method you want to use.</p>
+
+                <div class="payment-method shadow">
+                    <div class="payment-icon"><i class="fa fa-university"></i></div>
+                    <div class="payment-info">Instant EFT</div>
+                    <div class="payment-radio"><input type="radio" name="payment" value="eft"></div>
+                </div>
+
+                <div class="payment-method shadow">
+                    <div class="payment-icon"><i class="fa fa-credit-card"></i></div>
+                    <div class="payment-info">Credit/Debit Card</div>
+                    <div class="payment-radio"><input type="radio" name="payment" value="credit_card"></div>
+                </div>
+
+                <div class="payment-method shadow">
+                    <div class="payment-icon"><i class="fa fa-bitcoin"></i></div>
+                    <div class="payment-info">Crypto</div>
+                    <div class="payment-radio"><input type="radio" name="payment" value="fivewest"></div>
+                </div>
+            </div>
+            <div class="mt-auto">
+                <button class="btn btn-chip" onclick="getPaymentKey()">Pay Now</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
+
+<script>
+    $(document).ready(function () {
+        $('header').empty();
+    });
+</script>
+
+<script>
+    function getQueryParams(url) {
+        let params = {};
+        let parser = new URL(url);
+        for (let pair of parser.searchParams.entries()) {
+            params[pair[0]] = pair[1];
+        }
+        return params;
+    }
+
+    async function getPaymentKey() {
+        try {
+            const params = getQueryParams(window.location.href);
+            console.log('Current URL params:', params);
+
+            const productListWalletId = params['id'];
+            console.log('productListWalletId:', productListWalletId);
+
+            const paymentMethods = document.getElementsByName('payment');
+            let selectedMethod = '';
+
+            for (const method of paymentMethods) {
+                if (method.checked) {
+                    selectedMethod = method.value;
+                    break;
+                }
+            }
+
+            console.log("Selected Payment Method:", selectedMethod); // Log the selected payment method
+
+            if (selectedMethod) {
+                //alert('Selected Payment Method: ' + selectedMethod);
+                // You can replace the alert with your desired action, e.g., form submission or API call
+                const data = new URLSearchParams();
+                data.append('Amount', params['amount']);
+                //data.append('Amount', 1);
+                data.append('MerchantReference', 'Chipin');
+                data.append('PaymentMethod', selectedMethod);
+                data.append('ProductListWalletId', productListWalletId);
+                data.append('Token', '');
+
+                const paymentResponse = await fetch('/CallPay/GetKey', {
+                    method: 'POST',
+                    body: data,
+                    credentials: 'include'
+                });
+
+                if (paymentResponse.ok) {
+                    const result = await paymentResponse.json();
+                    window.location.href = result.url;
+                } else {
+                    console.error('Failed to get payment key:', paymentResponse.status);
+                }
+            } else {
+                alert('Please select a payment method.');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    }
+
+</script>

@@ -1,460 +1,293 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿@{
+    ViewData["Title"] = "Index";
 }
 
+@{
+    var externalProducts = ViewBag.ExternalProducts as List<Chipin_Rewrite.Models.Entities.ExternalProduct>;
+    var products = ViewBag.Products as List<Chipin_Rewrite.Models.Entities.Product>;
+    var productListItems = ViewBag.ProductListItems as List<Chipin_Rewrite.Models.Entities.ProductListItem>;
+    var productListWallets = ViewBag.Wallets as Chipin_Rewrite.Models.Entities.ProductListWallet;
+    var addresses = ViewBag.Addresses as List<Chipin_Rewrite.Models.Entities.Address>;
+}
+
+<!DOCTYPE html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@productListWallets.Name</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        .box {
+        body {
+            background-color: #F74B94;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 428px;
+            margin: 0 auto;
+            padding: 0 0 70px 0;
             position: relative;
-            width: 100%;
+            min-height: 100vh;
         }
 
-            .box .group {
-                position: relative;
-                width: 428px;
-                height: 901px;
-                margin: 5% auto;
-                top: 0;
-                left: 0;
+        .header-container {
+            background-color: #F74B94;
+            background-image: url('vector.svg');
+            background-repeat: no-repeat;
+            background-size: cover;
+            border-radius: 20px 20px 0 0;
+            margin-top: 20px;
+            padding: 20px;
+            color: #fff;
+            text-align: left;
+            position: relative;
+            height: 200px; /* Adjust height as needed */
+            display: flex;
+            align-items: flex-end;
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            margin-bottom: 95px;
+        }
+
+        .header-container .back-arrow {
+            font-size: 24px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+
+        .header-container h1 {
+            font-size: 24px;
+            font-weight: bold;
+            margin: 0;
+        }
+
+        .card {
+            border-radius: 20px;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            padding: 20px;
+            margin-top: -75px;
+            height: calc(100vh - 295px);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .details-container {
+            text-align: left;
+            margin-bottom: 20px;
+        }
+
+            .details-container h5 {
+                font-size: 20px;
+                font-weight: bold;
+                color: #333;
+                margin-bottom: 20px;
+                text-align: center; /* Center the heading */
             }
 
-            .box .overlap {
-                position: relative;
-                width: 428px;
-                height: 882px;
-            }
-
-            .box .auto-layout-vertical {
-                position: absolute;
-                width: 428px;
-                height: 882px;
-                top: 0;
-                left: 0;
-            }
-
-            .box .overlap-group {
-                position: relative;
-                height: 861px;
-                top: 21px;
-            }
-
-            .box .vector {
-                position: absolute;
-                width: 335px;
-                height: 161px;
-                top: 0;
-                left: 49px;
-            }
-
-            .box .div {
-                position: absolute;
-                width: 428px;
-                height: 763px;
-                top: 98px;
-                left: 0;
-                background-color: #ffffff;
-                border-radius: 32px 32px 0px 0px;
-                overflow: hidden;
-                border: 1px solid;
-                border-color: #f5f5f5;
-            }
-
-            .box .text-wrapper {
-                position: absolute;
-                width: 380px;
-                height: 29px;
-                top: 53px;
-                left: 19px;
-                font-family: "Nunito-Black", Helvetica;
-                font-weight: 900;
-                color: #333333;
-                font-size: 24px;
-                text-align: center;
-                letter-spacing: 0;
-                line-height: 28.8px;
-            }
-
-            .box .text-wrapper-2 {
-                position: absolute;
-                width: 380px;
-                height: 22px;
-                top: 370px;
-                left: 19px;
-                font-family: "Nunito-SemiBold", Helvetica;
-                font-weight: 600;
-                color: #d91950;
-                font-size: 16px;
-                text-align: center;
-                letter-spacing: 0.2px;
-                line-height: 22.4px;
-            }
-
-            .box .text-wrapper-3 {
-                top: 207px;
-                position: absolute;
-                width: 285px;
-                height: 22px;
-                text-align: left;
-                left: 48px;
-                font-family: "Nunito-SemiBold", Helvetica;
-                font-weight: 600;
-                color: #d91950;
-                font-size: 16px;
-                letter-spacing: 0.2px;
-                line-height: 22.4px;
-            }
-
-            .box .text-wrapper-4 {
-                top: 329px;
-                position: absolute;
-                width: 285px;
-                height: 22px;
-                left: 48px;
-                text-align: left;
-                font-family: "Nunito-SemiBold", Helvetica;
-                font-weight: 600;
-                color: #d91950;
-                font-size: 16px;
-                letter-spacing: 0.2px;
-                line-height: 22.4px;
-            }
-
-            .box .auto-layout-wrapper {
-                display: flex;
-                flex-direction: column;
-                width: 380px;
-                align-items: flex-start;
-                gap: 16px;
-                padding: 24px;
-                position: absolute;
-                top: 251px;
-                left: 24px;
-                background-color: #ffffff;
-                border-radius: 20px;
-                box-shadow: 0px 4px 60px #04060f0d;
-            }
-
-            .box .auto-layout-wrapper-disabled {
-                display: flex;
-                flex-direction: column;
-                width: 380px;
-                align-items: flex-start;
-                gap: 16px;
-                padding: 24px;
-                position: absolute;
-                top: 251px;
-                left: 24px;
-                background-color: #8f8b8b;
-                border-radius: 20px;
-                display:none;
-            }
-
-            .box .auto-layout {
-                display: flex;
-                align-items: flex-start;
-                gap: 16px;
-                position: relative;
-                align-self: stretch;
-                width: 100%;
-                flex: 0 0 auto;
-            }
-
-            .box .img {
-                position: relative;
-                width: 24px;
-                height: 24px;
-            }
-
-            .box .text-wrapper-5 {
-                position: relative;
-                flex: 1;
-                height: 24px;
-                margin-top: -1px;
-                font-family: "Nunito-Bold", Helvetica;
-                font-weight: 700;
-                color: #212121;
-                font-size: 18px;
-                letter-spacing: 0;
-                line-height: 21.6px;
-                white-space: nowrap;
-            }
-
-            .box .text-wrapper-6 {
-                position: absolute;
-                width: 309px;
-                top: 12px;
-                left: 71px;
-                font-family: "Nunito-Black", Helvetica;
-                font-weight: 900;
-                color: black;
-                font-size: 24px;
-                letter-spacing: 0;
-                line-height: 28.8px;
-            }
-
-            .box .theme-light {
-                display: flex;
-                width: 380px;
-                height: 48px;
-                align-items: center;
-                gap: 12px;
-                padding: 12px 0px;
-                position: absolute;
-                top: 3px;
-                left: 24px;
-            }
-
-            .box .auto-layout-2 {
+            .details-container .input-group {
                 display: flex;
                 align-items: center;
-                gap: 16px;
-                position: relative;
-                flex: 1;
-                flex-grow: 1;
-                margin-top: -2px;
-                margin-bottom: -2px;
+                background-color: #fff;
+                border-radius: 10px;
+                padding: 15px;
+                box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+                margin-bottom: 10px;
+                width: 100%; /* Make it the same width as the inner card */
+                box-sizing: border-box; /* Ensure padding is included in the width */
             }
 
-            .box .iconly-light-outline {
-                position: relative;
-                width: 28px;
-                height: 28px;
+                .details-container .input-group span.input-icon {
+                    color: #F74B94;
+                    font-size: 24px;
+                    font-weight: bold;
+                    margin-right: 10px;
+                    display: flex;
+                    align-items: center; /* Center the icon vertically */
+                }
+
+                .details-container .input-group input {
+                    border: none;
+                    outline: none;
+                    font-size: 18px;
+                    padding: 5px;
+                    text-align: left;
+                    width: calc(100% - 40px); /* Ensure the input takes the remaining space */
+                }
+
+            .details-container .required-text {
+                color: red;
+                font-size: 12px;
+                margin-bottom: 10px;
+                display: block;
+                text-align: right;
             }
 
-            .box .type-button-type {
-                all: unset;
-                box-sizing: border-box;
-                display: flex;
-                width: 380px;
-                align-items: center;
-                justify-content: center;
-                gap: 10px;
-                padding: 18px 16px;
-                position: absolute;
-                top: 757px;
-                left: 24px;
-                background-color: #d91950;
-                border-radius: 100px;
-            }
-
-            .box .button {
-                all: unset;
-                box-sizing: border-box;
-                position: relative;
-                flex: 1;
-                height: 22px;
-                margin-top: -1px;
-                text-shadow: 4px 8px 24px #10101040;
-                font-family: "Nunito-Black", Helvetica;
-                font-weight: 900;
-                color: #ffffff;
-                font-size: 16px;
-                text-align: center;
-                letter-spacing: 0.2px;
-                line-height: 22.4px;
-                white-space: nowrap;
-            }
-
-            .box .vector-2 {
-                position: absolute;
-                width: 15px;
-                height: 10px;
-                top: 781px;
-                left: 244px;
-            }
-
-            .box .auto-layout-vertical-wrapper {
-                display: flex;
-                flex-direction: column;
-                width: 380px;
-                align-items: flex-start;
-                gap: 24px;
-                position: absolute;
-                top: 228px;
-                left: 24px;
-            }
-
-            .box .div-wrapper {
-                display: flex;
-                flex-direction: column;
-                width: 380px;
-                align-items: flex-start;
-                gap: 24px;
-                position: relative;
-                flex: 0 0 auto;
-            }
-
-            .box .auto-layout-vertical-2 {
-                display: flex;
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 16px;
-                padding: 24px;
-                position: relative;
-                align-self: stretch;
-                width: 100%;
-                flex: 0 0 auto;
-                background-color: #ffffff;
-                border-radius: 20px;
-                box-shadow: 0px 4px 60px #04060f0d;
-            }
-
-            .box .auto-layout-vertical-2-disabled {
-                display: flex;
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 16px;
-                padding: 24px;
-                position: relative;
-                align-self: stretch;
-                width: 100%;
-                flex: 0 0 auto;
-                background-color: #8f8b8b;
-                border-radius: 20px;
-                display:none;
-                top: -96px;
-            }
-
-            .box .rectangle {
-                position: absolute;
-                width: 24px;
-                height: 24px;
-                top: 544px;
-                left: 50px;
-                border-radius: 8px;
-                border: 3px solid;
-                background-color: white;
-                border-color: #d91950;
-                cursor: pointer;
-            }
-
-            .box .text-wrapper-7 {
-                position: absolute;
-                height: 20px;
-                top: 546px;
-                left: 86px;
-                font-family: "Nunito-SemiBold", Helvetica;
-                font-weight: 600;
-                color: #212121;
+            .details-container .email-disclaimer {
+                color: #F74B94;
                 font-size: 14px;
-                letter-spacing: 0.2px;
-                line-height: 19.6px;
-                white-space: nowrap;
-            }
-
-            .box .text-wrapper-8 {
-                position: relative;
-                flex: 1;
-                height: 22px;
-                margin-top: -1px;
-                text-shadow: 4px 8px 24px #10101040;
-                font-family: "Nunito-Black", Helvetica;
-                font-weight: 900;
-                color: #ffffff;
-                font-size: 16px;
+                margin-bottom: 20px;
                 text-align: center;
-                letter-spacing: 0.2px;
-                line-height: 22.4px;
-                white-space: nowrap;
+                font-weight: bold;
             }
 
-        input.text-wrapper-5 {
-            border: none; /* Remove default border */
-            outline: none; /* Remove default outline */
-            background-color: transparent;
+            .details-container .checkbox-container {
+                align-items: center;
+                margin-bottom: 20px;
+                font-size: 16px;
+            }
+
+                .details-container .checkbox-container input[type="checkbox"] {
+                    appearance: none;
+                    -webkit-appearance: none;
+                    background-color: #fff;
+                    border: 2px solid #F74B94;
+                    border-radius: 4px;
+                    width: 20px;
+                    height: 20px;
+                    margin-right: 10px;
+                    cursor: pointer;
+                }
+
+                    .details-container .checkbox-container input[type="checkbox"]:checked {
+                        background-color: #F74B94;
+                        border: 2px solid #F74B94;
+                    }
+
+                .details-container .checkbox-container label {
+                    font-size: 16px;
+                    color: #333;
+                    vertical-align: bottom;
+                }
+
+        .btn-chip {
+            width: 100%;
+            border-radius: 30px;
+            margin-top: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 50px; /* Adjust height as needed */
         }
+
+        .btn-chip {
+            background-color: #F74B94;
+            color: #fff;
+            border: none;
+        }
+
+            .btn-chip img {
+                margin-left: 10px;
+            }
     </style>
 </head>
-
 <body>
-    <div class="box">
-        <div class="group">
-            <div class="overlap">
-                <div class="auto-layout-vertical">
-                    <div class="overlap-group">
-                        <img class="vector" src="~/css/resource/vector.svg" />
-                        <div class="div">
-                            <div class="text-wrapper">Your Details</div>
-                            <div class="text-wrapper-2">E-mail Disclaimer</div>
-                            <div class="text-wrapper-3">required*</div>
-                            <div class="text-wrapper-4">required*</div>
-                            <div class="auto-layout-wrapper">
-                                <div class="auto-layout">
-                                    <img class="img" src="~/css/resource/email_icon.svg" />
-                                    <input id="yourEmailInput" class="text-wrapper-5" placeholder="Your E-mail">
-                                </div>
-                            </div>
-                            <div class="auto-layout-wrapper-disabled">
-                                <div class="auto-layout">
-                                    <img class="img" src="~/css/resource/email_icon.svg" />
-                                </div>
-                            </div>
-                        </div>
-                        <div class="text-wrapper-6">Name’s Birthday Gift</div>
-                        <div class="theme-light">
-                            <div class="auto-layout-2"><img class="iconly-light-outline" src="~/css/resource/arrow-left.svg" /></div>
-                        </div>
-                        <a href="@Url.Action("Index", "SharedList4")">
-                            <button class="type-button-type"><div class="text-wrapper-8">Next</div></button>
-                            <img class="vector-2" src="~/css/resource/arrow-next.svg" />
-                        </a>
-                        <div class="auto-layout-vertical-wrapper">
-                            <div class="div-wrapper">
-                                <div class="auto-layout-vertical-2">
-                                    <div class="auto-layout">
-                                        <img class="img" src="~/css/resource/profile_icon.svg" />
-                                        <input id="yourNameInput" class="text-wrapper-5" placeholder="Your Name">
-                                    </div>
-                                </div>
-                                <div class="auto-layout-vertical-2-disabled">
-                                    <div class="auto-layout">
-                                        <img class="img" src="~/css/resource/profile_icon.svg" />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+
+    <div class="container">
+        <div class="header-container">
+            <div class="header-content">
+                <span class="back-arrow" onclick="history.back()">&lt;</span>
+                <h1>@productListWallets.Name</h1>
+            </div>
+        </div>
+        <div class="card">
+            <div class="details-container">
+                <h5>Your Details</h5>
+                <div class="input-group">
+                    <span class="input-icon"><i class="fa fa-user"></i></span>
+                    <input id="yourNameInput" type="text" placeholder="Your Name" required>
                 </div>
-                <div class="rectangle" id="myRectangle"></div>
-                <div class="text-wrapper-7">Chip In anonymously</div>
+                <small class="required-text">required*</small>
+                <div class="input-group">
+                    <span class="input-icon"><i class="fa fa-envelope"></i></span>
+                    <input id="yourEmailInput" type="email" placeholder="Your Email" required>
+                </div>
+                <small class="required-text">required*</small>
+                <p class="email-disclaimer">E-mail Disclaimer</p>
+                <div class="checkbox-container">
+                    <input type="checkbox" id="anonymous" onclick="toggleInputs()">
+                    <label for="anonymous">Chip in anonymously</label>
+                </div>
+            </div>
+            <div class="mt-auto">
+                <button class="btn btn-chip" onclick="redirectToSharedList4()">Next <img src="~/css/resource/arrow-next.svg" alt="Arrow"></button>
             </div>
         </div>
     </div>
 
-    <script>
-        // Get the rectangle element
-        const rectangle = document.getElementById('myRectangle');
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
 
-        // Add click event listener
-        rectangle.addEventListener('click', function () {
-            // Check the current background color
-            const currentColor = rectangle.style.backgroundColor;
+<script>
+    // Track anonymous state
+    let isAnonymous = false;
 
-            var yourNameInput = document.getElementById("yourNameInput");
+    $(document).ready(function () {
+        $('header').empty();
+    });
 
-            var yourEmailInput = document.getElementById("yourEmailInput");
-
-            var emailDisabled = document.getElementsByClassName("auto-layout-wrapper-disabled")[0];
-
-            var nameDisabled = document.getElementsByClassName("auto-layout-vertical-2-disabled")[0];
-
-
-            // Toggle between two colors
-            if (currentColor === 'white') {
-                rectangle.style.backgroundColor = '#d91950';
-                yourNameInput.disabled = true;
-                yourEmailInput.disabled = true;
-                emailDisabled.style.display = "block";
-                nameDisabled.style.display = "block";
-            } else {
-                rectangle.style.backgroundColor = 'white';
-                yourNameInput.disabled = false;
-                yourEmailInput.disabled = false;
-                emailDisabled.style.display = "none";
-                nameDisabled.style.display = "none";
-            }
+    function toggleInputs() {
+        var anonymousCheckbox = document.getElementById("anonymous");
+        var inputs = document.querySelectorAll(".details-container input[type='text'], .details-container input[type='email']");
+        inputs.forEach(function (input) {
+            input.disabled = anonymousCheckbox.checked;
+            isAnonymous = true;
         });
-    </script>
-  </body>
+    }
+
+    function checkNextButton() {
+        var anonymousCheckbox = document.getElementById("anonymous");
+        var yourNameInput = document.getElementById('yourNameInput').value;
+        var yourEmailInput = document.getElementById('yourEmailInput').value;
+
+        var nextButton = document.getElementById('nextButton');
+        if (anonymousCheckbox.checked || (yourNameInput && yourEmailInput)) {
+            nextButton.disabled = false;
+        } else {
+            nextButton.disabled = true;
+        }
+    }
+
+    function getQueryParams(url) {
+        let params = {};
+        let parser = new URL(url);
+        for (let pair of parser.searchParams.entries()) {
+            params[pair[0]] = pair[1];
+        }
+        return params;
+    }
+
+    function redirectToSharedList4() {
+        const params = getQueryParams(window.location.href);
+        const chipinAmt = params['chipinAmount'];
+        const productListWalletsId = params['id'];
+
+        var baseUrl = '@Url.Action("Index", "SharedList4")';
+        var url = `${baseUrl}?id=@productListWallets.ProductListWalletId&chipinAmount=${chipinAmt}`;
+
+        if (!document.getElementById("anonymous").checked) {
+            var yourNameInput = document.getElementById('yourNameInput').value;
+            var yourEmailInput = document.getElementById('yourEmailInput').value;
+            url += `&yourName=${encodeURIComponent(yourNameInput)}&yourEmail=${encodeURIComponent(yourEmailInput)}`;
+        }
+
+        window.location.href = url;
+    }
+
+    // Add event listeners to inputs
+    document.getElementById('yourNameInput').addEventListener('input', checkNextButton);
+    document.getElementById('yourEmailInput').addEventListener('input', checkNextButton);
+</script>

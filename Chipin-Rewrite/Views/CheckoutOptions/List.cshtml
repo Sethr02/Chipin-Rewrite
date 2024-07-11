@@ -1,0 +1,193 @@
+﻿@model IEnumerable<Chipin_Rewrite.Models.Entities.ProductListWallet>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Choose Your List</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .list-container {
+            max-width: 400px;
+            margin: 0 auto;
+            background: #f8f9fa;
+            border-radius: 10px;
+            text-align: center;
+            position: relative;
+        }
+
+        .list-header {
+            background: #e0245e;
+            color: white;
+            padding: 45px 0;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 10px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .list-card {
+            background: #fff;
+            border-radius: 10px;
+            padding: 10px;
+            position: relative;
+            z-index: 2;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            margin-top: -20px;
+            margin-bottom: 20px;
+        }
+
+        .list-item {
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            margin: 10px 0;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+            .list-item img {
+                width: 50px;
+                height: 50px;
+                border-radius: 5px;
+                margin-right: 10px;
+            }
+
+            .list-item .list-name {
+                flex-grow: 1;
+                text-align: left;
+                font-size: 16px;
+                font-weight: bold;
+                color: #00a2ff;
+            }
+
+            .list-item.new-list {
+                justify-content: center;
+                font-size: 16px;
+                font-weight: bold;
+                color: #00a2ff;
+                border: 2px dashed #00a2ff;
+            }
+
+                .list-item.new-list i {
+                    font-size: 24px;
+                    margin-right: 10px;
+                }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <div class="list-container">
+        <div class="list-header">Choose Your List</div>
+        <div class="list-card">
+            @foreach (var list in Model)
+            {
+                <div class="list-item" onclick="selectList('@list.ProductListWalletId')">
+                    <img src="https://via.placeholder.com/50" alt="List Thumbnail">
+                    <div class="list-name">@list.Name</div>
+                </div>
+            }
+
+            <div class="list-item new-list">
+                <i class="fas fa-plus"></i> New List
+            </div>
+        </div>
+    </div>
+
+    <form id="externalProductForm" method="post" action="/CheckoutOptions/AddExternalProduct">
+        <input type="hidden" name="ProductName" id="ProductName" />
+        <input type="hidden" name="ProductDescription" id="ProductDescription" />
+        <input type="hidden" name="Price" id="Price" />
+        <input type="hidden" name="Image" id="Image" />
+        <input type="hidden" name="Store" id="Store" />
+        <input type="hidden" name="CustString1" id="CustString1" />
+        <input type="hidden" name="CustInt1" id="CustInt1" />
+        <input type="hidden" name="ProductId" id="ProductId" />
+        <input type="hidden" name="Quantity" id="Quantity" />
+        <input type="hidden" id="productListWalletId" name="productListWalletId" />
+    </form>
+
+    <script>
+        function getQueryParams2(url) {
+            let params = {};
+            let parser = new URL(url);
+            for (let pair of parser.searchParams.entries()) {
+                params[pair[0]] = pair[1];
+            }
+            return params;
+        }
+
+        function getQueryParams() {
+            const params = new URLSearchParams(window.location.search);
+            return {
+                productName: params.get('product_name'),
+                productDescription: params.get('product_description'),
+                price: params.get('price'),
+                image: params.get('image'),
+                store: params.get('store'),
+                custString1: params.get('cust_string1'),
+                custInt1: params.get('cust_int1'),
+                productId: params.get('product_id'),
+                quantity: params.get('quantity')
+            };
+        }
+
+        function populateFormFields(params) {
+            $('#ProductName').val(params.productName);
+            $('#ProductDescription').val(decodeURIComponent(params.productDescription));
+            $('#Price').val(params.price);
+            $('#Image').val(params.image);
+            $('#Store').val(params.store);
+            $('#CustString1').val(params.custString1);
+            $('#CustInt1').val(params.custInt1);
+            $('#ProductId').val(params.productId);
+            $('#Quantity').val(params.quantity);
+        }
+
+        function selectList(productListWalletId) {
+            $('#productListWalletId').val(productListWalletId);
+            const params = getQueryParams();
+            populateFormFields(params);
+            $('#externalProductForm').submit();
+        }
+
+        function redirectToEnterListName() {
+            const params = getQueryParams2(window.location.href);
+            const ProductName = params['product_name'];
+            const ProductDescription = params['product_description'];
+            const Price = params['price'];
+            const Image = params['image'];
+            const Store = params['store'];
+            const CustString1 = params['cust_string1'];
+            const CustInt1 = params['cust_int1'];
+            const ProductId = params['product_id'];
+            const Quantity = params['quantity'];
+
+            var baseUrl = '@Url.Action("Step4", "CheckoutOptions")';
+            var url = `${baseUrl}?product_name=${ProductName}&product_description=${ProductDescription}&price=${Price}&image=${Image}&store=${Store}&cust_string1=${CustString1}&cust_int1=${CustInt1}&product_id=${ProductId}&quantity=${Quantity}`;
+
+            window.location.href = url;
+        }
+
+        function getQueryParams2() {
+            const params = new URLSearchParams(window.location.search);
+            return '?' + params;
+        }
+
+        $(document).ready(function () {
+            const params = getQueryParams();
+            const queryParams = getQueryParams2();
+            $('.new-list').attr('onclick', `window.location.href='/CheckoutOptions/EnterListName${queryParams}'`);
+
+            populateFormFields(params);
+        });
+    </script>
+
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</body>
+</html>

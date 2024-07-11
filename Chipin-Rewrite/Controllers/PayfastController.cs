@@ -95,8 +95,8 @@ namespace PayfastTest.Controllers
             transaction.FromInvitedUser = 0;
             transaction.ProductListWalletId = int.Parse(data["custom_int1"]);
             transaction.TransactionMethod = "Payfast";
-            transaction.TransactionId = data["pf_payment_id"];
-            transaction.CreatedAt = DateTime.Now;
+            //transaction.TransactionId = data["pf_payment_id"];
+            //transaction.CreatedAt = DateTime.Now;
 
             foreach (var field in transaction.GetType().GetProperties())
             {

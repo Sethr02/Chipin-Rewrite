@@ -1,0 +1,168 @@
+﻿@using Newtonsoft.Json
+@model Chipin_Rewrite.Models.Entities.ProductListWallet
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+
+
+
+
+
+
+
+<!-- Main CSS-->
+
+<link href="~/css/Created.css" rel="stylesheet" media="all">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+<link href="~/css/site.css" rel="stylesheet" media="all">
+
+
+
+@if (User.Identity.IsAuthenticated)
+{
+    <link href="~/css/bubbles.css" rel="stylesheet" media="all">
+    <div class="bubbles bubble-1"></div>
+    <div class="bubbles bubble-5"></div>
+    <div class="bubbles bubble-2"></div>
+    <div class="bubbles bubble-6"></div>
+    <div class="bubbles bubble-3"></div>
+    <div class="bubbles bubble-7"></div>
+    <div class="bubbles bubble-4"></div>
+    <div class="bubbles bubble-8"></div>
+
+    <style>
+        .input-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .input-container input {
+            text-align: center;
+            padding: 10px;
+            font-size: 16px;
+            width: 100%;
+            max-width: 300px;
+            box-sizing: border-box;
+        }
+
+        .input-container input[type="date"] {
+            text-align: center;
+            padding: 10px;
+            font-size: 16px;
+            width: 100%;
+            max-width: 300px;
+            box-sizing: border-box;
+        }
+
+        @@media (max-width: 600px) {
+            .input-container {
+                width: 100%;
+                padding: 10px;
+            }
+        }
+    </style>
+
+<body>
+    
+        <div>
+            <div class="backBtn-div">
+
+                <a href="@Url.Action("Index", "ProductListWallets", new {token = "null"  })" class="backBtn link">
+                    <i class="fa fa-arrow-left" aria-hidden="true"></i>
+                </a>
+            </div>
+            <h1 class="pink">New List</h1>
+
+        </div>
+        <div class="container">
+            <div class="card">
+                <form id="myForm" method="post" action="@Url.Action("Create", "CheckoutOptions")">
+                    <!-- Hidden fields to pass URL data -->
+                    <input type="hidden" name="product_name" value="@ViewData["ProductName"]" />
+                    <input type="hidden" name="product_description" value="@ViewData["ProductDescription"]" />
+                    <input type="hidden" name="price" value="@ViewData["Price"]" />
+                    <input type="hidden" name="image" value="@ViewData["Image"]" />
+                    <input type="hidden" name="store" value="@ViewData["Store"]" />
+                    <input type="hidden" name="cust_string1" value="@ViewData["CustString1"]" />
+                    <input type="hidden" name="cust_int1" value="@ViewData["CustInt1"]" />
+                    <input type="hidden" name="product_id" value="@ViewData["ProductId"]" />
+                    <input type="hidden" name="quantity" value="@ViewData["Quantity"]" />
+                    @*<input type="hidden" id="token" name="token" />
+                    <input id="ExternalProductInformation" type="hidden" name="externalProductInformation" value="@ViewBag.ExternalProductInformation" /> *@
+
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                    <!--         <input asp-for="ChipinId" class="form-control" value="@ViewBag.ChipinId" hidden />-->
+                    <div class="input-container">
+                        <h3>
+                            Name
+                            <star class="required" title="required">*</star>
+                        </h3>
+                        <input asp-for="Name" class="form-control" placeholder="List name..." required maxlength="25" />
+                        <small>
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </small>
+
+                        <h3>
+                            End Date
+                            <star class="required" title="required">*</star>
+                        </h3>
+
+                        <input asp-for="EndAt" id="dateInput" class="form-control" placeholder="End Date" type="date" min="{{ today }}" required />
+
+                        <small>
+                            <span asp-validation-for="EndAt" class="text-danger"></span>
+                        </small>
+
+
+
+                    </div>
+
+
+                    <div class="btn-div">
+                        <button type="submit" value="Create">Add</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+</body>
+
+<script>
+    document.getElementById("token").value = localStorage.getItem("token");
+
+        var today = new Date();
+
+        // Set the time to the end of the day (23:59:59)
+        today.setHours(23, 59, 59);
+
+        // Format the date as YYYY-MM-DDTHH:mm:ss (required format for date input)
+        var formattedToday = today.toISOString().slice(0, 10);
+
+        // Set the minimum value for the date input
+        document.getElementById("dateInput").setAttribute("min", formattedToday);
+        document.getElementById('backBtn').addEventListener('click', function () {
+            var token = localStorage.getItem('token');
+            var url = '@Url.Action("Index", "ProductListWallets")' + '?token=' + encodeURIComponent(token);
+            window.location.href = url;
+        });
+        // Log the data to the console
+        var productListWallet = @Html.Raw(JsonConvert.SerializeObject(ViewBag.ProductListWallet));
+        var externalProductId = @Html.Raw(JsonConvert.SerializeObject(ViewBag.ExternalProductId));
+        console.log("ProductListWallet:", productListWallet);
+        console.log("ExternalProductId:", externalProductId);
+</script>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+}
+
+<script>
+    $(document).ready(function () {
+        $('header').empty();
+    });
+</script>

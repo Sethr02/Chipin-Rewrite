@@ -83,17 +83,11 @@
                     <div class="btn-div">
                         <button type="submit" value="Create">Add</button>
                     </div>
-
-
                 </form>
             </div>
-
-
         </div>
-   
-
-
 </body>
+
 <script>
     document.getElementById("token").value = localStorage.getItem("token");
 
@@ -119,3 +113,9 @@
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
 }
+
+<script>
+    $(document).ready(function () {
+        $('header').empty();
+    });
+</script>

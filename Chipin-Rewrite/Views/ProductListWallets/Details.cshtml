@@ -10,10 +10,7 @@
     var productListItems = ViewBag.ProductListItems as List<Chipin_Rewrite.Models.Entities.ProductListItem>;
     var productListWallets = ViewBag.Wallets as Chipin_Rewrite.Models.Entities.ProductListWallet;
     var addresses = ViewBag.Addresses as List<Chipin_Rewrite.Models.Entities.Address>;
-
 }
-
-
 
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet">
@@ -165,88 +162,88 @@
 
                                     <div class="@(numitems > 3 ? "hidethis" : "")">
 
-                                       
-                                    @if (User.Identity.IsAuthenticated && productListWallets.Closed == 0)
-                                    {
 
-                                        <button class="trashBtn" data-id="@item.ChipinProductListEntryId">
-                                            <i class="fa fa-trash"> </i>
+                                        @if (User.Identity.IsAuthenticated && productListWallets.Closed == 0)
+                                        {
 
-                                        </button>
-                                    }
+                                            <button class="trashBtn" data-id="@item.ChipinProductListEntryId">
+                                                <i class="fa fa-trash"> </i>
 
-                                    <a class="RedirectToProductDetails" data-id="@myproduct.ProductId">
+                                            </button>
+                                        }
 
-                                        <div class="detailedListView split">
-                                            <div class="img-div imgleft">
-                                                <img src="@myproduct.ProductImage" onerror="src ='/css/resource/Chipin.png';" />
-                                            </div>
-                                            <div class="detailListRight inforight">
+                                        <a class="RedirectToProductDetails" data-id="@myproduct.ProductId">
 
-                                                <div class="details-div">
-                                                    <h4>
-                                                        @myproduct.ProductName
-                                                    </h4>
-
-                                                    <h5><i class="fa-solid fa-shop"></i> @myproduct.Store</h5>
+                                            <div class="detailedListView split">
+                                                <div class="img-div imgleft">
+                                                    <img src="@myproduct.ProductImage" onerror="src ='/css/resource/Chipin.png';" />
                                                 </div>
+                                                <div class="detailListRight inforight">
 
-                                                <div class="bar">
-                                                    <label>
-                                                        R @myproduct.Price
-                                                    </label>
-                                                    <div class="ex-quantity-div">
+                                                    <div class="details-div">
+                                                        <h4>
+                                                            @myproduct.ProductName
+                                                        </h4>
+
+                                                        <h5><i class="fa-solid fa-shop"></i> @myproduct.Store</h5>
+                                                    </div>
+
+                                                    <div class="bar">
+                                                        <label>
+                                                            R @myproduct.Price
+                                                        </label>
+                                                        <div class="ex-quantity-div">
 
 
-                                                        <form id="myForm" method="post" action="@Url.Action("AddInternalProduct", "ProductListWallets")">
-                                                            <input type="hidden" class="tokenToSend" name="token" />
+                                                            <form id="myForm" method="post" action="@Url.Action("AddInternalProduct", "ProductListWallets")">
+                                                                <input type="hidden" class="tokenToSend" name="token" />
 
-                                                            <!--<form asp-action="AddInternalProduct" method="post">-->
-                                                            <input type="number" name="productid" value="@myproduct.ProductId" required hidden>
-                                                            <input type="number" name="quantity" id="quantityInput_@index" required hidden value="@item.Quantity">
-                                                            <select name="productlistwalletid" hidden>
+                                                                <!--<form asp-action="AddInternalProduct" method="post">-->
+                                                                <input type="number" name="productid" value="@myproduct.ProductId" required hidden>
+                                                                <input type="number" name="quantity" id="quantityInput_@index" required hidden value="@item.Quantity">
+                                                                <select name="productlistwalletid" hidden>
 
-                                                                <option value="@productListWallets.ProductListWalletId">
-                                                                    @productListWallets.Name
-                                                                </option>
+                                                                    <option value="@productListWallets.ProductListWalletId">
+                                                                        @productListWallets.Name
+                                                                    </option>
 
-                                                            </select>
-                                                            <input type="number" name="externalProductId" hidden>
+                                                                </select>
+                                                                <input type="number" name="externalProductId" hidden>
 
-                                                            <div class="quantity-div">
-                                                                <div class="quantity-toggle">
-                                                                    <button onclick="onDecrease(@index, @item.Quantity)">-</button>
-                                                                    <span class="value" id="currentQuantity_@index">@item.Quantity</span>
-                                                                    <button onclick="onIncrease(@index, @myproduct.Quantity)">+</button>
+                                                                <div class="quantity-div">
+                                                                    <div class="quantity-toggle">
+                                                                        <button onclick="onDecrease(@index, @item.Quantity)">-</button>
+                                                                        <span class="value" id="currentQuantity_@index">@item.Quantity</span>
+                                                                        <button onclick="onIncrease(@index, @myproduct.Quantity)">+</button>
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                        </form>
+                                                            </form>
 
-                                                        @if (ViewBag.viewMode == "OutsiderLoggedIn")
-                                                        {
-                                                            <div class="ex-quantity-div">
-                                                                <div class="ex-quantity-toggle">
+                                                            @if (ViewBag.viewMode == "OutsiderLoggedIn")
+                                                            {
+                                                                <div class="ex-quantity-div">
+                                                                    <div class="ex-quantity-toggle">
 
-                                                                    <span class="value" id="currentQuantity_@index">@item.Quantity</span>
+                                                                        <span class="value" id="currentQuantity_@index">@item.Quantity</span>
 
+                                                                    </div>
                                                                 </div>
-                                                            </div>
 
-                                                        }
+                                                            }
+
+                                                        </div>
+
 
                                                     </div>
 
 
                                                 </div>
 
-
                                             </div>
 
-                                        </div>
+                                        </a>
 
-                                    </a>
-
- </div>
+                                    </div>
 
                                 }
                             }
@@ -338,7 +335,8 @@
                     }
                 </div>
 
-                @if (numitems>3) {
+                @if (numitems > 3)
+                {
                     <button class="pink showAllBtn">
                         Show All
                     </button>
@@ -388,7 +386,7 @@
                 @if (ViewBag.viewMode == "LoggedIn")
                 {
                     <a href="/Products">
-                        <div class="detailedListView onHoverShadow" style="background-color:#d91950">
+                        <div class="detailedListView onHoverShadow" style="background-color:#F74B94">
                             <span class="addProductBtn">  Add Product</span>
                         </div>
                     </a>
@@ -402,14 +400,14 @@
             if (num1.HasValue && num2.HasValue)
             {
                 float? remainingAmt = @productListWallets.Total - @productListWallets.Funded;
-    
-    // Check if remainingAmt is less than 0
-             if (remainingAmt <= 0)
-             {
-                 remaining = 0;
-             }
 
-              remaining = remainingAmt; // Directly assign remainingAmt to remaining
+                // Check if remainingAmt is less than 0
+                if (remainingAmt <= 0)
+                {
+                    remaining = 0;
+                }
+
+                remaining = remainingAmt; // Directly assign remainingAmt to remaining
             }
 
 
@@ -429,21 +427,21 @@
 
         </div>
 
-                </div>
-                
-                @if (remaining == 0){
-                    <h3>Fully Funded!</h3>
-                }
-                else if (remaining < 0)
-                {
-                    float? overfunded = remaining * -1;
-                    <h3>Fully Funded! Extra: R @overfunded</h3>
-                }
-                else
-                {
-                    <h3>Remaining: R @remaining </h3>
-                }
-                
+        </div>
+
+        @if (remaining == 0){
+        <h3>Fully Funded!</h3>
+        }
+        else if (remaining < 0)
+        {
+        float? overfunded = remaining * -1;
+        <h3>Fully Funded! Extra: R @overfunded</h3>
+        }
+        else
+        {
+        <h3>Remaining: R @remaining </h3>
+        }
+
         </div>
 
         @if (remaining == 0)
@@ -494,7 +492,7 @@
                     <div class="newcard-split">
                         <div class="left">
                             Total chipped in:
-                            <div class="newcard-label-amount" style="color: #d91950;">
+                            <div class="newcard-label-amount" style="color: #F74B94;">
                                 R @productListWallets.Funded
                             </div>
 
@@ -508,7 +506,7 @@
                         </div>
                     </div>
 
-                    <div class="newcard-progress" data-percent="@percent ?? 0" >
+                    <div class="newcard-progress" data-percent="@percent ?? 0">
 
 
 
@@ -557,90 +555,90 @@
 
                         <div class="vibes">
 
-                            
-                                
-                @if (User.Identity != null)
-                {
-                    @if (remaining <= 0 && User.Identity.IsAuthenticated)
-                    {
-                        var objectIdClaim = User.FindFirst("http://schemas.microsoft.com/identity/claims/objectidentifier");
-                        string? chipinId = objectIdClaim.Value;
-                        @if (productListWallets.ChipinId == chipinId)
-                        {
-                            <form method="post" action="@Url.Action("DeliveryAddress", "ProductListWallets")">
-                                <input type="hidden" name="id" value="@productListWallets.ProductListWalletId" />
-                                <input type="hidden" class="tokenToSend" name="token" />
-                                <button type="submit" class="chipinlistBtn">
-                                    <div>
-                                        <span class="fundlistBtnsText"> Checkout </span>
-                                    </div>
-                                </button>
-                            </form>
-                        } 
-                        else   
-                        {         
-                            <form method="post" action="@Url.Action("ChipinAmount", "ProductListWallets")">
-                                <input type="hidden" name="id" value="@productListWallets.ProductListWalletId" />
-                                <input type="hidden" class="tokenToSend" name="token" />
-                                <button type="submit" class="chipinlistBtn">
-                                    <div>
-                                        <span class="fundlistBtnsText"> ChipIn! </span>
-                                    </div>
-                                </button>
-                            </form>
-                        }
-                    }
-                    else    // @if (ViewBag.viewMode == "OutsiderLoggedIn")
-                    {
-                        <form method="post" action="@Url.Action("ChipinAmount", "ProductListWallets")">
-                            <input type="hidden" name="id" value="@productListWallets.ProductListWalletId" />
-                            <input type="hidden" class="tokenToSend" name="token" />
-                            <button type="submit" class="chipinlistBtn">
-                                <div>
-                                    <span class="fundlistBtnsText"> ChipIn! </span>
-                                </div>
-                            </button>
-                        </form>
-                    }
-                }
-                else
-                {
-                    <form method="post" action="@Url.Action("ChipinAmount", "ProductListWallets")">
-                        <input type="hidden" name="id" value="@productListWallets.ProductListWalletId" />
-                        <input type="hidden" class="tokenToSend" name="token" />
-                        <button type="submit" class="chipinlistBtn">
-                            <div>
-                                <span class="fundlistBtnsText"> ChipIn! </span>
-                            </div>
-                        </button>
-                    </form>
-                }
-            </div>
-        </div>
-        </div>
-        <div>
-            <form action="/CallPay/payout" method="post">
-                <button class="createBtn" type="submit">Full Fund Simulation</button>
-                <input type="hidden" name="productListWalletId" value="@productListWallets.ProductListWalletId" />
-                <!-- Add other properties as needed -->
-            </form>
-        </div>
-    }
-}
-else
-{
-    <div class="cart-container onshadow">
-        <h2 class="listheading">
-            List Empty
-        </h2>
-        <a href="/Products">
-            <div class="detailedListView" style="background-color:#d91950">
-                <span class="addProductBtn">  Add Product</span>
+
+
+                            @if (User.Identity != null)
+                            {
+                                @if (remaining <= 0 && User.Identity.IsAuthenticated)
+                                {
+                                    var objectIdClaim = User.FindFirst("http://schemas.microsoft.com/identity/claims/objectidentifier");
+                                    string? chipinId = objectIdClaim.Value;
+                                    @if (productListWallets.ChipinId == chipinId)
+                                    {
+                                        <form method="post" action="@Url.Action("DeliveryAddress", "ProductListWallets")">
+                                            <input type="hidden" name="id" value="@productListWallets.ProductListWalletId" />
+                                            <input type="hidden" class="tokenToSend" name="token" />
+                                            <button type="submit" class="chipinlistBtn">
+                                                <div>
+                                                    <span class="fundlistBtnsText"> Checkout </span>
+                                                </div>
+                                            </button>
+                                        </form>
+                                    }
+                                    else
+                                    {
+                                        <form method="post" action="@Url.Action("ChipinAmount", "ProductListWallets")">
+                                            <input type="hidden" name="id" value="@productListWallets.ProductListWalletId" />
+                                            <input type="hidden" class="tokenToSend" name="token" />
+                                            <button type="submit" class="chipinlistBtn">
+                                                <div>
+                                                    <span class="fundlistBtnsText"> ChipIn! </span>
+                                                </div>
+                                            </button>
+                                        </form>
+                                    }
+                                }
+                                else    // @if (ViewBag.viewMode == "OutsiderLoggedIn")
+                                {
+                                    <form method="post" action="@Url.Action("ChipinAmount", "ProductListWallets")">
+                                        <input type="hidden" name="id" value="@productListWallets.ProductListWalletId" />
+                                        <input type="hidden" class="tokenToSend" name="token" />
+                                        <button type="submit" class="chipinlistBtn">
+                                            <div>
+                                                <span class="fundlistBtnsText"> ChipIn! </span>
+                                            </div>
+                                        </button>
+                                    </form>
+                                }
+                            }
+                            else
+                            {
+                                <form method="post" action="@Url.Action("ChipinAmount", "ProductListWallets")">
+                                    <input type="hidden" name="id" value="@productListWallets.ProductListWalletId" />
+                                    <input type="hidden" class="tokenToSend" name="token" />
+                                    <button type="submit" class="chipinlistBtn">
+                                        <div>
+                                            <span class="fundlistBtnsText"> ChipIn! </span>
+                                        </div>
+                                    </button>
+                                </form>
+                            }
+                        </div>
+                    </div>
                 </div>
-        </a>
+                <div>
+                    <form action="/CallPay/payout" method="post">
+                        <button class="createBtn" type="submit">Full Fund Simulation</button>
+                        <input type="hidden" name="productListWalletId" value="@productListWallets.ProductListWalletId" />
+                        <!-- Add other properties as needed -->
+                    </form>
+                </div>
+            }
+        }
+        else
+        {
+            <div class="cart-container onshadow">
+                <h2 class="listheading">
+                    List Empty
+                </h2>
+                <a href="/Products">
+                    <div class="detailedListView" style="background-color:#F74B94">
+                        <span class="addProductBtn">  Add Product</span>
+                    </div>
+                </a>
+            </div>
+        }
     </div>
-}
-</div>
 
 
 
@@ -824,8 +822,3 @@ else
         });
     }
 </script>
-
-
-
-
-

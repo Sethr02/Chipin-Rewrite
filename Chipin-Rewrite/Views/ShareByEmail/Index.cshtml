@@ -418,7 +418,7 @@
 
         modalHomeBtn.onclick = function () {
             paymentSuccessModal.style.display = "none";
-            window.location.href = '@Url.Action("Index", "Home")';
+            window.location.href = '@Url.Action("Index", "Home_")';
         }
 
         sendEmailBtn.onclick = function () {
@@ -437,3 +437,9 @@
         }
     </script>
 </body>
+
+<script>
+    $(document).ready(function () {
+        $('header').empty();
+    });
+</script>

@@ -1,202 +1,147 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model Chipin_Rewrite.Models.Entities.ProductListWallet
+
 @{
+    var externalProducts = ViewBag.ExternalProducts as List<Chipin_Rewrite.Models.Entities.ExternalProduct>;
+    var products = ViewBag.Products as List<Chipin_Rewrite.Models.Entities.Product>;
+    var productListItems = ViewBag.ProductListItems as List<Chipin_Rewrite.Models.Entities.ProductListItem>;
+    var productListWallets = ViewBag.Wallets as Chipin_Rewrite.Models.Entities.ProductListWallet;
+    var addresses = ViewBag.Addresses as List<Chipin_Rewrite.Models.Entities.Address>;
 }
 
+
 <head>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <style>
-        .box {
-            position: relative;
-            width: 100%;
+        html, body {
+            margin: 0;
+            padding: 0;
         }
 
-            .box .group {
-                position: relative;
-                width: 388px;
-                height: 715px;
-                margin: 5% auto;
-                top: 0;
-                left: 0;
-            }
+        .share-container {
+            display: flex;
+            flex-direction: column;
+            min-height: 83vh; /* Full height of the viewport */
+        }
 
-            .box .text-wrapper {
-                position: absolute;
-                width: 276px;
-                top: 289px;
-                left: 53px;
-                font-family: "Nunito-Black", Helvetica;
-                font-weight: 900;
-                color: #333333;
-                font-size: 24px;
-                text-align: center;
-                letter-spacing: 0;
-                line-height: 28.8px;
-            }
-
-            .box .div {
-                position: absolute;
-                width: 276px;
-                top: 334px;
-                left: 53px;
-                font-family: "Nunito-Regular", Helvetica;
-                font-weight: 400;
-                color: #212121;
-                font-size: 16px;
-                text-align: center;
-                letter-spacing: 0.2px;
-                line-height: 22.4px;
-            }
-
-            .box .text-wrapper-2 {
-                position: absolute;
-                width: 276px;
-                top: 519px;
-                left: 53px;
-                font-family: "Nunito-Bold", Helvetica;
-                font-weight: 700;
-                color: #212121;
-                font-size: 18px;
-                text-align: center;
-                letter-spacing: 0;
-                line-height: 21.6px;
-            }
-
-            .box .type-button-type {
-                width: 380px;
-                top: 551px;
-                background-color: #f2f2f2;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                gap: 10px;
-                padding: 18px 16px;
-                position: absolute;
-                left: 0;
-                border-radius: 100px;
-            }
-
-            .box .text-wrapper-3 {
-                position: relative;
-                width: fit-content;
-                margin-top: -1px;
-                font-family: "Nunito-Black", Helvetica;
-                font-weight: 900;
-                color: #d91950;
-                font-size: 14px;
-                text-align: center;
-                letter-spacing: -0.45px;
-                line-height: normal;
-            }
-
-            .box .button-wrapper {
-                width: 382px;
-                top: 637px;
-                background-color: #d91950;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                gap: 10px;
-                padding: 18px 16px;
-                position: absolute;
-                left: 0;
-                border-radius: 100px;
-            }
-
-            .box .button {
-                all: unset;
-                box-sizing: border-box;
-                position: relative;
-                flex: 1;
-                height: 22px;
-                margin-top: -1px;
-                text-shadow: 4px 8px 24px #335ef740;
-                font-family: "Nunito-Black", Helvetica;
-                font-weight: 900;
-                color: #ffffff;
-                font-size: 16px;
-                text-align: center;
-                letter-spacing: 0.2px;
-                line-height: 22.4px;
-                white-space: nowrap;
-            }
-
-            .box .whatsapp-logo {
-                position: absolute;
-                width: 46px;
-                height: 46px;
-                top: 426px;
-                left: 28px;
-            }
-
-            .box .x-logo {
-                position: absolute;
-                width: 46px;
-                height: 46px;
-                top: 426px;
-                left: 124px;
-            }
-
-            .box .facebook-logo {
-                position: absolute;
-                width: 46px;
-                height: 46px;
-                top: 426px;
-                left: 219px;
-            }
-
-            .box .instagram-logo {
-                position: absolute;
-                width: 46px;
-                height: 46px;
-                top: 417px;
-                left: 314px;
-            }
-
-            .box .vector {
-                position: absolute;
-                width: 226px;
-                height: 258px;
-                top: 0;
-                left: 78px;
-            }
-
-        .fa-instagram {
-            padding: 15px;
-            font-size: 30px;
+        .share-card {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            border-radius: 15px;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            max-width: 428px;
+            width: 100%; /* Ensure it doesn't get wider */
+            margin: 20px auto;
             text-align: center;
-            text-decoration: none;
-            border-radius: 50%;
         }
+
+            .share-card img {
+                max-width: 200px;
+                margin: 30px auto 30px auto;
+            }
+
+        .share-icons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 64px 0;
+        }
+
+            .share-icons a {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                text-decoration: none;
+                width: 40px;
+                height: 40px;
+            }
+
+        .social-icon1 {
+            width: 40px;
+            height: 40px;
+        }
+
+        .share-link {
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            padding: 10px;
+            margin: 45px 0;
+            display: block;
+            color: #dc3545;
+            font-weight: bold;
+            overflow: hidden; /* Hide overflow */
+            text-overflow: ellipsis; /* Add ellipsis */
+            white-space: nowrap; /* Prevent wrapping */
+            font-size: small;
+        }
+
+        .email-btn {
+            background-color: #F74B94; /* Button background color */
+            color: #fff; /* Text color */
+            border: none; /* Remove border */
+            border-radius: 30px; /* Rounded corners */
+            padding: 10px 20px; /* Padding */
+            font-size: 1.2rem; /* Font size */
+            font-weight: bold; /* Bold text */
+            text-decoration: none; /* Remove underline */
+            width: 100%; /* Full width */
+            box-sizing: border-box; /* Include padding and border in element's total width and height */
+            margin-top: auto; /* Push to the bottom */
+            display: inline-block; /* Display as inline block */
+            text-align: center; /* Center text */
+            transition: background-color 0.3s; /* Smooth transition for background color change */
+        }
+
+            .email-btn:hover {
+                background-color: #C93B77; /* Darker background color on hover */
+            }
     </style>
 </head>
 
 <body>
-     <div class="box">
-      <div class="group">
-        <div class="text-wrapper">Invite Friends</div>
-        <p class="div">Share this link with people you would like to add to your ChipIn list!</p>
-        <div class="text-wrapper-2">Share This Link</div>
-        <div class="type-button-type">
-          <div class="text-wrapper-3">https://chipin.co.za/chipin/69336JIWMTKAHXXC</div>
+    <div>
+        <div class="backBtn-div">
+            <button class="backBtn" onclick="history.back()">
+                <i class="fa fa-arrow-left" aria-hidden="true"></i>
+            </button>
         </div>
-        <a id="share" href="@Url.Action("Index", "ShareByEmail")">
-            <div class="button-wrapper"><button class="button">Share by E-mail</button></div>
-        </a>
-        <div class="whatsapp-logo">  
-            <i class="fa fa-whatsapp fa-3x" style="color:#25D366"></i>
-        </div>
-        <div class="x-logo">
-            <i class="fa fa-x-twitter fa-3x" style="color:#000000"></i>
-        </div>
-        <div class="facebook-logo">
-            <i class="fa fa-facebook fa-3x" style="color:#4267B2"></i>
-        </div>        
-        <div class="instagram-logo">           
-            <i class="fa fa-instagram fa-3x" style="color:white;background:radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285aeb 90%);"></i>      
-        </div>
-        <img class="vector" src="~/css/resource/chipin_logo.svg" />
-      </div>
     </div>
-  </body>
+    <div class="share-container">
+        <div class="share-card">
+            <div>
+                <img src="~/css/resource/chipin_logo_6.png" alt="Chipin Logo" class="img-fluid">
+                <h4>Invite Friends</h4>
+                <p style="margin-top: 20px;
+    margin-bottom: 1rem;
+    font-size: 1.25rem;">Share this link with people you would like to add to your ChipIn list!</p>
+                <div class="share-icons">
+                    <a href="https://wa.me/?text= @Html.Raw($"https://chipinrewritewebappservice.azurewebsites.net/sharedlist?id={productListWallets.ProductListWalletId}")" target="_blank" class="whatsapp-logo">
+                        <img src="~/css/resource/whatsapp_color_logo.svg" alt="WhatsApp" class="social-icon1">
+                    </a>
+                    <a href="https://twitter.com/intent/tweet?url= @Html.Raw($"https://chipinrewritewebappservice.azurewebsites.net/sharedlist?id={productListWallets.ProductListWalletId}")" target="_blank" class="x-logo">
+                        <img src="~/css/resource/x_logo.svg" alt="Twitter" class="social-icon1">
+                    </a>
+                    <a href="https://www.facebook.com/sharer/sharer.php?u= @Html.Raw($"https://chipinrewritewebappservice.azurewebsites.net/sharedlist?id={productListWallets.ProductListWalletId}")" target="_blank" class="facebook-logo">
+                        <img src="~/css/resource/facebook_color_logo.svg" alt="Facebook" class="social-icon1">
+                    </a>
+                    <a href="https://www.instagram.com/?url= @Html.Raw($"https://chipinrewritewebappservice.azurewebsites.net/sharedlist?id={productListWallets.ProductListWalletId}")" target="_blank" class="instagram-logo">
+                        <img src="~/css/resource/instagram_color_logo.svg" alt="Instagram" class="social-icon1">
+                    </a>
+                </div>
+                <h5>Share This Link</h5>
+                <a href="@Html.Raw($"https://chipinrewritewebappservice.azurewebsites.net/sharedlist?id={productListWallets.ProductListWalletId}")" class="share-link">@Html.Raw($"https://chipinrewritewebappservice.azurewebsites.net/sharedlist?id={productListWallets.ProductListWalletId}")</a>
+            </div>
+            <a href="mailto:?" class="email-btn mt-auto">Share by E-mail</a>
+        </div>
+    </div>
+</body>
+
+<script>
+    $(document).ready(function () {
+        $('header').empty();
+    });
+</script>

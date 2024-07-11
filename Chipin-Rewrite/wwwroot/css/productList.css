@@ -80,7 +80,7 @@ a:hover {
         bottom:10px;
         left: 50%;
         transform: translate(-50%);
-        color: #d91950;
+        color: #F74B94;
         font-size: 20px;
         font-weight: 900;
     }
@@ -88,7 +88,7 @@ a:hover {
     .shop-card .add {
         z-index: 1;
         font-size: 8px;
-        color: #d91950;
+        color: #F74B94;
         cursor: pointer;
         transition: all .3s ease-in-out;
         border: none;
@@ -108,7 +108,7 @@ a:hover {
         .shop-card .add:hover {
             z-index: 5;
             color: #fcfcff;
-            background: #d91950;
+            background: #F74B94;
             border: 1px solid transparent;
         }
 
@@ -171,7 +171,7 @@ a:hover {
 
     .overlay-card button {
         margin: auto;
-        background-color: #d91950;
+        background-color: #F74B94;
         border: 0pt;
         color: #fcfcff;
         padding: 10px;
@@ -190,7 +190,7 @@ a:hover {
     left: 50%;
     margin: -80px 0px 0px -25%;
     z-index: 4;
-    color: #d91950;
+    color: #F74B94;
     background-color: #fcfcff;
 }
 
@@ -209,7 +209,7 @@ a:hover {
     .admin-div .someBtn {
         margin: 2px 2px;
         border: none;
-        background-color: #d91950;
+        background-color: #F74B94;
         color: #fcfcff;
         border-radius: 15px;
         z-index: 1;
@@ -272,7 +272,7 @@ a:hover {
         .shop-card .add {
             z-index: 1;
             text-transform: uppercase;
-            color: #d91950;
+            color: #F74B94;
             cursor: pointer;
             transition: all .5s ;
             line-height: .95;
@@ -304,7 +304,7 @@ a:hover {
 
         .shop-card .add:hover {
             z-index: 5;
-            background: #d91950;
+            background: #F74B94;
             transition: all 0.5s;
         }
 

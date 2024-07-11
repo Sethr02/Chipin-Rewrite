@@ -31,6 +31,12 @@
     });
 </script>
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 <style>
     :root {
         --others-white: rgba(255, 255, 255, 1);
@@ -127,7 +133,7 @@
             top: 95px;
             border-color: transparent;
             left: 321px;
-            background-color: #1fae62;
+            background-color: #1BBDEB;
             border-radius: 100px;
         }
 
@@ -227,7 +233,7 @@
             position: absolute;
             top: 133px;
             left: 321px;
-            background-color: #1fae62;
+            background-color: #1BBDEB;
             border-radius: 100px;
         }
 
@@ -277,7 +283,7 @@
             left: 28px;
             font-family: "Nunito-Bold", Helvetica;
             font-weight: 700;
-            color: #1fae62;
+            color: #1BBDEB;
             font-size: 14px;
             text-align: right;
             letter-spacing: 0.2px;
@@ -620,7 +626,7 @@
             position: absolute;
             top: 13px;
             left: 303px;
-            background-color: #d91950;
+            background-color: #F74B94;
             border-radius: 100px;
         }
 
@@ -679,20 +685,167 @@
         }
 
     .newcard-delete-btn {
-        float: left;
-        position: relative;
-        top: 0px;
-        left: 5px;
-        margin-bottom: -30px;
         border: 0pt;
-        font-size: 10px;
         background-color: transparent;
-        transition: all 0.5s;
     }
 
         .newcard-delete-btn:hover {
-            color: #d91950;
+            color: #F74B94;
         }
+
+    .inner-card {
+        border-radius: 15px;
+        background-color: #fff;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        max-width: 500px;
+        margin: 20px auto;
+        position: relative;
+    }
+
+    .card-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: none;
+        background-color: transparent;
+    }
+
+    .card-title {
+        display: flex;
+        align-items: center;
+        margin-left: -16px;
+    }
+
+        .card-title h5 {
+            font-size: 20px;
+            font-weight: bold;
+            color: #333;
+            margin-left: 10px;
+        }
+
+    .date {
+        font-size: 14px;
+        font-weight: bold;
+        color: #333;
+    }
+
+    .card-subtitle {
+        color: #1BBDEB;
+        cursor: pointer;
+        font-size: 1rem;
+        margin-bottom: 20px;
+        text-align: left;
+    }
+
+    .amount-info {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+
+        .amount-info div {
+            text-align: center;
+        }
+
+        .amount-info span {
+            font-size: 14px;
+            color: #333;
+        }
+
+        .amount-info .chipped-in {
+            color: #28a745;
+            font-weight: bold;
+            margin-left: 30px;
+        }
+
+        .amount-info .remaining {
+            color: #333;
+            font-weight: bold;
+            margin-left: 20px; /* Add space between the amounts Blue: #18BEF0 Pink: #F74B94 */
+        }
+
+    .progress {
+        height: 8px;
+        border-radius: 5px;
+        margin-top: 20px;
+        margin-bottom: 20px;
+        background-color: #e9ecef;
+    }
+
+    .progress-bar {
+        background-color: #18BEF0;
+        width: 12%; /* Adjust this value based on actual progress */
+    }
+
+    .button-container {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        margin-left: 20px;
+    }
+
+    .btn-custom {
+        width: 150px; /* Adjust the width as needed */
+        border-radius: 30px;
+        font-size: 1rem;
+        font-weight: bold;
+        margin: 0; /* Remove the top and bottom margin */
+        margin-bottom: 10px; /* Add a bottom margin to space the buttons */
+        background-color: #18BEF0; /* Button color */
+        color: #fff; /* Text color */
+        border: none; /* Remove border */
+        padding: 8px; /* Adjust padding */
+        text-align: center; /* Center the text */
+        cursor: pointer; /* Add pointer cursor */
+    }
+
+        .btn-custom:hover {
+            opacity: 95%;
+        }
+
+    .gift-image {
+        display: flex;
+        justify-content: left;
+        margin-top: 20px;
+    }
+
+        .gift-image img {
+            width: 60px;
+            height: auto;
+        }
+
+    .divider {
+        height: 2px;
+        background-color: #e0e0e0;
+        margin: 20px 0;
+    }
+
+    .amount-and-buttons {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .icon-trash {
+        margin-right: 10px;
+        color: #333;
+        cursor: pointer;
+    }
+
+        .icon-trash:hover {
+            color: #F74B94;
+        }
+
+    .avatar {
+        font-size: 1.2rem;
+        font-weight: bold;
+    }
+
+    .modal-backdrop {
+        background-color: rgba(0,0,0,0.5); /* Adjust the opacity here */
+    }
 </style>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -737,7 +890,16 @@
         else
         {
             <div class="create-div">
-                <a href="@Url.Action("Create", "ProductListWallets", new {token = "null"  })" class="createBtn link">
+                <a href="@Url.Action("Create", "ProductListWallets", new {
+        product_name = ViewBag.ProductName,
+        product_description = ViewBag.ProductDescription,
+        price = ViewBag.Price,
+        image = ViewBag.Image,
+        store = ViewBag.Store,
+        cust_string1 = ViewBag.CustString1,
+        cust_int1 = ViewBag.CustInt1,
+        product_id = ViewBag.ProductId,
+        quantity = ViewBag.Quantity })" class="createBtn link">
                     Create
                 </a>
             </div>
@@ -762,6 +924,8 @@
                 float? remaining = null;
                 int? percent = null;
                 bool funded = false;
+                var progressPercentage = (num2 / num1) * 100;
+
                 if (num1.HasValue && num2.HasValue)
                 {
                     if (num1 != 0 && num2 >= num1)
@@ -779,95 +943,10 @@
                     }
                 }
 
-                <div class="frame">
-                    <div class="div">
-                        <div class="size-small-type"><div class="chips">Chip In</div></div>
-                        @if (funded)
-                        {
-                            @if (item.Closed == 1)
-                            {
-                                <div class="size-small-type"><div class="chips">Closed</div></div>
-                            }
-                            else
-                            {
-                                <form method="post" action="@Url.Action("DeliveryAddress", "ProductListWallets")">
-                                    <input type="hidden" name="id" value="@item.ProductListWalletId" />
-                                    <input type="hidden" class="tokenToSend" name="token" />
-                                    <button type="submit" class="size-small-type">
-                                        <div class="chips">Checkout</div>
-                                    </button>
-                                </form>
-                            }
-                        }
-                        else
-                        {
-                            <form method="post" action="@Url.Action("ChipinAmount", "ProductListWallets")">
-                                <input type="hidden" name="id" value="@item.ProductListWalletId" />
-                                <input type="hidden" class="tokenToSend" name="token" />
-                                <button type="submit" class="size-small-type">
-                                    <div class="chips">Add Funds!</div>
-                                </button>
-                            </form>
-                        }
-                        <div class="overlap-group">
-                            <div class="element"> + R @num2</div>
-                            <div class="total-receivable">Chipped in</div>
-                        </div>
-                        <div class="overlap">
-                            <div class="text-wrapper">R @remaining</div>
-                            <div class="total-payable">Remaining</div>
-                        </div>
-                        <a id="share" href="@Url.Action("Index", "ShareLink")">
-                            <div class="chips-wrapper"><div class="chips-2">Share List</div></div>
-                        </a>
-                        <div class="rectangle" data-percent="@percent ?? 0"></div>
-                        <div class="rectangle" data-percent="@percent ?? 0">
-
-
-                            <div class="newcard-progress-bar"></div>
-                        </div>
-                        <a href="@Url.Action("Details", "ProductListWallets", new {id=@item.ProductListWalletId })">
-                            <div class="text-wrapper-2">@item.Name</div>
-                        </a>
-                        <a id="btn2" class="text-wrapper-3">See all</a>
-                        <div class="text-wrapper-4">@item.EndAt.Value.Date.Day/@item.EndAt.Value.Date.Month/@item.EndAt.Value.Date.Year</div>
-                        <ul>
-                            @foreach (var i in FilteredProductListItems)
-                            {
-
-                                @if (item.ProductListWalletId == @i.ProductListWallet.ProductListWalletId)
-                                {
-
-                                    @if (i.ProductId == null)
-                                    {
-                                        @foreach (var j in externalProducts)
-                                        {
-                                            @if (j.ExternalProductId == @i.ExternalProductId)
-                                            {
-
-                                                <li>
-
-                                                    <img class="image" src="@j.Image" loading="lazy" />
-
-                                                </li>
-
-                                            }
-                                        }
-                                    }
-                                    else
-                                    {
-
-                                        <li><img class="image" src="@i.Product.ProductImage" loading="lazy" /></li>
-
-                                    }
-
-                                }
-
-                            }
-
-                        </ul>
-                        <div class="vector">
-                            <button class="newcard-delete-btn" data-id="@item.ProductListWalletId" onclick="on('@item.ProductListWalletId')"> <i class="fa fa-trash fa-2x" style="color:black"></i></button>
+                <div class="inner-card">
+                    <div class="card-header">
+                        <div class="card-title">
+                            <button class="newcard-delete-btn" data-id="@item.ProductListWalletId" onclick="on('@item.ProductListWalletId')"> <i class="fas fa-trash icon-trash"></i></button>
                             <div class="listOverlay" id="overlay-@item.ProductListWalletId">
                                 <div class="overlay-card">
                                     <h3>
@@ -885,76 +964,139 @@
 
                                 </div>
                             </div>
+                            @* <i class="fas fa-trash icon-trash"></i> *@
+                            <a href="@Url.Action("Details", "ProductListWallets", new {id=@item.ProductListWalletId })">
+                                <h5>@item.Name</h5>
+                            </a>
                         </div>
-
+                        <div class="date">@item.EndAt.Value.Date.Day/@item.EndAt.Value.Date.Month/@item.EndAt.Value.Date.Year</div>
+                    </div>
+                    <div type="button"class="card-subtitle" data-toggle="modal" data-target="#friendsChippingInModal">See all</div>
+                    <div class="amount-and-buttons">
+                        <div class="amount-info">
+                            <div>
+                                <span>Chipped in</span><br>
+                                <span class="chipped-in">+ R @num2</span>
+                            </div>
+                            <div class="remaining-info" style="margin-left: 15px;">
+                                <span>Remaining</span><br>
+                                <span class="remaining">- R @remaining</span>
+                            </div>
+                        </div>
+                        @if (funded)
+                        {
+                            @if (item.Closed == 1)
+                            {
+                                <div class="size-small-type"><div class="chips">Closed</div></div>
+                            }
+                            else
+                            {
+                                <div class="button-container">
+                                    <form method="post" action="@Url.Action("DeliveryAddress", "ProductListWallets")">
+                                        <input type="hidden" name="id" value="@item.ProductListWalletId" />
+                                        <input type="hidden" class="tokenToSend" name="token" />
+                                        <button class="btn-primary btn-custom">Checkout</button>
+                                    </form>
+                                    <a id="share" href="@Url.Action("Index", "ShareLink", new {id=@item.ProductListWalletId, token = "null"  })" class="btn-primary btn-custom">Share List</a>
+                                </div>
+                            }
+                        }
+                        else
+                        {
+                            <div class="button-container">
+                                <form method="post" action="@Url.Action("ChipinAmount", "ProductListWallets")">
+                                    <input type="hidden" name="id" value="@item.ProductListWalletId" />
+                                    <input type="hidden" class="tokenToSend" name="token" />
+                                    <button class="btn-primary btn-custom">Add Funds!</button>
+                                </form>
+                                <a id="share" href="@Url.Action("Index", "ShareLink", new {id=@item.ProductListWalletId, token = "null"  })" class="btn-primary btn-custom">Share List</a>
+                            </div>
+                        }
+                    </div>
+                    @if (num2.HasValue)
+                    {
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" style="width:@progressPercentage%;background-color:#18BEF0"></div>
+                        </div>
+                    }
+                    <div class="gift-image">
+                        @foreach (var i in FilteredProductListItems)
+                        {
+                            @if (item.ProductListWalletId == @i.ProductListWallet.ProductListWalletId)
+                            {
+                                @if (i.ProductId == null)
+                                {
+                                    @foreach (var j in externalProducts)
+                                    {
+                                        @if (j.ExternalProductId == @i.ExternalProductId)
+                                        {
+                                            <img class="image" src="@j.Image" loading="lazy" />
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    <img class="image" src="@i.Product.ProductImage" loading="lazy" />
+                                }
+                            }
+                        }
                     </div>
                 </div>
 
-                <div id="myModal2" class="modal">
-                    <div class="auto-layout-vertical-3">
-                        <div class="theme-light-wrapper">
-                            <div class="theme-light">
-                                <div class="auto-layout">
-                                    <img class="iconly-light-outline" src="~/css/resource/arrow-left.svg" />
-                                    <div class="title-section">Friends Chipping In</div>
+                <!-- Modal -->
+                <div class="modal fade" id="friendsChippingInModal" tabindex="-1" role="dialog" aria-labelledby="friendsChippingInModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="friendsChippingInModalLabel">Friends Chipping In</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="list-group">
+                                    @for (int i = 0; i < 4; i++) // Replace this loop with your dynamic data source
+                                    {
+                                        <div class="list-group-item d-flex justify-content-between align-items-center">
+                                            <div class="d-flex align-items-center">
+                                                <div class="avatar rounded-circle d-flex justify-content-center align-items-center bg-danger text-white" style="width: 40px; height: 40px;">
+                                                    JO
+                                                </div>
+                                                <div class="ml-3">
+                                                    <span>Jacob Obey</span>
+                                                </div>
+                                            </div>
+                                            <span class="badge badge-danger badge-pill">R200</span>
+                                        </div>
+                                    }
                                 </div>
                             </div>
-                        </div>
-                        <div class="type-button-type-2"><button class="button">Invite Friend</button></div>
-                        <div class="div">
-                            <div class="group">
-                                <div class="overlap-group"><div class="text-wrapper">SR</div></div>
-                                <div class="text-wrapper-2">Seth Ramsamy</div>
-                                <div class="size-small-type"><div class="chips">R9299.98</div></div>
+                            <div class="modal-footer">
+                                <button class="btn btn-danger btn-block">Invite Friend</button>
                             </div>
-                            @*<div class="group-2">
-                <div class="overlap-group"><div class="text-wrapper">OJ</div></div>
-                <div class="text-wrapper-2">Olivia Johnson</div>
-                <div class="size-small-type"><div class="chips">R1520</div></div>
-                </div>
-                <div class="group-3">
-                <div class="overlap-group"><div class="text-wrapper">LS</div></div>
-                <div class="text-wrapper-2">Lucas Smith</div>
-                <div class="size-small-type"><div class="chips">R865</div></div>
-                </div>
-                <div class="group-4">
-                <div class="overlap-group"><div class="text-wrapper">SB</div></div>
-                <div class="text-wrapper-2">Sophia Brown</div>
-                <div class="size-small-type"><div class="chips">R1175</div></div>
-                </div>
-                <div class="group-5">
-                <div class="overlap-group"><div class="text-wrapper">EW</div></div>
-                <div class="text-wrapper-2">Ethan Wilson</div>
-                <div class="size-small-type"><div class="chips">R420</div></div>
-                </div>
-                <div class="group-6">
-                <div class="overlap-group"><div class="text-wrapper">AT</div></div>
-                <div class="text-wrapper-2">Ava Thompson</div>
-                <div class="size-small-type"><div class="chips">R1985</div></div>
-                </div>*@
                         </div>
                     </div>
                 </div>
 
-                <script>
-                    var currentUrl = window.location.href;
-                    document.getElementById('share').addEventListener('click', async () => {
-                        if (navigator.share) {
-                            try {
-                                await navigator.share({
-                                    title: 'Chipin @item.Name',
-                                    url: currentUrl
-                                });
-                                console.log('Data was shared successfully');
-                            } catch (err) {
-                                console.error('Error: ' + err);
-                            }
-                        } else {
-                            // Fallback for browsers that do not support the Web Share API
-                            console.log('Web Share API is not supported in your browser');
-                        }
-                    });
-                </script>
+                @* <script>
+    var currentUrl = window.location.href;
+    document.getElementById('share').addEventListener('click', async () => {
+    if (navigator.share) {
+    try {
+    await navigator.share({
+    title: 'Chipin @item.Name',
+    url: currentUrl
+    });
+    console.log('Data was shared successfully');
+    } catch (err) {
+    console.error('Error: ' + err);
+    }
+    } else {
+    // Fallback for browsers that do not support the Web Share API
+    console.log('Web Share API is not supported in your browser');
+    }
+    });
+    </script> *@
 
             }
 
@@ -1114,4 +1256,7 @@ else
     $(document).ready(function () {
         $('header').empty();
     });
+
+    function redirectToShareLink(ProductListWalletId) {
+    }
 </script>

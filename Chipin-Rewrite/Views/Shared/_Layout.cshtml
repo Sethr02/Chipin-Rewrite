@@ -21,6 +21,49 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
+    <link rel="icon" type="image/png" href="~/favicon.ico" sizes="32x32">
+
+
+    <style>
+        .footer .socials-item {
+            display: inline-block;
+            margin: 0 10px;
+        }
+
+        .social-icon {
+            width: 20px; /* Adjust the size as needed */
+            height: 20px; /* Adjust the size as needed */
+            vertical-align: middle;
+        }
+
+        .instagram-icon {
+            width: 20px; /* Ensure this matches the other icons */
+            height: 20px; /* Ensure this matches the other icons */
+        }
+
+        .footer-inner ul li a {
+            text-decoration: none;
+            color: #fff; /* Adjust as needed */
+        }
+
+        /* Adjust margins or padding if needed */
+        .footer {
+            background-color: #F74B94; /* Adjust to match your footer background */
+            padding: 20px 0;
+            text-align: center;
+        }
+
+            .footer .footer-inner {
+                margin-bottom: 10px;
+            }
+
+            .footer .socials {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+    </style>
 
 
 </head>
@@ -175,25 +218,30 @@
     <footer class="footer">
         <div class="footer-inner">
             <ul>
-                <li><a href="@Url.Action("Privacy", "Home")">&copy; Chipin 2023</a></li>
+                <li><a href="https://www.chipin.co.za/privacy-policy">&copy; Chipin 2024</a></li>
             </ul>
         </div>
         <div id="footer-socials">
             <div class="socials inline-inside socials-colored">
-
-                <a href="https://www.facebook.com/ChipInGifting" target="_blank" title="Facebook" class="socials-item">
-                    <i class="fab fa-facebook-f facebook"></i>
-                </a>
-
-                <a href="https://www.instagram.com/chipin_za/" target="_blank" title="Instagram" class="socials-item">
-                    <i class="fab fa-instagram instagram"></i>
-                </a>
                 <a href="https://www.youtube.com/channel/UC0f2PM-jsOX4m4Af5dGD_Nw" target="_blank" title="YouTube" class="socials-item">
-                    <i class="fab fa-youtube youtube"></i>
+                    <img src="~/css/resource/youtube_color_logo.svg" alt="YouTube" class="social-icon youtube-icon">
+                </a>
+                <a href="https://www.tiktok.com/&#64;chipin_za" target="_blank" title="Tiktok" class="socials-item">
+                    <img src="~/css/resource/tiktok_color_logo.svg" alt="Tiktok" class="social-icon tiktok-icon">
+                </a>
+                <a href="https://www.instagram.com/chipin_za/" target="_blank" title="Instagram" class="socials-item">
+                    <img src="~/css/resource/instagram_color_logo.svg" alt="Instagram" class="social-icon instagram-icon">
+                </a>
+                <a href="https://www.linkedin.com/company/chipin-za/" target="_blank" title="LinkedIn" class="socials-item">
+                    <img src="~/css/resource/linkedin_color_logo.svg" alt="LinkedIn" class="social-icon linkedin-icon">
+                </a>
+                <a href="https://www.facebook.com/ChipInGifting" target="_blank" title="Facebook" class="socials-item">
+                    <img src="~/css/resource/facebook_color_logo.svg" alt="Facebook" class="social-icon facebook-icon">
                 </a>
             </div>
         </div>
     </footer>
+
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

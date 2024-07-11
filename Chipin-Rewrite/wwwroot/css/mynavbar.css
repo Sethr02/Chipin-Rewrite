@@ -8,7 +8,7 @@
 
     .icon:hover {
         transition: all 0.5s;
-        color: #d91950;
+        color: #F74B94;
     }
 
 .active {
@@ -16,7 +16,7 @@
     width: 50px;
     padding: 10px;
     border-radius: 100px;
-    color: #d91950;
+    color: #F74B94;
 }
 
 .hoverText {
@@ -68,11 +68,11 @@ nav {
     justify-content:end;
 }
 .walletAmount h6 {
-   color:#d91950;
+   color:#F74B94;
    vertical-align:bottom;
    font-size:15px;
    margin-bottom:5px;
-   border:2px solid #d91950;
+   border:2px solid #F74B94;
    border-radius:50px;
    padding:5px;
 }
@@ -147,11 +147,11 @@ nav {
 
         .dropdown-content a:hover {
             background-color: #f1f1f1ff;
-            color: #d91950;
+            color: #F74B94;
         }
 
 .dropdown:hover i {
-    color: #d91950;
+    color: #F74B94;
 }
 
 .dropdownLogoutBtn a {
@@ -161,7 +161,7 @@ nav {
     border: none;
     display: block;
     color: #fff;
-    background-color: #d91950;
+    background-color: #F74B94;
     border-radius: 0px 0px 10px 10px;
     transition: all 0.5s;
 }
@@ -263,7 +263,7 @@ nav {
 
     .navBtn:hover {
         transition: all 0.5s;
-        color: #d91950;
+        color: #F74B94;
     }
 
 
@@ -273,8 +273,8 @@ nav {
     border-radius: 50px;
     padding: 6px 20px 6px 20px;
     color: #fff;
-    background-color: #d91950;
-    border: 2px solid #d91950;
+    background-color: #F74B94;
+    border: 2px solid #F74B94;
     font-weight: 900;
     font-size: 20px;
     transition: all .5s;
@@ -282,7 +282,7 @@ nav {
 }
 
     .loginBtn:hover {
-        color: #d91950;
+        color: #F74B94;
         text-decoration: none;
     
         transition: all 0.5s;

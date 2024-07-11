@@ -1,6 +1,10 @@
-﻿@{
+﻿@using Newtonsoft.Json
+@{
     ViewData["Title"] = "Payment Success";
     var orderId = ViewBag.OrderId;
+    var cartTotal = ViewBag.CartTotal;
+    var billingInfo = ViewBag.BillingInfo;
+    var productIds = ViewBag.ProductIds;
 }
 
 <h2>Payment Successful</h2>
@@ -9,24 +13,46 @@
 
 <script>
     document.getElementById('redirectButton').addEventListener('click', function () {
+        const billingInfo = {
+            firstName: '@billingInfo.FirstName',
+            lastName: '@billingInfo.LastName',
+            address: '@billingInfo.Address',
+            city: '@billingInfo.City',
+            state: '@billingInfo.State',
+            zipCode: '@billingInfo.ZipCode',
+            country: '@billingInfo.Country',
+            email: '@billingInfo.Email',
+            phoneNumber: '@billingInfo.PhoneNumber'
+        };
+
+        const jsonData = {
+            order_id: @orderId,
+            cart_total: @cartTotal,
+            billing_info: billingInfo,
+            product_ids: @Html.Raw(JsonConvert.SerializeObject(productIds))
+            };
+
+        // Log the JSON data to the console
+        console.log("JSON Data being sent to WordPress:", jsonData);
+
         // Make a callback to complete the order
-        fetch('https://bestwayshop.co.za/wp-json/chipin/v1/complete-order', {
+        fetch('https://bestwayshop.com/wp-json/chipin/v1/complete-order', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ order_id: '@orderId' }) // Pass the order ID from the URL
+            body: JSON.stringify(jsonData) // Pass the order ID, cart total, billing info, and product IDs
         })
-        .then(response => {
-            if (response.ok) {
-                // Redirect back to the store after successful order completion
-                window.location.href = 'https://bestwayshop.co.za';
-            } else {
-                console.error('Failed to complete the order:', response.statusText);
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-        });
+            .then(response => {
+                if (response.ok) {
+                    // Redirect back to the store after successful order completion
+                    window.location.href = 'https://bestwayshop.com';
+                } else {
+                    console.error('Failed to complete the order:', response.statusText);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
     });
 </script>

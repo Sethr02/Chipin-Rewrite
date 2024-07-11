@@ -7,18 +7,45 @@ using System.Text;
 
 namespace Chipin_Rewrite.Controllers
 {
-    [Authorize]
+    [ApiController]
+    [Route("api/test")]
     public class TestController : Controller
     {
-        private readonly Random _random = new Random();
-        private readonly ChipinDbContext _context;
+        private readonly ILogger<TestController> _logger;
+        //private readonly ChipinDbContext _context;
 
-        public TestController(ChipinDbContext context)
+        public TestController(ILogger<TestController> logger)
         {
-            _context = context;
-
+            _logger = logger;
         }
-        public IActionResult Index(string data)
+
+        [HttpPost("receive")]
+        public IActionResult Receive([FromBody] ProductData data)
+        {
+            try
+            {
+                if (data == null)
+                {
+                    _logger.LogError("Received null data.");
+                    return BadRequest("Invalid data.");
+                }
+
+                // Log the received data for debugging
+                _logger.LogInformation("Received data: {@Data}", data);
+
+                // Process the received data (for now, just log it)
+                return Ok(data);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An error occurred while processing the request.");
+                return StatusCode(500, "Internal server error.");
+            }
+        }
+    }
+}
+
+        /*public IActionResult Index(string data)
         {
             // Assuming the data is in JSON format
             if (string.IsNullOrEmpty(data))
@@ -64,12 +91,12 @@ namespace Chipin_Rewrite.Controllers
 
             return View();
             //access test from session storage
-            /*TestModel test = HttpContext.Session.GetObjectFromJson<TestModel>("test");
+            *//*TestModel test = HttpContext.Session.GetObjectFromJson<TestModel>("test");
             Console.WriteLine(item.ProductListWalletId);
             
             await _context.SaveChangesAsync();
             //Console.WriteLine(test.externalProduct.ExternalProductId);
-            */
+            *//*
 
             //return View();
         }
@@ -96,7 +123,4 @@ namespace Chipin_Rewrite.Controllers
 
             return value == null ? default(T) : JsonConvert.DeserializeObject<T>(value);
         }
-    }
-
-
-}
+    }*/

@@ -1,0 +1,49 @@
+﻿@model Chipin_Rewrite.Models.ViewModel.ListViewModel
+
+<h1>Hi Haydan!</h1>
+<button id="addToList">Add to a list</button>
+
+<!-- Add to list modal -->
+<div id="addToListModal" style="display:none;">
+    <h2>Choose Your List</h2>
+    @foreach (var list in Model.ExistingLists)
+    {
+        <button class="existing-list" data-list="@list">@list</button>
+    }
+    <button id="createNewList">New List</button>
+</div>
+
+<script>
+    document.getElementById('addToList').addEventListener('click', function () {
+        document.getElementById('addToListModal').style.display = 'block';
+    });
+
+    document.querySelectorAll('.existing-list').forEach(function (button) {
+        button.addEventListener('click', function () {
+            var listName = button.getAttribute('data-list');
+            fetch('/List/AddToList', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ existingListName: listName })
+            }).then(response => response.text())
+                .then(html => {
+                    document.body.innerHTML = html;
+                });
+        });
+    });
+
+    document.getElementById('createNewList').addEventListener('click', function () {
+        fetch('/List/CreateNewList', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ listName: "New List" }) // Placeholder, replace with actual input
+        }).then(response => response.text())
+            .then(html => {
+                document.body.innerHTML = html;
+            });
+    });
+</script>

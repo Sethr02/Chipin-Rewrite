@@ -1,75 +1,79 @@
-﻿@{
-    ViewData["Title"] = "Sign In / Log In";
-}
-
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewData["Title"] - Chipin</title>
+    <title>Chipin</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
     <style>
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
+        body, html {
             margin: 0;
-            background-color: #f0f0f0;
-            font-family: Arial, sans-serif;
-        }
-        .container {
-            text-align: center;
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        .logo {
-            font-size: 3rem;
-            color: #ff4081;
-        }
-        .logo span {
-            color: #00b0ff;
-        }
-        .btn {
-            display: block;
-            width: 100%;
-            padding: 15px;
-            margin: 10px 0;
-            font-size: 1.2rem;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        .login-btn {
-            background-color: #ff4081;
-            color: white;
-        }
-        .signup-btn {
-            background-color: #00b0ff;
-            color: white;
-        }
-        .image-container {
-            text-align: center;
-        }
-        .image-container img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 10px;
         }
 
-        
+        .full-height-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            text-align: center;
+        }
+
+        .logo {
+            width: 100%;
+            max-width: 200px;
+            margin-bottom: 20px;
+        }
+
+        .btn-custom {
+            width: 100%;
+            max-width: 300px;
+            margin-bottom: -40px;
+            font-size: 18px;
+            padding: 10px;
+            border-radius: 30px;
+        }
+
+        .btn-login {
+            background-color: #F74B94;
+            ;
+            color: white;
+        }
+
+        .btn-signup {
+            background-color: #18BEF0;
+            color: white;
+        }
+
+        .hero-image {
+            width: 100%;
+            max-width: 300px;
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="logo">chip<span>in</span></div>
-        <button class="btn login-btn">Log in</button>
-        <button class="btn signup-btn">Sign Up</button>
-        <div class="image-container">
-            <img src="~/images/your_image.png" alt="Happy person">
-        </div>
+    <div class="full-height-container">
+        <img src="/css/resource/chipin_logo_6.png" alt="Chipin Logo" class="img-fluid logo">
+        @* <a href="/login" class="btn btn-custom btn-login">Login</a>
+        <a href="/signup" class="btn btn-custom btn-signup">Sign Up</a> *@
+        <a asp-area="MicrosoftIdentity" asp-controller="Account" asp-action="SignIn" class="btn btn-custom btn-login">
+            Login
+        </a>
+        <a asp-area="MicrosoftIdentity" asp-controller="Account" asp-action="SignIn" class="btn btn-custom btn-signup">
+            Sign Up
+        </a>
+        <img src="/css/resource/login_signin_Image-no-bg.png" alt="Hero Image" class="img-fluid hero-image">
     </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
+
+
+<script>
+    $(document).ready(function () {
+        $('header').empty();
+    });
+</script>

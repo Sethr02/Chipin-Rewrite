@@ -283,7 +283,7 @@ namespace Chipin_Rewrite.Controllers
                         }
 
 
-                        return RedirectToAction("Index", "Home");
+                        return RedirectToAction("Index", "Home_");
                     }
                     else
                     {
@@ -292,7 +292,7 @@ namespace Chipin_Rewrite.Controllers
                         {
                             return Redirect(redirectUrl);
                         }
-                        return RedirectToAction("Index", "Home");
+                        return RedirectToAction("Index", "Home_");
                     }
 
 

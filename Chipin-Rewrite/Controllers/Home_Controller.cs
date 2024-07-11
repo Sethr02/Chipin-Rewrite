@@ -1,5 +1,6 @@
 ﻿using Chipin_Rewrite.Models;
 using Chipin_Rewrite.Models.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using System.Security.Claims;
@@ -17,8 +18,8 @@ namespace Chipin_Rewrite.Controllers
             _logger = logger;
         }
 
-        [ChipInAuthorizationFilter]
-        public IActionResult Index(string? token)
+        [Authorize]
+        public IActionResult Index()
         {
             var objectIdClaim = User?.FindFirst(ClaimTypes.NameIdentifier);
 
@@ -41,6 +42,31 @@ namespace Chipin_Rewrite.Controllers
 
             ViewBag.UserTable = modelx;
 
+            string chipinId = objectIdClaim.Value;
+
+            var tokenWallet = _context.TokenWallets
+            .FirstOrDefault(tw => tw.ChipinId == chipinId);
+
+            if (tokenWallet == null)
+            {
+                return NotFound();
+            }
+
+            var userTable = _context.UserTables
+                .FirstOrDefault(u => u.ChipinId == tokenWallet.ChipinId);
+
+            if (userTable == null)
+            {
+                return NotFound();
+            }
+
+            ViewData["Amount"] = tokenWallet.Amount;
+            ViewData["ChipinId"] = tokenWallet.ChipinId;
+
+            return View(userTable);
+        }
+        public IActionResult FAQs()
+        {
             return View();
         }
 

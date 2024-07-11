@@ -1,0 +1,145 @@
+﻿@{
+    var externalProducts = ViewBag.ExternalProducts as List<Chipin_Rewrite.Models.Entities.ExternalProduct>;
+    var productListWallets = ViewBag.Wallets as Chipin_Rewrite.Models.Entities.ProductListWallet;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gift List</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .gift-list {
+            padding: 20px;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+            .header h4 {
+                font-weight: bold;
+                margin-left: 10px;
+            }
+
+            .header .arrow-back {
+                color: #F74B94;
+                font-size: 1.5rem;
+            }
+
+        .header-line {
+            border-bottom: 1px solid #e0e0e0;
+            margin-bottom: 20px;
+        }
+
+        .gift-item {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            padding: 20px;
+            height: 100px;
+            margin-bottom: 12px;
+        }
+
+            .gift-item img {
+                width: 100px;
+                height: auto;
+                border-radius: 10px;
+            }
+
+            .gift-item h5 {
+                font-weight: bold;
+                margin-top: -5px;
+            }
+
+            .gift-item .price {
+                color: #F74B94;
+                font-weight: bold;
+            }
+
+            .gift-item .color {
+                display: flex;
+                align-items: center;
+            }
+
+        .color-circle {
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background-color: black; /* Change this color to match the product color */
+            margin-right: 5px;
+        }
+
+        .chip-in-btn {
+            background-color: #F74B94;
+            color: #fff;
+            border-radius: 25px;
+            padding: 10px 20px;
+            font-weight: bold;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container gift-list">
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-5">
+                <div class="header">
+                    <i class="fas fa-arrow-left arrow-back" onclick="history.back()"></i>
+                    <h4>Gift List</h4>
+                </div>
+                <div class="header-line"></div>
+                @foreach (var product in externalProducts) {
+                    <div class="gift-item">
+                        <div class="row no-gutters">
+                            <div class="col-4">
+                                <img src="@product.Image" alt="@product.ProductName">
+                            </div>
+                            <div class="col-8 pl-3">
+                                <h5>@product.ProductName</h5>
+                                <div class="color">
+                                    <div class="color-circle"></div>
+                                    <p class="text-muted mb-0">Color</p>
+                                </div>
+                                <p class="price">R @product.Price</p>
+                            </div>
+                        </div>
+                    </div>
+                }
+                <div class="text-center">
+                    <button class="btn chip-in-btn" onclick="redirectToSharedList3()">Chip In <img src="~/css/resource/arrow-next.svg" alt="Arrow"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('header').empty();
+        });
+
+        function redirectToSharedList3() {
+            var baseUrl = '@Url.Action("Index", "SharedList2")';
+            var url = `${baseUrl}?id=@productListWallets.ProductListWalletId`;
+            console.log("Redirecting to URL:", url);
+            window.location.href = url;
+        }
+    </script>
+</body>
+</html>

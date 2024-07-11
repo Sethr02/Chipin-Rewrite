@@ -337,16 +337,17 @@ public partial class ChipinDbContext : DbContext
 
             entity.Property(e => e.ProductListWalletTransactionId).HasColumnName("product_list_wallet_transaction_id");
             entity.Property(e => e.Amount).HasColumnName("amount");
+            entity.Property(e => e.ChipinId).HasColumnName("chipin_id");
             entity.Property(e => e.FromInvitedUser).HasColumnName("from_invited_user");
             entity.Property(e => e.ProductListWalletId).HasColumnName("product_list_wallet_id");
             entity.Property(e => e.TransactionMethod)
                 .HasMaxLength(255)
                 .HasColumnName("transaction_method");
-            entity.Property(e => e.TransactionId).HasMaxLength(255).HasColumnName("transaction_id");
-            entity.Property(e => e.PaymentKey).HasMaxLength(255).HasColumnName("payment_key");
-            entity.Property(e => e.CreatedAt)
-                .HasColumnType("datetime")
-                .HasColumnName("created_at");
+            //entity.Property(e => e.TransactionId).HasMaxLength(255).HasColumnName("transaction_id");
+            //entity.Property(e => e.PaymentKey).HasMaxLength(255).HasColumnName("payment_key");
+          //  entity.Property(e => e.CreatedAt)
+           ///     .HasColumnType("datetime")
+           //     .HasColumnName("created_at");
 
             entity.HasOne(d => d.ProductListWallet).WithMany(p => p.ProductListWalletTransactions)
                 .HasForeignKey(d => d.ProductListWalletId)
@@ -447,5 +448,5 @@ public partial class ChipinDbContext : DbContext
 
     partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
 
-    public DbSet<Chipin_Rewrite.Models.woocommerce.TempConnection> TempConnection { get; set; } = default!;
+    //public DbSet<Chipin_Rewrite.Models.woocommerce.TempConnection> TempConnection { get; set; } = default!;
 }

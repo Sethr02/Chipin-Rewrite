@@ -45,8 +45,8 @@ ul {
     }
 
 #Products1 {
-    background-color: #d91950;
-    border: 2px solid #d91950;
+    background-color: #F74B94;
+    border: 2px solid #F74B94;
     padding: 10px;
     border-radius: 50px;
     width: 30%;
@@ -61,12 +61,12 @@ ul {
 }
 
     #Products1:hover {
-        border: 2px solid #d91950;
+        border: 2px solid #F74B94;
         box-shadow: 2px 2px 10px 1px rgba(125, 125, 125, 0.2);
     
         background-color: #fff;
         cursor: pointer;
-        color: #d91950;
+        color: #F74B94;
     }
 
 .typewriter {
@@ -246,7 +246,7 @@ ul {
     }
 
     .home-cards .details {
-        color: #d91950;
+        color: #F74B94;
     }
 
     .home-cards h3 {
@@ -313,7 +313,7 @@ ul {
         bottom: 5px;
         transition: all 0.5s;
         margin: 0px 0px;
-        color: #d91950;
+        color: #F74B94;
     }
 
 
@@ -368,7 +368,7 @@ ul {
 }
 
     .showPartnerBtn:hover {
-        color: #d91950;
+        color: #F74B94;
         border: none;
     }
 
@@ -458,7 +458,7 @@ ul {
         }
 
         .right button {
-            background-color: #d91950;
+            background-color: #F74B94;
             border: none;
             padding: 10px;
             border-radius: 15px;

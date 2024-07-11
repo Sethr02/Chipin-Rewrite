@@ -24,8 +24,6 @@ namespace Chipin_Rewrite.Controllers
             _logger = logger;
         }
 
-
-
         // GET: ProductListWallets
         [Authorize]
         public async Task<IActionResult> Index(string? data, string? token, string? cart)
@@ -700,6 +698,5 @@ namespace Chipin_Rewrite.Controllers
             ViewBag.Id = id;
             return View();
         }
-
     }
 }

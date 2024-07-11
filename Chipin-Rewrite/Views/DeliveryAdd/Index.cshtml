@@ -756,12 +756,12 @@
 
     modalHomeBtn.onclick = function () {
         paymentSuccessModal.style.display = "none";
-        window.location.href = '@Url.Action("Index", "Home")';
+        window.location.href = '@Url.Action("Index", "Home_")';
     }
 
     modalCloseBtn.onclick = function () {
         paymentSuccessModal.style.display = "none";
-        window.location.href = '@Url.Action("Index", "Home")';
+        window.location.href = '@Url.Action("Index", "Home_")';
     }
 
     window.onclick = function (event) {

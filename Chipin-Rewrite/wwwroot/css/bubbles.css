@@ -10,7 +10,7 @@
     bottom: 0;
     z-index: -1;
     margin-right: 50px;
-    background-color: #d91950;
+    background-color: #F74B94;
     border-radius: 50%;
     opacity: .50;
     width: 40px;
@@ -28,7 +28,7 @@
     left: 60%;
     opacity: .30;
     animation: up 5s infinite;
-    background-color: #d91950;
+    background-color: #F74B94;
 }
 
 .bubble-4 {

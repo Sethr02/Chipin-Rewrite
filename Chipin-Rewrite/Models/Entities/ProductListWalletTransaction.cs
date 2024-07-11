@@ -6,14 +6,16 @@ public partial class ProductListWalletTransaction
 
     public float? Amount { get; set; }
 
+    public string ChipinId { get; set; }
+
     public sbyte? FromInvitedUser { get; set; }
 
     public int ProductListWalletId { get; set; }
 
     public string TransactionMethod { get; set; } = null!;
-    public string TransactionId { get; set; } = null!;
-    public string PaymentKey { get; set; } = null!;
-    public DateTime? CreatedAt { get; set; }
+   // public string TransactionId { get; set; } = null!;
+   // public string PaymentKey { get; set; } = null!;
+    //public DateTime? CreatedAt { get; set; }
 
     public virtual ProductListWallet? ProductListWallet { get; set; } = null!;
 

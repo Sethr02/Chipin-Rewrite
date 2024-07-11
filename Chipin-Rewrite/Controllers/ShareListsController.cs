@@ -60,7 +60,7 @@ namespace Chipin_Rewrite.Controllers
         // Protect from overposting attacks, enable the specific properties you want to bind to.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ShareName,ShareEmail,ShareMessage")] ShareList shareList, string transactionId)
+        /*public async Task<IActionResult> Create([Bind("ShareName,ShareEmail,ShareMessage")] ShareList shareList, string transactionId)
         {
             if (ModelState.IsValid)
             {
@@ -77,7 +77,7 @@ namespace Chipin_Rewrite.Controllers
             }
             ViewData["ProductListWalletTransactionId"] = new SelectList(_context.ProductListWalletTransactions, "ProductListWalletTransactionId", "ProductListWalletTransactionId", shareList.ProductListWalletTransactionId);
             return RedirectToAction("Index", "NonFunctionalPages");
-        }
+        }*/
 
         // GET: ShareLists/Edit/5
         public async Task<IActionResult> Edit(int? id)

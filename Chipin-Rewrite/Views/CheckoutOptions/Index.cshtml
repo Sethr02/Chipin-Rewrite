@@ -1,5 +1,5 @@
 ﻿@using System.Web;
-@model Chipin_Rewrite.Models.Entities.CheckoutData
+@model Chipin_Rewrite.Models.Entities.UserTable
 
 @{
     ViewData["Title"] = "Index";
@@ -7,18 +7,38 @@
 }
 
 @{
-    var products = ViewBag.Products as List<Chipin_Rewrite.Models.Entities.Product>;
-    var externalProducts = ViewBag.ExternalProducts as List<Chipin_Rewrite.Models.Entities.ExternalProduct>;
-    var productListWallets = ViewBag.ProductListWallets as List<Chipin_Rewrite.Models.Entities.ProductListWallet>;
-    var FilteredProductListItems = ViewBag.FilteredProductListItems as List<Chipin_Rewrite.Models.Entities.ProductListItem>;
-    string externalProductInformation = ViewBag.ExternalProductInformation;
+    var userTable = ViewBag.UserTable as List<Chipin_Rewrite.Models.Entities.UserTable>;
+
+    var productName = ViewData["ProductName"] as string ?? string.Empty;
+    var productDescription = ViewData["ProductDescription"] as string ?? string.Empty;
+    var price = ViewData["Price"] != null ? ViewData["Price"].ToString() : "0";
+    var image = ViewData["Image"] as string ?? string.Empty;
+    var store = ViewData["Store"] as string ?? string.Empty;
+    var custString1 = ViewData["CustString1"] as string ?? string.Empty;
+    var custInt1 = ViewData["CustInt1"] != null ? ViewData["CustInt1"].ToString() : "0";
+    var productId = ViewData["ProductId"] as string ?? string.Empty;
+    var quantity = ViewData["Quantity"] != null ? ViewData["Quantity"].ToString() : "1";
+
+    string amountString = ViewData["Amount"].ToString().Replace("R", "").Replace(".", "").Replace(",", ".").Trim();
+    string cartTotalString = ViewBag.CartTotal.ToString().Replace("R", "").Replace(".", "").Replace(",", ".").Trim();
+
+    decimal amount = decimal.Parse(amountString, System.Globalization.CultureInfo.InvariantCulture);
+    decimal cartTotal = decimal.Parse(cartTotalString, System.Globalization.CultureInfo.InvariantCulture);
+
+    decimal difference = cartTotal - amount;
 }
 
-<script src="~/js/payment.js"></script>
+@using System.Security.Principal
+@using Microsoft.AspNetCore.Authentication.OpenIdConnect
+@using Microsoft.Extensions.Options
+@using Microsoft.Identity.Web
+@using System.Security.Claims;
+
+<script src="~/js/payment3.js"></script>
 
 <script>
     sessionStorage.setItem('orderId', '@ViewBag.OrderId');
-    sessionStorage.setItem('cartTotalRaw', '@ViewBag.CartTotalRaw');
+    sessionStorage.setItem('cartTotal', '@ViewBag.CartTotalRaw');
     // Function to save the token in local storage
     function saveTokenToLocalStorage(token) {
         if (token) {
@@ -34,6 +54,7 @@
         saveTokenToLocalStorage(token);
     });
 </script>
+
 
 <head>
     <style>
@@ -322,7 +343,7 @@
                 background-color: #cccccc; /* A slightly darker gray for hover state */
             }
 
-            /* Payment Successful Modal*/
+        /* Payment Successful Modal*/
 
         .modal {
             display: none; /* Hidden by default */
@@ -458,131 +479,190 @@
             }
     </style>
 </head>
-<body>
-    <div class="header">
-        <h1>Hi Seth!</h1>
-        <p>Pay now using your chips or add to a list and get friends and family to chip in!</p>
-    </div>
-
-    <form id="paymentOptionsForm">
-        <div class="box">
-            <div class="radio-group">
-                <input type="hidden" id="selectedOption" name="selectedOption" value="" />
-                <div class="add-to-list" onclick="handleOptionSelection('addToList')">
-                    <div id="addToListOption" class="overlap-group">
-                        <div class="ellipse" id="addToListEllipse"></div>
-                        <div class="ellipsebg" id="addToListEllipsebg">
-                            <svg width="31" height="22" viewBox="0 0 31 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M0.758789 13.3485L7.27379 20.935M6.34478 21.2447L29.3952 1.24475" stroke="black" stroke-width="2" />
-                            </svg>
-                        </div>
-                        <div class="text-wrapper">Add to a list</div>
-                        <img class="line" src="~/css/resource/line-2.svg" />
-                        <p class="div">Save towards your favourite products by having friends and family chip in!</p>
-                    </div>
-                </div>
-                <div class="pay-using-chips" onclick="handleOptionSelection('payUsingChips')">
-                    <div class="overlap">
-                        <div id="payWithChipsOption" class="type-button-type"></div>
-                        <img class="img" src="~/css/resource/line-1.svg" />
-                        <div class="ellipse-2" id="payUsingChipsEllipse"></div>
-                        <div class="ellipse-2bg" id="payUsingChipsEllipsebg">
-                            <svg width="31" height="22" viewBox="0 0 31 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M0.758789 13.3485L7.27379 20.935M6.34478 21.2447L29.3952 1.24475" stroke="black" stroke-width="2" />
-                            </svg>
-                        </div>
-                        <div id="btn2" class="text-wrapper-2">Pay using Chips</div>
-                        <div class="text-wrapper-3">Your Balance</div>
-                        <div class="text-wrapper-4">R11 000</div>
-                        <div class="text-wrapper-5">@ViewBag.CartTotal</div>
-                    </div>
-                </div>
-                <button type="button" class="button" onclick="redirectToPage()">Go for it</button>
-                <button type="button" class="button cancel" onclick="window.location.href='@Url.Action("Index", "Home")';">Cancel transaction</button>
-            </div>
+@if (User.Identity.IsAuthenticated)
+{
+    <body>
+        <div class="header">
+            <h1>Hi @userTable.FirstOrDefault().ChipinName!</h1>
+            <p>Pay now using your chips or add to a list and get friends and family to chip in!</p>
         </div>
-    </form>
 
-    <div id="myModal" class="modal">
-        <div class="theme-light-modal">
-            <div class="auto-layout-vertical">
-                <div class="text-wrapper">Purchase Successful!</div>
-                <p class="div">Thank you for choosing Chipin!</p>
+        <form id="paymentOptionsForm">
+            <div class="box">
+                <div class="radio-group">
+                    <input type="hidden" id="selectedOption" name="selectedOption" value="" />
+                    <div class="add-to-list" onclick="handleOptionSelection('addToList')">
+                        <div id="addToListOption" class="overlap-group">
+                            <div class="ellipse" id="addToListEllipse"></div>
+                            <div class="ellipsebg" id="addToListEllipsebg">
+                                <svg width="31" height="22" viewBox="0 0 31 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M0.758789 13.3485L7.27379 20.935M6.34478 21.2447L29.3952 1.24475" stroke="black" stroke-width="2" />
+                                </svg>
+                            </div>
+                            <div class="text-wrapper">Add to a list</div>
+                            <img class="line" src="~/css/resource/line-2.svg" />
+                            <p class="div">Save towards your favourite products by having friends and family chip in!</p>
+                        </div>
+                    </div>
+                    <div class="pay-using-chips" onclick="handleOptionSelection('payUsingChips')">
+                        <div class="overlap">
+                            <div id="payWithChipsOption" class="type-button-type"></div>
+                            <img class="img" src="~/css/resource/line-1.svg" />
+                            <div class="ellipse-2" id="payUsingChipsEllipse"></div>
+                            <div class="ellipse-2bg" id="payUsingChipsEllipsebg">
+                                <svg width="31" height="22" viewBox="0 0 31 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M0.758789 13.3485L7.27379 20.935M6.34478 21.2447L29.3952 1.24475" stroke="black" stroke-width="2" />
+                                </svg>
+                            </div>
+                            <div id="btn2" class="text-wrapper-2">Pay using Chips</div>
+                            <div class="text-wrapper-3">Your Balance</div>
+                            <div class="balance-card">
+                                <p>Balance</p>
+                                @foreach (var tokenWallet in Model.TokenWallets)
+                                {
+                                    <div class="text-wrapper-4">@ViewBag.CartTotal</div>
+                                }
+                            </div>
+                            @foreach (var tokenWallet in Model.TokenWallets)
+                            {
+                                <div class="text-wrapper-5">R @tokenWallet.Amount</div>
+                            }
+                        </div>
+                    </div>
+                    <button type="button" class="button" onclick="redirectToPage()">Go for it</button>
+                    <a href="@Url.Action("Index", "Home_")">
+                        <button type="button" class="button cancel">Cancel transaction</button>
+                    </a>
+                </div>
             </div>
-            <div class="auto-layout-vertical-2">
-                <button class="type-button-type"><button class="button-1">Home</button></button>
-                <div class="button-wrapper"><button class="button-2">Close</button></div>
+        </form>
+
+        @if (amount < cartTotal)
+        {
+            <div id="myModal" class="modal">
+                <div class="theme-light-modal">
+                    <div class="auto-layout-vertical">
+                        <div class="text-wrapper">Not Enough Balance</div>
+                        <p class="div">You need another R @(difference.ToString("N2", System.Globalization.CultureInfo.GetCultureInfo("en-ZA"))) to complete this order</p>
+                    </div>
+                    <div class="auto-layout-vertical-2">
+                        <button class="type-button-type" ><button class="button-1">Chipin</button></button>
+                        <div class="button-wrapper"><button class="button-2">Close</button></div>
+                    </div>
+                    <img class="chipin-logo" src="~/css/resource/chipin_logo.svg" />
+                </div>
             </div>
-            <img class="chipin-logo" src="~/css/resource/chipin_logo.svg" />
-        </div>
-    </div>
-   
-    <script>
-        var paymentSuccessModal = document.getElementById("myModal");
-
-        var modalHomeBtn = document.getElementsByClassName("button-1")[0];
-
-        var modalCloseBtn = document.getElementsByClassName("button-2")[0];
-
-        var addToListOption = document.getElementById("addToListOption");
-
-        var payWithChipsOption = document.getElementById("payWithChipsOption");
-
-        var addToListCheck = document.getElementById("addToListEllipsebg");
-
-        var payWithChipsCheck = document.getElementById("payUsingChipsEllipsebg");
-
-        function handleOptionSelection(option) {
-            // Reset both ellipses to default state
-            document.getElementById('addToListEllipse').classList.remove('selected');
-            document.getElementById('payUsingChipsEllipse').classList.remove('selected');
-
-            // Toggle selection for the clicked option
-            if (option === 'addToList') {
-                document.getElementById('addToListEllipse').classList.add('selected');
-                document.getElementById('selectedOption').value = 'addToList'; // Set the selected option value
-                addToListCheck.style.display = 'block'
-                payWithChipsCheck.style.display = 'none'
-                payWithChipsOption.style.backgroundColor = '#c4c4c4'
-                addToListOption.style.backgroundColor = '#d91950'
-            } else if (option === 'payUsingChips') {
-                document.getElementById('payUsingChipsEllipse').classList.add('selected');
-                document.getElementById('selectedOption').value = 'payUsingChips'; // Set the selected option value
-                addToListCheck.style.display = 'none'
-                payWithChipsCheck.style.display = 'block'
-                payWithChipsOption.style.backgroundColor = '#d91950'
-                addToListOption.style.backgroundColor = '#c4c4c4'
-            }
         }
-
-        function redirectToPage() {
-            const selectedOption = document.getElementById('selectedOption').value;
-            let redirectUrl = '';
-
-            // Determine the redirect URL based on the selected option
-            if (selectedOption === 'addToList') {
-                window.location.href = '@Url.Action("Create", "ProductListWallets", new { token = "null" })';
-            } else if (selectedOption === 'payUsingChips') {
-                getPaymentKey();
-                //window.location.href = '@Url.Action("Index", "DeliveryAdd")';
-                //paymentSuccessModal.style.display = "block";
-            }
+        else
+        {
+            <div id="myModal" class="modal">
+                <div class="theme-light-modal">
+                    <div class="auto-layout-vertical">
+                        <div class="text-wrapper">Purchase Successful!</div>
+                        <p class="div">Thank you for choosing Chipin!</p>
+                    </div>
+                    <div class="auto-layout-vertical-2">
+                        <button class="type-button-type" onclick="window.location.href='@Url.Action("Index", "Home_")';"><button class="button-1">Home</button></button>
+                        <div class="button-wrapper"><button class="button-2">Close</button></div>
+                    </div>
+                    <img class="chipin-logo" src="~/css/resource/chipin_logo.svg" />
+                </div>
+            </div>
         }
+    </body>
+}
+<script>
+    var paymentSuccessModal = document.getElementById("myModal");
 
-        modalHomeBtn.onclick = function () {
+    var modalHomeBtn = document.getElementsByClassName("button-1")[0];
+
+    var modalChipinBtn = document.getElementsByClassName("button-1")[0];
+
+    var modalCloseBtn = document.getElementsByClassName("button-2")[0];
+
+    var addToListOption = document.getElementById("addToListOption");
+
+    var payWithChipsOption = document.getElementById("payWithChipsOption");
+
+    var addToListCheck = document.getElementById("addToListEllipsebg");
+
+    var payWithChipsCheck = document.getElementById("payUsingChipsEllipsebg");
+
+    function handleOptionSelection(option) {
+        // Reset both ellipses to default state
+        document.getElementById('addToListEllipse').classList.remove('selected');
+        document.getElementById('payUsingChipsEllipse').classList.remove('selected');
+
+        // Toggle selection for the clicked option
+        if (option === 'addToList') {
+            document.getElementById('addToListEllipse').classList.add('selected');
+            document.getElementById('selectedOption').value = 'addToList'; // Set the selected option value
+            addToListCheck.style.display = 'block'
+            payWithChipsCheck.style.display = 'none'
+            payWithChipsOption.style.backgroundColor = '#c4c4c4'
+            addToListOption.style.backgroundColor = '#F74B94'
+        } else if (option === 'payUsingChips') {
+            document.getElementById('payUsingChipsEllipse').classList.add('selected');
+            document.getElementById('selectedOption').value = 'payUsingChips'; // Set the selected option value
+            addToListCheck.style.display = 'none'
+            payWithChipsCheck.style.display = 'block'
+            payWithChipsOption.style.backgroundColor = '#F74B94'
+            addToListOption.style.backgroundColor = '#c4c4c4'
+        }
+    }
+
+    function redirectToPage() {
+        const selectedOption = document.getElementById('selectedOption').value;
+        let redirectUrl = '';
+        var url = '@Url.Action("List", "CheckoutOptions")' +
+            '?product_name=' + encodeURIComponent('@productName') +
+            '&product_description=' + encodeURIComponent('@productDescription') +
+            '&price=' + encodeURIComponent('@price') +
+            '&image=' + encodeURIComponent('@image') +
+            '&store=' + encodeURIComponent('@store') +
+            '&cust_string1=' + encodeURIComponent('@custString1') +
+            '&cust_int1=' + encodeURIComponent('@custInt1') +
+            '&product_id=' + encodeURIComponent('@productId') +
+            '&quantity=' + encodeURIComponent('@quantity');
+
+        // Determine the redirect URL based on the selected option
+        if (selectedOption === 'addToList') {
+            window.location.href = url;
+        } else if (selectedOption === 'payUsingChips') {
+            //getPaymentKey();Home_
+            //window.location.href = '@Url.Action("Index", "PaymentSelector")' + '?amount=' + @ViewBag.CartTotalRaw;
+            //window.location.href = '@Url.Action("Index", "DeliveryAdd")';
+            paymentSuccessModal.style.display = "block";
+        }
+    }
+
+    //onclick="window.location.href='@Url.Action("Index", "ProductListWallets", new { token = "null" })';"
+    //type-button-type
+    modalHomeBtn.onclick = function () {
+        paymentSuccessModal.style.display = "none";
+        //window.location.href = '@Url.Action("Index", "Home_")';
+ }
+
+    modalChipinBtn.onclick = function () {
+        paymentSuccessModal.style.display = "none";
+        window.location.href = '@Url.Action("Index", "ProductListWallets", new { token = "null" })';
+    }
+
+    modalCloseBtn.onclick = function () {
+       // getPaymentKey();
+        paymentSuccessModal.style.display = "none";
+        window.location.href = '@Url.Action("Index", "Home_")';
+    }
+
+    window.onclick = function (event) {
+        if (event.target == paymentSuccessModal) {
             paymentSuccessModal.style.display = "none";
-            window.location.href = '@Url.Action("Index", "Home")';
         }
+    }
+</script>
 
-        modalCloseBtn.onclick = function () {
-            paymentSuccessModal.style.display = "none";
-            window.location.href = '@Url.Action("Index", "Home")';
-        }
-
-        window.onclick = function(event) {
-            if (event.target == modal) {
-                paymentSuccessModal.style.display = "none";
-            }
-        }
-    </script>
-</body>
+<script>
+    $(document).ready(function () {
+        $('header').empty();
+    });
+</script>

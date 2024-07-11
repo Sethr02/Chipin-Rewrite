@@ -1,0 +1,184 @@
+﻿@using Newtonsoft.Json
+@{
+    ViewData["Title"] = "Payment Success";
+}
+
+<style>
+    .modal {
+        display: block; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 1; /* Sit on top */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgb(0,0,0); /* Fallback color */
+        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    }
+
+    .theme-light-modal {
+        position: relative;
+        margin: 10% auto; /* 15% from the top and centered */
+        width: 340px;
+        height: 511px;
+        background-color: var(--others-white);
+        border-radius: 24px;
+    }
+
+        .theme-light-modal .auto-layout-vertical-1 {
+            display: flex;
+            flex-direction: column;
+            width: 276px;
+            align-items: flex-start;
+            gap: 16px;
+            position: absolute;
+            top: 252px;
+            left: 32px;
+        }
+
+        .theme-light-modal .text-wrapper {
+            position: relative;
+            align-self: stretch;
+            margin-top: -1px;
+            font-family: "Nunito-Black", Helvetica;
+            font-weight: 900;
+            color: var(--greyscale-900);
+            font-size: 24px;
+            text-align: center;
+            letter-spacing: 0;
+            line-height: 28.8px;
+        }
+
+        .theme-light-modal .div {
+            position: relative;
+            align-self: stretch;
+            font-family: "Nunito-Regular", Helvetica;
+            font-weight: 400;
+            color: var(--greyscale-900);
+            font-size: 16px;
+            text-align: center;
+            letter-spacing: 0.2px;
+            line-height: 22.4px;
+        }
+
+        .theme-light-modal .auto-layout-vertical-2 {
+            position: absolute;
+            width: 276px;
+            margin: 10px 0;
+            height: 128px;
+            top: 351px;
+            left: 32px;
+        }
+
+        .theme-light-modal .type-button-type {
+            all: unset;
+            box-sizing: border-box;
+            top: 0;
+            background-color: var(--primary-pink);
+            position: absolute;
+            width: 276px;
+            height: 58px;
+            cursor: pointer;
+            left: 0;
+            border-radius: 100px;
+        }
+
+        .theme-light-modal .button-1 {
+            all: unset;
+            box-sizing: border-box;
+            position: absolute;
+            width: 244px;
+            height: 22px;
+            top: 17px;
+            left: 16px;
+            font-family: "Nunito-Bold", Helvetica;
+            cursor: pointer;
+            font-weight: 700;
+            color: var(--others-white);
+            font-size: 16px;
+            text-align: center;
+            letter-spacing: 0.2px;
+            line-height: 22.4px;
+        }
+
+        .theme-light-modal .button-wrapper {
+            top: 70px;
+            background-color: var(--gray-6);
+            position: absolute;
+            width: 276px;
+            height: 58px;
+            left: 0;
+            border-radius: 100px;
+        }
+
+        .theme-light-modal .button-2 {
+            all: unset;
+            box-sizing: border-box;
+            position: absolute;
+            width: 244px;
+            height: 22px;
+            top: 17px;
+            left: 16px;
+            font-family: "Nunito-Bold", Helvetica;
+            cursor: pointer;
+            font-weight: 700;
+            color: var(--primary-pink);
+            font-size: 16px;
+            text-align: center;
+            letter-spacing: 0.2px;
+            line-height: 22.4px;
+        }
+
+        .theme-light-modal .chipin-logo {
+            position: absolute;
+            width: 170px;
+            height: 194px;
+            top: 34px;
+            left: 85px;
+        }
+</style>
+
+<div id="myModal" class="modal">
+    <div class="theme-light-modal">
+        <div class="auto-layout-vertical-1">
+            <div class="text-wrapper">E-mail Sent!</div>
+            <p class="div">Your e-mail was sent successfully!</p>
+        </div>
+        <div class="auto-layout-vertical-2">
+            <button class="type-button-type"><button class="button-1">Continue to Home Page</button></button>
+            <div class="button-wrapper"><button class="button-2">Send Another E-mail</button></div>
+        </div>
+        <img class="chipin-logo" src="~/css/resource/chipin_logo.svg" />
+    </div>
+</div>
+
+<script>
+    var paymentSuccessModal = document.getElementById("myModal");
+
+    var modalHomeBtn = document.getElementsByClassName("button-1")[0];
+
+    var modalCloseBtn = document.getElementsByClassName("button-2")[0];
+
+    var sendEmailBtn = document.getElementsByClassName("text-wrapper-3")[0];
+
+    modalHomeBtn.onclick = function () {
+        paymentSuccessModal.style.display = "none";
+        window.location.href = '@Url.Action("Index", "Home_")';
+    }
+
+    sendEmailBtn.onclick = function () {
+        paymentSuccessModal.style.display = "block";
+    }
+
+    modalCloseBtn.onclick = function () {
+        paymentSuccessModal.style.display = "none";
+        window.location.href = 'Url.Action("Index", "Home")';
+    }
+
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            paymentSuccessModal.style.display = "none";
+        }
+    }
+</script>

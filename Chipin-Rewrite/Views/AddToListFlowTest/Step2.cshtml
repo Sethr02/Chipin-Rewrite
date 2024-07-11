@@ -1,0 +1,7 @@
+﻿@model Chipin_Rewrite.Models.ViewModel.ListViewModel
+
+<h2>List Name</h2>
+<form asp-action="ChooseDeliveryDate" method="post">
+    <input type="text" name="listName" value="@Model.ListName" />
+    <input type="submit" value="Next" />
+</form>

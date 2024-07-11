@@ -1,0 +1,66 @@
+﻿@model IEnumerable<Chipin_Rewrite.Models.Entities.ProductListWalletTransaction>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductListWalletTransactionId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Amount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ChipinId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FromInvitedUser)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TransactionMethod)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductListWalletId)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProductListWalletTransactionId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Amount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TransactionMethod)
+                </td
+                <td>
+                    @Html.DisplayFor(modelItem => item.FromInvitedUser)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TransactionMethod)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProductListWalletId)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.ProductListWalletTransactionId">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.ProductListWalletTransactionId">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.ProductListWalletTransactionId">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

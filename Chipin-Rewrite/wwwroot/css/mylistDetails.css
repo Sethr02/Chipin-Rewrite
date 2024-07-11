@@ -84,16 +84,16 @@ h1 {
     padding: 8px 15px;
     color: var(--pink);
     font-size: 24px;
-    border: 2px solid #d91950;
+    border: 2px solid #F74B94;
     border-radius: 50px;
     transition: all 0.5s;
-    background-color: #d91950;
+    background-color: #F74B94;
     color: white;
 }
 
     .closeBtn:hover {
         background-color: #ffffff;
-        color: #d91950;
+        color: #F74B94;
     }
 
 select {
@@ -205,7 +205,7 @@ select {
 
     .bar label {
         text-align: left;
-        color: #d91950;
+        color: #F74B94;
         padding: 8px 0px 0px 10px;
         font-size: 20px;
         font-weight: 600;
@@ -229,7 +229,7 @@ select {
 }
 
     .trashBtn:hover i {
-        color: #d91950;
+        color: #F74B94;
         transition: all 0.5s;
     }
 
@@ -245,13 +245,13 @@ select {
     border: 0pt;
     font-size: 12px;
     border-radius: 50px;
-    color: #d91950;
+    color: #F74B94;
 }
 
 
 
     .editBtn:hover {
-        color: #d91950;
+        color: #F74B94;
     }
 
 .RedirectToProductDetails:hover {
@@ -327,11 +327,11 @@ select {
         background-color: #ffffff00;
         margin-right: -1px;
         transition: all 0.5s;
-        color: #d91950;
+        color: #F74B94;
     }
 
         .quantity-toggle button:hover {
-            background-color: #d91950;
+            background-color: #F74B94;
             color: white;
             transition: all 0.5s;
         }
@@ -398,13 +398,13 @@ select {
     }
 
 .chipinlistBtn {
-    background-color: #d91950;
+    background-color: #F74B94;
     border-radius: 50px;
     cursor: pointer;
     align-items: center;
     justify-content: center;
     height: 80px;
-    border: 2px solid #d91950;
+    border: 2px solid #F74B94;
     box-shadow: 2px 2px 10px 1px rgba(125, 125, 125, 0.2);
     transition: all 0.5s;
     width: 100%;
@@ -423,7 +423,7 @@ select {
 }
 
     .chipinlistBtn:hover span {
-        color: #d91950;
+        color: #F74B94;
     }
 
 h1 {
@@ -444,7 +444,7 @@ h2 {
 }
 
     .selectAddressBtn :hover {
-        color: #d91950;
+        color: #F74B94;
     }
 
 
@@ -474,7 +474,7 @@ h2 {
 
 
 .saveListBtn {
-    background-color: #d91950;
+    background-color: #F74B94;
     border: 0pt;
     color: white;
     padding: 10px;
@@ -491,7 +491,7 @@ h2 {
     }
 
 .shareBtn {
-    background-color: #d91950;
+    background-color: #F74B94;
     border: 0pt;
     color: white;
     padding: 10px;
@@ -534,7 +534,7 @@ h2 {
 
 .listaccordion {
     cursor: pointer;
-    color:#d91950;
+    color:#F74B94;
 
 }
 
@@ -628,11 +628,11 @@ h2 {
 }
 
     .btn-div button {
-        border:2px solid #d91950;
+        border:2px solid #F74B94;
         transition: all 0.5s;
     }
         .btn-div button:hover {
-            color:#d91950;
+            color:#F74B94;
         }
 
 
@@ -664,13 +664,13 @@ h2 {
 .newcard-progress-bar {
     width: 0;
     height: 100%;
-    background-color: #d91950; /* Change this color to the desired progress bar color */
+    background-color: #F74B94; /* Change this color to the desired progress bar color */
     border-radius: 10px;
     transition: width 0.2s; /* Add animation to the progress bar */
 }
 
     .newcard-progress-bar.red {
-        background-color: #d91950;
+        background-color: #F74B94;
     }
 
     .newcard-progress-bar.orange {
@@ -704,15 +704,15 @@ h2 {
     border: none;
     border-radius: 50px;
     box-shadow: 2px 2px 10px 1px rgba(125, 125, 125, 0.2);
-    border: 2px solid #d91950;
-    background-color: #d91950;
+    border: 2px solid #F74B94;
+    background-color: #F74B94;
     color: #ffffff;
     transition: all 0.5s;
 }
 
     .showAllBtn:hover {
         background-color: #fff;
-        color: #d91950;
+        color: #F74B94;
     }
 
 .hidethis {

@@ -177,7 +177,7 @@
 }
 
 .addToListBtn {
-    background-color: #d91950;
+    background-color: #F74B94;
     border: 0pt;
     color: white;
     padding: 10px;
@@ -211,7 +211,7 @@ td {
     }
 
     .productTags span {
-        color: #d91950;
+        color: #F74B94;
         font-size: larger;
     }
 
@@ -230,7 +230,7 @@ td {
     }
 
     .quantity-div span {
-        color: #d91950;
+        color: #F74B94;
         font-size: larger;
     }
 
@@ -261,7 +261,7 @@ td {
     }
 
         .quantity-toggle button:hover {
-            background-color: #d91950;
+            background-color: #F74B94;
             color: white;
         }
 
@@ -323,7 +323,7 @@ td {
 
     .overlay-card button {
         margin: auto;
-        background-color: #d91950;
+        background-color: #F74B94;
         border: 0pt;
         color: white;
         padding: 10px;
@@ -342,7 +342,7 @@ td {
     left: 50%;
     margin: -80px 0px 0px -25%;
     z-index: 4;
-    color: #d91950;
+    color: #F74B94;
     background-color: #fff;
 }
 

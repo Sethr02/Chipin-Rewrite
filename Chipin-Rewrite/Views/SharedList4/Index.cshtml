@@ -1,264 +1,240 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿@{
+    ViewData["Title"] = "Index";
 }
 
+@{
+    var externalProducts = ViewBag.ExternalProducts as List<Chipin_Rewrite.Models.Entities.ExternalProduct>;
+    var products = ViewBag.Products as List<Chipin_Rewrite.Models.Entities.Product>;
+    var productListItems = ViewBag.ProductListItems as List<Chipin_Rewrite.Models.Entities.ProductListItem>;
+    var productListWallets = ViewBag.Wallets as Chipin_Rewrite.Models.Entities.ProductListWallet;
+    var addresses = ViewBag.Addresses as List<Chipin_Rewrite.Models.Entities.Address>;
+}
+
+<!DOCTYPE html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dad's Bday</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        .box {
-            position: relative;
-            width: 100%;
+        body {
+            background-color: #F74B94;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
         }
 
-            .box .group {
-                position: relative;
-                width: 428px;
-                height: 901px;
-                margin: 5% auto;
-                top: 0;
-                left: 0;
+        .container {
+            max-width: 428px;
+            margin: 0 auto;
+            padding: 0 0 70px 0;
+            position: relative;
+            min-height: 100vh;
+        }
+
+        .header-container {
+            background-color: #F74B94;
+            background-image: url('vector.svg');
+            background-repeat: no-repeat;
+            background-size: cover;
+            border-radius: 20px 20px 0 0;
+            margin-top: 20px;
+            padding: 20px;
+            color: #fff;
+            text-align: left;
+            position: relative;
+            height: 200px; /* Adjust height as needed */
+            display: flex;
+            align-items: flex-end;
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            margin-bottom: 95px;
+        }
+
+        .header-container .back-arrow {
+            font-size: 24px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+
+        .header-container h1 {
+            font-size: 24px;
+            font-weight: bold;
+            margin: 0;
+        }
+
+        .card {
+            border-radius: 20px;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            padding: 20px;
+            margin-top: -75px;
+            height: calc(100vh - 295px);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .message-container {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+            .message-container h5 {
+                font-size: 20px;
+                font-weight: bold;
+                color: #333;
+                margin-bottom: 10px;
             }
 
-            .box .overlap {
-                position: relative;
-                width: 434px;
-                height: 861px;
+            .message-container .optional-text {
+                font-size: 14px;
+                color: #999;
+                margin-bottom: 20px;
             }
 
-            .box .overlap-group-wrapper {
-                position: absolute;
-                width: 362px;
-                height: 161px;
-                top: 0;
-                left: 28px;
-            }
-
-            .box .overlap-group {
-                position: relative;
-                height: 161px;
-            }
-
-            .box .vector {
-                position: absolute;
-                width: 335px;
-                height: 161px;
-                top: 0;
-                left: 27px;
-            }
-
-            .box .div {
-                position: absolute;
-                width: 354px;
-                height: 29px;
-                top: 13px;
-                left: 0;
-            }
-
-            .box .text-wrapper {
-                position: absolute;
-                width: 309px;
-                top: 0;
-                left: 43px;
-                font-family: "Nunito-Black", Helvetica;
-                font-weight: 900;
-                color: black;
-                font-size: 24px;
-                letter-spacing: 0;
-                line-height: 28.8px;
-            }
-
-            .box .img {
-                position: absolute;
-                width: 28px;
-                height: 28px;
-                top: 6px;
-                left: 0;
-            }
-
-            .box .overlap-wrapper {
-                position: absolute;
-                width: 434px;
-                height: 763px;
-                top: 98px;
-                left: 0;
-            }
-
-            .box .overlap-2 {
-                position: relative;
-                width: 428px;
-                height: 763px;
-                background-image: url(rectangle-25.svg);
-                background-size: 100% 100%;
-            }
-
-            .box .p {
-                position: absolute;
-                width: 332px;
-                height: 125px;
-                top: 155px;
-                left: 48px;
-                font-family: "Nunito Sans-Regular", Helvetica;
-                font-weight: 400;
-                color: #212121;
-                font-size: 18px;
-                letter-spacing: 0;
-                line-height: 21.6px;
-            }
-
-            .box .text-wrapper-2 {
-                position: absolute;
-                width: 380px;
-                height: 29px;
-                top: 55px;
-                left: 24px;
-                font-family: "Nunito-Black", Helvetica;
-                font-weight: 900;
-                color: #333333;
-                font-size: 24px;
-                text-align: center;
-                letter-spacing: 0;
-                line-height: 28.8px;
-            }
-
-            .box .text-wrapper-3 {
-                position: absolute;
-                width: 380px;
-                height: 22px;
-                top: 89px;
-                left: 24px;
-                font-family: "Nunito Sans-SemiBold", Helvetica;
-                font-weight: 600;
-                color: #424242;
+            .message-container textarea {
+                width: 100%;
+                height: 150px;
+                border-radius: 10px;
+                padding: 10px;
+                border: 1px solid #ccc;
+                box-shadow: 0 4px 8px rgba(0,0,0,0.1);
                 font-size: 16px;
-                text-align: center;
-                letter-spacing: 0.2px;
-                line-height: 22.4px;
+                resize: none;
+                border: none;
             }
 
-            .box .next-button {
-                all: unset;
-                box-sizing: border-box;
-                position: absolute;
-                width: 386px;
-                height: 58px;
-                top: 659px;
-                left: 24px;
-            }
+        .button-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
 
-            .box .overlap-group-2 {
-                position: relative;
-                width: 384px;
-                height: 58px;
-            }
+        .btn-skip, .btn-chip {
+            width: 100%;
+            border-radius: 30px;
+            margin-top: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 50px; /* Adjust height as needed */
+        }
 
-            .box .rectangle {
-                position: absolute;
-                width: 380px;
-                height: 58px;
-                top: 0;
-                left: 0;
-                background-color: #d91950;
-                border-radius: 100px;
-            }
+        .btn-skip {
+            background-color: #f8f9fa;
+            color: #F74B94;
+            border: none;
+        }
 
-            .box .text-wrapper-4 {
-                position: absolute;
-                width: 380px;
-                height: 58px;
-                top: 18px;
-                left: 4px;
-                text-shadow: 4px 8px 24px #10101040;
-                font-family: "Nunito-Black", Helvetica;
-                font-weight: 900;
-                color: #ffffff;
-                font-size: 16px;
-                text-align: center;
-                letter-spacing: 0.2px;
-                line-height: 22.4px;
-            }
+        .btn-chip {
+            background-color: #F74B94;
+            color: #fff;
+            border: none;
+        }
 
-            .box .vector-2 {
-                position: absolute;
-                width: 15px;
-                height: 10px;
-                top: 24px;
-                left: 224px;
-            }
-
-            .box .skip-button {
-                all: unset;
-                box-sizing: border-box;
-                position: absolute;
-                width: 382px;
-                height: 58px;
-                top: 583px;
-                left: 24px;
-            }
-
-            .box .div-wrapper {
-                position: relative;
-                width: 380px;
-                height: 58px;
-                background-color: #f2f2f2;
-                border-radius: 100px;
-            }
-
-            .box .text-wrapper-5 {
-                position: absolute;
-                width: 169px;
-                height: 22px;
-                top: 18px;
-                left: 105px;
-                text-shadow: 4px 8px 24px #335ef740;
-                font-family: "Nunito-Bold", Helvetica;
-                font-weight: 700;
-                color: #d91950;
-                font-size: 16px;
-                text-align: center;
-                letter-spacing: 0.2px;
-                line-height: 22.4px;
-                white-space: nowrap;
+            .btn-chip img {
+                margin-left: 10px;
             }
     </style>
 </head>
-
 <body>
-    <div class="box">
-        <div class="group">
-            <div class="overlap">
-                <div class="overlap-group-wrapper">
-                    <div class="overlap-group">
-                        <img class="vector" src="~/css/resource/vector.svg" />
-                        <div class="div">
-                            <div class="text-wrapper">Name’s Birthday Gift</div>
-                            <img class="img" src="~/css/resource/arrow-left.svg" />
-                        </div>
-                    </div>
-                </div>
-                <div class="overlap-wrapper">
-                    <div class="overlap-2">
-                        <p class="p">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Eu sem quam sit adipiscing dignissim tellus.
-                            Vitae habitasse nulla pellentesque tortor, ut mattis sit.
-                        </p>
-                        <div class="text-wrapper-2">Personal Message</div>
-                        <div class="text-wrapper-3">(Optional)</div>
-                        <button class="next-button">
-                            <a href="@Url.Action("Index", "SharedList5")">
-                                <div class="overlap-group-2">
-                                    <div class="rectangle"></div>
-                                    <div class="text-wrapper-4">Next</div>
-                                    <img class="vector-2" src="~/css/resource/arrow-next.svg" />
-                                </div>
-                            </a>
-                        </button>
-                        <button class="skip-button">
-                            <div class="div-wrapper"><div class="text-wrapper-5">Skip</div></div>
-                        </button>
-                    </div>
-                </div>
+
+    <div class="container">
+        <div class="header-container">
+            <div class="header-content">
+                <span class="back-arrow" onclick="history.back()">&lt;</span>
+                <h1>@productListWallets.Name</h1>
+            </div>
+        </div>
+        <div class="card">
+            <div class="message-container">
+                <h5>Personal Message</h5>
+                <p class="optional-text">(Optional)</p>
+                <textarea id="personalMessage" placeholder="Enter your message here"></textarea>
+            </div>
+            <div class="mt-auto">
+                <button class="btn btn-skip" onclick="skipWithoutMessage()">Skip</button>
+                <button class="btn btn-chip" onclick="redirectWithMessage()">Next <img src="~/css/resource/arrow-next.svg" alt="Arrow"></button>
             </div>
         </div>
     </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
+</html>
+
+<script>
+    $(document).ready(function () {
+        $('header').empty();
+    });
+</script>
+
+<script>
+    function getQueryParams(url) {
+        let params = {};
+        let parser = new URL(url);
+        for (let pair of parser.searchParams.entries()) {
+            params[pair[0]] = pair[1];
+        }
+        return params;
+    }
+
+    function constructBaseUrl(includeMessage = true) {
+        const params = getQueryParams(window.location.href);
+        const chipinAmt = params['chipinAmount'];
+        const yourName = params['yourName'];
+        const yourEmail = params['yourEmail'];
+
+        let baseUrl = '@Url.Action("Index", "SharedList5")' + `?id=${@productListWallets.ProductListWalletId}`;
+
+        if (chipinAmt) {
+            baseUrl += `&chipinAmount=${encodeURIComponent(chipinAmt)}`;
+        }
+
+        if (yourName) {
+            baseUrl += `&yourName=${encodeURIComponent(yourName)}`;
+        }
+
+        if (yourEmail) {
+            baseUrl += `&yourEmail=${encodeURIComponent(yourEmail)}`;
+        }
+
+        if (includeMessage) {
+            const personalMessage = document.getElementById('personalMessage').value;
+            if (personalMessage) {
+                baseUrl += `&personalMessage=${encodeURIComponent(personalMessage)}`;
+            }
+        }
+
+        return baseUrl;
+    }
+
+    function redirectWithMessage() {
+        const url = constructBaseUrl(true);
+        console.log("Redirecting to URL with message:", url);
+        window.location.href = url;
+    }
+
+    function skipWithoutMessage() {
+        const url = constructBaseUrl(false);
+        console.log("Redirecting to URL without message:", url);
+        window.location.href = url;
+    }
+
+    // Log the URL parameters on page load
+    // Populate fields on document ready
+    $(document).ready(function () {
+        populateFields();
+        console.log('Current URL params:', getQueryParams(window.location.href));
+    });
+</script>
