@@ -690,6 +690,86 @@ namespace Chipin_Rewrite.Controllers
             //return RedirectToAction(nameof(Details), new { id, token });
         }
 
+        public async Task<IActionResult> GetTransactions(int productListWalletId)
+        {
+            // Get the transactions and group by ChipinId
+            var groupedTransactions = await _context.ProductListWalletTransactions
+                .Where(t => t.ProductListWalletId == productListWalletId)
+                .GroupBy(t => t.ChipinId)
+                .Select(g => new {
+                    ChipinId = g.Key,
+                    TotalAmount = g.Sum(t => t.Amount ?? 0),
+                    TransactionMethods = string.Join(", ", g.Select(t => t.TransactionMethod).Distinct())
+                })
+                .ToListAsync();
+
+            // Fetch all usernames in a single query
+            var chipinIds = groupedTransactions.Select(gt => gt.ChipinId).ToList();
+            var users = await _context.UserTables
+                .Where(u => chipinIds.Contains(u.ChipinId))
+                .ToDictionaryAsync(u => u.ChipinId, u => u.ChipinName);
+
+            // Combine transactions with usernames
+            var result = groupedTransactions.Select(gt => new {
+                Amount = gt.TotalAmount,
+                TransactionMethod = gt.TransactionMethods,
+                Username = users.ContainsKey(gt.ChipinId) ? users[gt.ChipinId] : "Unknown"
+            }).ToList();
+
+            return Json(result);
+        }
+
+        public async Task<IActionResult> ViewGiftList(int? id)
+        {
+            var objectIdClaim = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier);
+
+            if (id == null || _context.ProductListWallets == null)
+            {
+                return NotFound();
+            }
+
+            var productListWallet = await _context.ProductListWallets
+                .Include(p => p.Chipin)
+                .FirstOrDefaultAsync(m => m.ProductListWalletId == id);
+            if (productListWallet == null)
+            {
+                await Console.Out.WriteLineAsync("ppppppp");
+                return NotFound();
+            }
+
+            Console.WriteLine("HEREHEREHERE");
+
+            // Fetch ProductListItems with related ExternalProducts
+            var productListItems = await _context.ProductListItems
+                .Where(wallet => wallet.ProductListWalletId == id)
+                .Include(item => item.ExternalProduct)
+                .ToListAsync();
+
+            ViewBag.Products = _context.Products.ToList();
+            ViewBag.ProductListItems = productListItems;
+            ViewBag.Wallets = productListWallet;
+            ViewBag.ExternalProducts = productListItems.Select(item => item.ExternalProduct).ToList();
+
+            // Check if user is logged in and that the chipin belongs to them
+            if (objectIdClaim != null)
+            {
+                if (productListWallet.ChipinId.Equals(objectIdClaim.Value))
+                {
+                    ViewBag.Addresses = _context.Addresses.Where(wallet => wallet.ChipinId.Equals(objectIdClaim.Value)).ToList();
+                }
+                else
+                {
+                    ViewBag.Addresses = null;
+                }
+            }
+            else
+            {
+                ViewBag.Addresses = null;
+            }
+
+            return View(productListWallet);
+        }
+
         // GET: ProductListWallets/Edit/5
         public async Task<IActionResult> ChipinAmount(int? id, string? token)
         {

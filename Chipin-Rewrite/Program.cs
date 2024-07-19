@@ -10,6 +10,7 @@ using Chipin_Rewrite.Utility.ThirdPartyReturns;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.Identity.Web;
 using Microsoft.Identity.Web.UI;
+using System.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -121,9 +122,10 @@ builder.Services.Configure<IpRateLimitOptions>(options =>
 builder.Services.AddSingleton<IRateLimitCounterStore, MemoryCacheRateLimitCounterStore>();
 builder.Services.AddSingleton<IIpPolicyStore, MemoryCacheIpPolicyStore>();
 builder.Services.AddSingleton<IRateLimitConfiguration, RateLimitConfiguration>();
+builder.Services.Configure<AppSettings>(builder.Configuration.GetSection("AppSettings"));
 
 builder.Services.Configure<MailSettings>(builder.Configuration.GetSection("MailSettings"));
-builder.Services.AddTransient<IMailService, MailService>();
+//builder.Services.AddTransient<IEmailService, EmailService>();
 
 builder.Services.AddSession(options =>
 {
@@ -169,3 +171,8 @@ app.MapControllerRoute(
     pattern: "{controller=Home_}/{action=Index}/");
 app.MapRazorPages();
 app.Run();
+
+public class AppSettings
+{
+    public string BaseUrl { get; set; }
+}

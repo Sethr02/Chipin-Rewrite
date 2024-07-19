@@ -47,7 +47,7 @@
         .share-icons {
             display: flex;
             justify-content: center;
-            gap: 15px;
+            gap: 26px;
             margin: 64px 0;
         }
 
@@ -60,9 +60,19 @@
                 height: 40px;
             }
 
-        .social-icon1 {
+        .social-icon1, .social-icon2, .social-icon3, .social-icon4 {
             width: 40px;
             height: 40px;
+        }
+
+        .social-icon1 {
+            width: 54px;
+            height: 54px;
+        }
+
+        .social-icon2 {
+            width: 70px;
+            height: 70px;
         }
 
         .share-link {
@@ -117,25 +127,28 @@
                 <h4>Invite Friends</h4>
                 <p style="margin-top: 20px;
     margin-bottom: 1rem;
-    font-size: 1.25rem;">Share this link with people you would like to add to your ChipIn list!</p>
+    font-size: 1.5rem;">Share this link with people you would like to add to your ChipIn list!</p>
                 <div class="share-icons">
                     <a href="https://wa.me/?text= @Html.Raw($"https://chipinrewritewebappservice.azurewebsites.net/sharedlist?id={productListWallets.ProductListWalletId}")" target="_blank" class="whatsapp-logo">
                         <img src="~/css/resource/whatsapp_color_logo.svg" alt="WhatsApp" class="social-icon1">
                     </a>
                     <a href="https://twitter.com/intent/tweet?url= @Html.Raw($"https://chipinrewritewebappservice.azurewebsites.net/sharedlist?id={productListWallets.ProductListWalletId}")" target="_blank" class="x-logo">
-                        <img src="~/css/resource/x_logo.svg" alt="Twitter" class="social-icon1">
+                        <img src="~/css/resource/x_logo.svg" alt="Twitter" class="social-icon2">
                     </a>
                     <a href="https://www.facebook.com/sharer/sharer.php?u= @Html.Raw($"https://chipinrewritewebappservice.azurewebsites.net/sharedlist?id={productListWallets.ProductListWalletId}")" target="_blank" class="facebook-logo">
-                        <img src="~/css/resource/facebook_color_logo.svg" alt="Facebook" class="social-icon1">
+                        <img src="~/css/resource/facebook_color_logo.svg" alt="Facebook" class="social-icon3">
                     </a>
                     <a href="https://www.instagram.com/?url= @Html.Raw($"https://chipinrewritewebappservice.azurewebsites.net/sharedlist?id={productListWallets.ProductListWalletId}")" target="_blank" class="instagram-logo">
-                        <img src="~/css/resource/instagram_color_logo.svg" alt="Instagram" class="social-icon1">
+                        <img src="~/css/resource/instagram_color_logo.svg" alt="Instagram" class="social-icon4">
                     </a>
                 </div>
-                <h5>Share This Link</h5>
-                <a href="@Html.Raw($"https://chipinrewritewebappservice.azurewebsites.net/sharedlist?id={productListWallets.ProductListWalletId}")" class="share-link">@Html.Raw($"https://chipinrewritewebappservice.azurewebsites.net/sharedlist?id={productListWallets.ProductListWalletId}")</a>
+                <h5 style="
+    font-size: 1.5rem;">
+                    Share This Link
+                </h5>
+                <a href="@Html.Raw($"https://chipinrewritewebappservice.azurewebsites.net/sharedlist?id={productListWallets.ProductListWalletId}")" class="share-link">@Html.Raw($"https://app.chipin.co.za/sharedlist?id={productListWallets.ProductListWalletId}")</a>
             </div>
-            <a href="mailto:?" class="email-btn mt-auto">Share by E-mail</a>
+            <a href="mailto:?subject=Check out this ChipIn list&body=@Html.Raw($"https://chipinrewritewebappservice.azurewebsites.net/sharedlist?id={productListWallets.ProductListWalletId}")" class="email-btn mt-auto">Share by E-mail</a>
         </div>
     </div>
 </body>
