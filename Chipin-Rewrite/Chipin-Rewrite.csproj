@@ -52,7 +52,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Img\" />
-    <Folder Include="Credentials\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="wwwroot\css\resource\image-7.svg" />
